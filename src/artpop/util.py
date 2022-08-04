@@ -53,8 +53,8 @@ def check_random_state(seed):
         return np.random.RandomState(seed)
     if isinstance(seed, np.random.RandomState):
         return seed
-    if type(seed)==list:
-        if type(seed[0])==int:
+    if type(seed) == list:
+        if type(seed[0]) == int:
             return np.random.RandomState(seed)
 
     raise ValueError('{0!r} cannot be used to seed a numpy.random.RandomState'
@@ -151,15 +151,15 @@ def embed_slices(center, model_shape, image_shape):
 
     check_odd(model_shape, 'embed_slices array shape')
 
-    imin = center - model_shape//2
-    imax = center + model_shape//2
+    imin = center - model_shape // 2
+    imax = center + model_shape // 2
 
-    amin = (imin < np.array([0,0])) * (-imin)
+    amin = (imin < np.array([0, 0])) * (-imin)
     amax = model_shape * (imax <= image_shape - 1) +\
-           (model_shape - (imax - image_shape + 1)) * (imax > image_shape - 1)
+        (model_shape - (imax - image_shape + 1)) * (imax > image_shape - 1)
 
     imin = np.maximum(imin, np.array([0, 0]))
-    imax = np.minimum(imax, np.array(image_shape)-1)
+    imax = np.minimum(imax, np.array(image_shape) - 1)
     imax += 1
 
     img_slice = np.s_[imin[0]:imax[0], imin[1]:imax[1]]
@@ -196,7 +196,26 @@ def fetch_mist_grid_if_needed(phot_system, v_over_vcrit=0.4,
     tarball = os.path.join(mist_path, os.path.basename(url))
     grid_path = tarball.replace('.txz', '')
     if overwrite or not os.path.isdir(grid_path):
-        logger.info(f'Fetching MIST synthetic photometry grid for {phot_system}.')
+        logger.info(
+            f'Fetching MIST synthetic photometry grid for {phot_system}.')
+        r = requests.get(url, stream=True)
+        with open(tarball, "wb") as f:
+            for chunk in r.iter_content(chunk_size=1024):
+                if chunk:
+                    f.write(chunk)
+        logger.info(f'Extracting grid from {os.path.basename(url)}.')
+        with tarfile.open(tarball) as tar:
+            tar.extractall(mist_path)
+        os.remove(tarball)
+
+    # Also download the basic isochrone grid
+    url = f'http://waps.cfa.harvard.edu/MIST/data/tarballs_v{version}'
+    url += f'/MIST_v{version}_vvcrit{v_over_vcrit}_basic_isos.txz'
+    tarball = os.path.join(mist_path, os.path.basename(url))
+    grid_path = tarball.replace('.txz', '')
+    if overwrite or not os.path.isdir(grid_path):
+        logger.info(
+            f'Fetching MIST basic isochrone grid.')
         r = requests.get(url, stream=True)
         with open(tarball, "wb") as f:
             for chunk in r.iter_content(chunk_size=1024):

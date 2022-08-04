@@ -569,44 +569,16 @@ def fetch_mist_iso_cmd(log_age, feh, phot_system, mist_path=MIST_PATH,
     fn = os.path.join(path, fn)
     iso_cmd = IsoCmdReader(fn, verbose=False)
     iso_cmd = iso_cmd.isocmds[iso_cmd.age_index(log_age)]
-    return iso_cmd
 
-
-def fetch_mist_iso(log_age, feh, mist_path=MIST_PATH,
-                   v_over_vcrit=0.4):
-    """
-    Fetch MIST isochrone grid. No CMD, only ISO.
-
-    Parameters
-    ----------
-    log_age : float
-        Logarithm base 10 of the simple stellar population age in years.
-    feh : float
-        Metallicity [Fe/H] of the simple stellar population.
-    mist_path : str, optional
-        Path to MIST isochrone grids. Use this if you want to use a different
-        path from the `MIST_PATH` environment variable.
-    v_over_vcrit : float, optional
-        Rotation rate divided by the critical surface linear velocity. Current
-        options are 0.4 (default) and 0.0.
-
-    Returns
-    -------
-    iso_cmd : `~numpy.ndarray`
-        Structured ``numpy`` array with isochrones and stellar magnitudes.
-    """
-
-    # fetch the mist grid if necessary
-    v = f'{v_over_vcrit:.1f}'
-    ver = 'v1.2'
-    path = os.path.join(mist_path, 'MIST_' + ver +
-                        f'_vvcrit{v}' + '_basic_isos')
-    sign = 'm' if feh < 0 else 'p'
+    # Also add log_R from the basic isochrone
     fn = f'MIST_{ver}_feh_{sign}{abs(feh):.2f}_afe_p0.0_vvcrit{v}_basic.iso'
+    path = os.path.join(mist_path, 'MIST_' + ver + f'_vvcrit{v}_basic_isos')
     fn = os.path.join(path, fn)
     iso = IsoReader(fn, verbose=False)
     iso = iso.isos[iso.age_index(log_age)]
-    return iso
+    iso_cmd = np.lib.recfunctions.append_fields(
+        iso_cmd, 'log_R', iso['log_R']).data
+    return iso_cmd
 
 
 class MISTIsochrone(Isochrone):
@@ -726,14 +698,7 @@ class MISTIsochrone(Isochrone):
         if self.feh in self._feh_grid:
             args = [self.log_age, self.feh, phot_system, self.mist_path,
                     self.v_over_vcrit]
-            # combine with the full isochrone
-            isocmd = Table(fetch_mist_iso_cmd(*args))
-            isocmd.remove_columns(['EEP', 'log10_isochrone_age_yr', 'initial_mass',
-                                   'star_mass', 'log_Teff', 'log_g', 'log_L'])
-            args = [self.log_age, self.feh, self.mist_path,
-                    self.v_over_vcrit]
-            iso = Table(fetch_mist_iso(*args))
-            iso = hstack([iso, isocmd])
+            iso = Table(fetch_mist_iso_cmd(*args))
         else:
             iso = self._interp_on_feh(phot_system)
         return iso
