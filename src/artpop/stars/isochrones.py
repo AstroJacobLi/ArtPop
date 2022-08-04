@@ -5,11 +5,11 @@ import os
 import numpy as np
 from numpy.lib.recfunctions import append_fields
 from scipy.interpolate import interp1d
-from astropy.table import Table
+from astropy.table import Table, hstack
 from astropy import units as u
 
 # Project
-from ._read_mist_models import IsoCmdReader
+from ._read_mist_models import IsoCmdReader, IsoReader
 from .imf import IMFIntegrator
 from .. import MIST_PATH
 from ..log import logger
@@ -47,7 +47,7 @@ class Isochrone(object):
     """
 
     def __init__(self, mini, mact, mags, eep=None, log_L=None,
-                 log_Teff=None):
+                 log_Teff=None, log_g=None, log_R=None):
         self.mini = np.asarray(mini)
         self.mact = np.asarray(mact)
         if (np.diff(self.mini) < 0).sum() > 0:
@@ -55,6 +55,8 @@ class Isochrone(object):
         self.eep = None if eep is None else np.asarray(eep)
         self.log_L = None if log_L is None else np.asarray(log_L)
         self.log_Teff = None if log_Teff is None else np.asarray(log_Teff)
+        self.log_g = None if log_g is None else np.asarray(log_g)
+        self.log_R = None if log_R is None else np.asarray(log_R)
         if type(mags) == dict or type(mags) == np.ndarray:
             self.mag_table = Table(mags)
         elif type(mags) == Table:
@@ -163,9 +165,9 @@ class Isochrone(object):
             Interpolated y values.
         """
         x = self.mag_table[x_name] if x_name in self.filters\
-                                   else getattr(self, x_name)
+            else getattr(self, x_name)
         y = self.mag_table[y_name] if y_name in self.filters\
-                                   else getattr(self, y_name)
+            else getattr(self, y_name)
         x = x[slice_interp]
         y = y[slice_interp]
         y_interp = interp1d(x, y, **kwargs)(x_interp)
@@ -221,7 +223,7 @@ class Isochrone(object):
         return mass_interp
 
     def calculate_mag_limit(self, imf, bandpass, frac_mass_sampled=None,
-                            frac_num_sampled=None, distance=10*u.pc):
+                            frac_num_sampled=None, distance=10 * u.pc):
         """
         Calculate the limiting faint magnitude to sample a given fraction
         of mass or number of a stellar population. This is used for when you
@@ -336,9 +338,9 @@ class Isochrone(object):
 
         mfint = IMFIntegrator(imf)
         if norm_type == 'mass':
-            norm = mfint.m_integrate(m_min = m_min,m_max = m_max)
+            norm = mfint.m_integrate(m_min=m_min, m_max=m_max)
         elif norm_type == 'number':
-            norm = mfint.integrate(m_min = m_min,m_max = m_max)
+            norm = mfint.integrate(m_min=m_min, m_max=m_max)
         wght = []
         mini = self.mini
         # Assume mass is constant in each bin and integrate.
@@ -348,15 +350,15 @@ class Isochrone(object):
             if i == 0:
                 m1 = m_min
             else:
-                m1 = mini[i] - 0.5 * (mini[i] - mini[i-1])
+                m1 = mini[i] - 0.5 * (mini[i] - mini[i - 1])
             if i == len(mini) - 1:
                 m2 = mini[i]
             else:
-                m2 = mini[i] + 0.5 * (mini[i+1] - mini[i])
+                m2 = mini[i] + 0.5 * (mini[i + 1] - mini[i])
             if m2 < m1:
                 raise Exception('Masses must be monotonically increasing.')
 
-            wght.append(mfint.integrate(m_min = m1, m_max = m2))
+            wght.append(mfint.integrate(m_min=m1, m_max=m2))
         wght = np.array(wght) / norm
         return wght
 
@@ -506,21 +508,25 @@ class Isochrone(object):
 
         if add_remnants:
             mfint = IMFIntegrator(imf)
-            norm = mfint.m_integrate(m_min = m_min, m_max = m_max)
+            norm = mfint.m_integrate(m_min=m_min, m_max=m_max)
             # BH remnants
             m_low = max(mlim_bh, self.m_max)
-            mass = mass + 0.5 * mfint.m_integrate(m_min=m_low, m_max=m_max) / norm
+            mass = mass + 0.5 * \
+                mfint.m_integrate(m_min=m_low, m_max=m_max) / norm
 
             # NS remnants
             if self.m_max <= mlim_bh:
                 m_low = max(mlim_ns, self.m_max)
-                mass = mass + 1.4 * mfint.integrate(m_min = m_low, m_max = mlim_bh) / norm
+                mass = mass + 1.4 * \
+                    mfint.integrate(m_min=m_low, m_max=mlim_bh) / norm
 
             # WD remnants
             if self.m_max < mlim_ns:
                 mmax = self.m_max
-                mass = mass + 0.48 * mfint.integrate(m_min = mmax, m_max = mlim_ns) / norm
-                mass = mass + 0.077 * mfint.m_integrate(m_min = mmax, m_max = mlim_ns) / norm
+                mass = mass + 0.48 * \
+                    mfint.integrate(m_min=mmax, m_max=mlim_ns) / norm
+                mass = mass + 0.077 * \
+                    mfint.m_integrate(m_min=mmax, m_max=mlim_ns) / norm
 
         return mass
 
@@ -564,6 +570,43 @@ def fetch_mist_iso_cmd(log_age, feh, phot_system, mist_path=MIST_PATH,
     iso_cmd = IsoCmdReader(fn, verbose=False)
     iso_cmd = iso_cmd.isocmds[iso_cmd.age_index(log_age)]
     return iso_cmd
+
+
+def fetch_mist_iso(log_age, feh, mist_path=MIST_PATH,
+                   v_over_vcrit=0.4):
+    """
+    Fetch MIST isochrone grid. No CMD, only ISO.
+
+    Parameters
+    ----------
+    log_age : float
+        Logarithm base 10 of the simple stellar population age in years.
+    feh : float
+        Metallicity [Fe/H] of the simple stellar population.
+    mist_path : str, optional
+        Path to MIST isochrone grids. Use this if you want to use a different
+        path from the `MIST_PATH` environment variable.
+    v_over_vcrit : float, optional
+        Rotation rate divided by the critical surface linear velocity. Current
+        options are 0.4 (default) and 0.0.
+
+    Returns
+    -------
+    iso_cmd : `~numpy.ndarray`
+        Structured ``numpy`` array with isochrones and stellar magnitudes.
+    """
+
+    # fetch the mist grid if necessary
+    v = f'{v_over_vcrit:.1f}'
+    ver = 'v1.2'
+    path = os.path.join(mist_path, 'MIST_' + ver +
+                        f'_vvcrit{v}' + '_basic_isos')
+    sign = 'm' if feh < 0 else 'p'
+    fn = f'MIST_{ver}_feh_{sign}{abs(feh):.2f}_afe_p0.0_vvcrit{v}_basic.iso'
+    fn = os.path.join(path, fn)
+    iso = IsoReader(fn, verbose=False)
+    iso = iso.isos[iso.age_index(log_age)]
+    return iso
 
 
 class MISTIsochrone(Isochrone):
@@ -658,12 +701,14 @@ class MISTIsochrone(Isochrone):
             self._iso_full[filt] = self._iso_full[filt] + m_convert
 
         super(MISTIsochrone, self).__init__(
-            mini = self._iso_full['initial_mass'],
-            mact = self._iso_full['star_mass'],
-            mags = Table(self._iso_full[filters]),
-            eep = self._iso_full['EEP'],
-            log_L = self._iso_full['log_L'],
-            log_Teff = self._iso_full['log_Teff'],
+            mini=self._iso_full['initial_mass'],
+            mact=self._iso_full['star_mass'],
+            mags=Table(self._iso_full[filters]),
+            eep=self._iso_full['EEP'],
+            log_L=self._iso_full['log_L'],
+            log_Teff=self._iso_full['log_Teff'],
+            log_g=self._iso_full['log_g'],
+            log_R=self._iso_full['log_R'],
         )
 
     @property
@@ -681,7 +726,14 @@ class MISTIsochrone(Isochrone):
         if self.feh in self._feh_grid:
             args = [self.log_age, self.feh, phot_system, self.mist_path,
                     self.v_over_vcrit]
-            iso = fetch_mist_iso_cmd(*args)
+            # combine with the full isochrone
+            isocmd = Table(fetch_mist_iso_cmd(*args))
+            isocmd.remove_columns(['EEP', 'log10_isochrone_age_yr', 'initial_mass',
+                                   'star_mass', 'log_Teff', 'log_g', 'log_L'])
+            args = [self.log_age, self.feh, self.mist_path,
+                    self.v_over_vcrit]
+            iso = Table(fetch_mist_iso(*args))
+            iso = hstack([iso, isocmd])
         else:
             iso = self._interp_on_feh(phot_system)
         return iso
@@ -691,8 +743,8 @@ class MISTIsochrone(Isochrone):
         i_feh = self._feh_grid.searchsorted(self.feh)
         feh_lo, feh_hi = self._feh_grid[i_feh - 1: i_feh + 1]
 
-        logger.debug('Interpolating to [Fe/H] = {:.2f} '\
-                     'using [Fe/H] = {} and {}'.\
+        logger.debug('Interpolating to [Fe/H] = {:.2f} '
+                     'using [Fe/H] = {} and {}'.
                      format(self.feh, feh_lo, feh_hi))
 
         mist_0 = fetch_mist_iso_cmd(
