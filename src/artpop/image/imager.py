@@ -367,6 +367,17 @@ class ArtImager(Imager):
                 select = props['bandpass'] == filt
                 self.dlam[filt] = props[select]['dlam'][0]
                 self.lam_eff[filt] = props[select]['lam_eff'][0]
+            if phot_system == 'WFIRST':
+                ## add speclite support for WFIRST filters
+                import speclite.filters
+                from speclite.filters import default_flux_unit
+                speclite.filters.filter_group_names += ['WFIRST']
+                self.filters_speclite = speclite.filters.load_filters('WFIRST-*')
+                self.filters_speclite.dlam = [np.trapz(filt.response / filt.response.max(), filt.wavelength) for filt in self.filters_speclite] * u.AA
+                for filt in self.filters:
+                    select = np.array(self.filters_speclite.names) == 'WFIRST-' + filt
+                    self.dlam[filt] = self.filters_speclite.dlam[select].to(u.AA)
+                    self.lam_eff[filt] = self.filters_speclite.effective_wavelengths[select].to(u.AA)
         elif zpt_inst is not None:
             self.filters = list(zpt_inst.keys())
             self.zpt_inst = zpt_inst
@@ -398,6 +409,19 @@ class ArtImager(Imager):
         r = self.diameter / 2
         return np.pi * r**2
 
+    def calib_efficiency(self):
+        assert self.phot_system == 'WFIRST', 'only WFIRST has to calibrate efficiency'
+        # recalbirate the efficiency
+        from speclite.filters import default_flux_unit
+        import astropy.constants as const
+        mags = np.linspace(16, 20, 20)
+        self.wfirst_efficiency = {}
+        for filt in self.filters_speclite._responses:
+            fluxes = (lambda wlen=mag: (const.c / wlen**2 * fnu_from_AB_mag(mag)).to(default_flux_unit) for mag in mags)
+            counts = [(filt.convolve_with_function(flux) * self.area.to(u.cm**2)).value for flux in fluxes]
+            counts_atp = self.mag_to_counts(mags, filt.name.replace('WFIRST-', ''), 1)
+            self.wfirst_efficiency[filt.name.replace('WFIRST-', '')] = np.mean(counts / counts_atp)
+
     def mag_to_counts(self, mags, bandpass, exptime):
         """
         Convert magnitudes to counts.
@@ -427,8 +451,12 @@ class ArtImager(Imager):
             counts = photon_flux * self.area.to('cm2') * exptime.to('s')
             counts = counts.decompose()
             assert counts.unit == u.dimensionless_unscaled
-            counts *= self.efficiency
+            if self.phot_system == "WFIRST":
+                counts = counts * self.wfirst_efficiency[bandpass]
+            else:
+                counts *= self.efficiency
             counts = counts.value
+
         else:
             counts = 10**(0.4 * (self.zpt_inst[bandpass] - mags))
             counts *= exptime.to('s').value
@@ -472,7 +500,10 @@ class ArtImager(Imager):
             counts_per_pixel = photon_flux_per_sq_pixel * exptime.to('s')
             counts_per_pixel *= self.area.to('cm2') * u.pixel**2
             assert counts_per_pixel.unit == u.dimensionless_unscaled
-            counts_per_pixel *= self.efficiency
+            if self.phot_system == "WFIRST":
+                counts_per_pixel *= self.wfirst_efficiency[bandpass]
+            else:
+                counts_per_pixel *= self.efficiency
             counts_per_pixel = counts_per_pixel.value
         else:
             counts_per_pixel = 10**(0.4 * (self.zpt_inst[bandpass] - sb))
@@ -506,7 +537,10 @@ class ArtImager(Imager):
             cali_factor = 10**(0.4 * zpt) * 10**(0.4 * mAB_0) / lam_factor
             cali_factor /= exptime.to('s').value
             cali_factor /= self.area.to('cm2').value
-            cali_factor /= self.efficiency
+            if self.phot_system == "WFIRST":
+                cali_factor /= self.wfirst_efficiency[bandpass]
+            else:
+                cali_factor /= self.efficiency
         else:
             cali_factor = 10**(0.4 * (zpt - self.zpt_inst[bandpass]))
             cali_factor /= exptime.to('s').value

@@ -163,9 +163,9 @@ class Isochrone(object):
             Interpolated y values.
         """
         x = self.mag_table[x_name] if x_name in self.filters\
-                                   else getattr(self, x_name)
+            else getattr(self, x_name)
         y = self.mag_table[y_name] if y_name in self.filters\
-                                   else getattr(self, y_name)
+            else getattr(self, y_name)
         x = x[slice_interp]
         y = y[slice_interp]
         y_interp = interp1d(x, y, **kwargs)(x_interp)
@@ -221,7 +221,7 @@ class Isochrone(object):
         return mass_interp
 
     def calculate_mag_limit(self, imf, bandpass, frac_mass_sampled=None,
-                            frac_num_sampled=None, distance=10*u.pc):
+                            frac_num_sampled=None, distance=10 * u.pc):
         """
         Calculate the limiting faint magnitude to sample a given fraction
         of mass or number of a stellar population. This is used for when you
@@ -336,9 +336,9 @@ class Isochrone(object):
 
         mfint = IMFIntegrator(imf)
         if norm_type == 'mass':
-            norm = mfint.m_integrate(m_min = m_min,m_max = m_max)
+            norm = mfint.m_integrate(m_min=m_min, m_max=m_max)
         elif norm_type == 'number':
-            norm = mfint.integrate(m_min = m_min,m_max = m_max)
+            norm = mfint.integrate(m_min=m_min, m_max=m_max)
         wght = []
         mini = self.mini
         # Assume mass is constant in each bin and integrate.
@@ -348,15 +348,15 @@ class Isochrone(object):
             if i == 0:
                 m1 = m_min
             else:
-                m1 = mini[i] - 0.5 * (mini[i] - mini[i-1])
+                m1 = mini[i] - 0.5 * (mini[i] - mini[i - 1])
             if i == len(mini) - 1:
                 m2 = mini[i]
             else:
-                m2 = mini[i] + 0.5 * (mini[i+1] - mini[i])
+                m2 = mini[i] + 0.5 * (mini[i + 1] - mini[i])
             if m2 < m1:
                 raise Exception('Masses must be monotonically increasing.')
 
-            wght.append(mfint.integrate(m_min = m1, m_max = m2))
+            wght.append(mfint.integrate(m_min=m1, m_max=m2))
         wght = np.array(wght) / norm
         return wght
 
@@ -414,6 +414,37 @@ class Isochrone(object):
         wght = self.imf_weights(imf, **kwargs)
         lumlum = np.sum(wght * 10**(-0.8 * self.mag_table[bandpass]))
         lum = np.sum(wght * 10**(-0.4 * self.mag_table[bandpass]))
+        sbf = -2.5 * np.log10(lumlum / lum)
+        return sbf
+
+    def ssp_sbf_mag_phase(self, bandpass, phase, imf='kroupa', **kwargs):
+        """
+        Calculate IMF-weighted SBF magnitude for a given phase.
+
+        Parameters
+        ----------
+        bandpass : str
+            Bandpass to of SBF mag.
+        imf : str or dict
+            Which IMF to use, if str then must be one of pre-defined: 'kroupa',
+            'scalo' or 'salpeter'. Can also specify custom (broken) power law as dict,
+            which must contain either 'a' as a Float (describing the slope of a
+            single power law) or 'a' (a list with 3 elements describing the slopes
+            of a broken power law) and 'b' (a list  with 2 elements describing the
+            locations of the breaks).
+        phase : str
+            Phase to calculate SBF magnitude for.
+
+        Returns
+        -------
+        sbf : float
+            SBF magnitude of stellar population.
+        """
+        wght = self.imf_weights(imf, **kwargs)
+        flag = self.select_phase(phase)
+        lumlum = np.sum(wght[flag] * 10 **
+                        (-0.8 * self.mag_table[bandpass][flag]))
+        lum = np.sum(wght[flag] * 10**(-0.4 * self.mag_table[bandpass][flag]))
         sbf = -2.5 * np.log10(lumlum / lum)
         return sbf
 
@@ -506,21 +537,25 @@ class Isochrone(object):
 
         if add_remnants:
             mfint = IMFIntegrator(imf)
-            norm = mfint.m_integrate(m_min = m_min, m_max = m_max)
+            norm = mfint.m_integrate(m_min=m_min, m_max=m_max)
             # BH remnants
             m_low = max(mlim_bh, self.m_max)
-            mass = mass + 0.5 * mfint.m_integrate(m_min=m_low, m_max=m_max) / norm
+            mass = mass + 0.5 * \
+                mfint.m_integrate(m_min=m_low, m_max=m_max) / norm
 
             # NS remnants
             if self.m_max <= mlim_bh:
                 m_low = max(mlim_ns, self.m_max)
-                mass = mass + 1.4 * mfint.integrate(m_min = m_low, m_max = mlim_bh) / norm
+                mass = mass + 1.4 * \
+                    mfint.integrate(m_min=m_low, m_max=mlim_bh) / norm
 
             # WD remnants
             if self.m_max < mlim_ns:
                 mmax = self.m_max
-                mass = mass + 0.48 * mfint.integrate(m_min = mmax, m_max = mlim_ns) / norm
-                mass = mass + 0.077 * mfint.m_integrate(m_min = mmax, m_max = mlim_ns) / norm
+                mass = mass + 0.48 * \
+                    mfint.integrate(m_min=mmax, m_max=mlim_ns) / norm
+                mass = mass + 0.077 * \
+                    mfint.m_integrate(m_min=mmax, m_max=mlim_ns) / norm
 
         return mass
 
@@ -610,7 +645,8 @@ class MISTIsochrone(Isochrone):
 
     def __init__(self, log_age, feh, phot_system, mist_path=MIST_PATH,
                  ab_or_vega='ab', v_over_vcrit=0.4):
-
+        self.phases = ['PMS', 'MS', 'giants', 'RGB', 'CHeB', 'AGB',
+                       'EAGB', 'TPAGB', 'postAGB', 'WDCS']
         # verify age are metallicity are within model grids
         if log_age < self._log_age_min or log_age > self._log_age_max:
             raise Exception(f'log_age = {log_age} not in range of age grid')
@@ -658,12 +694,12 @@ class MISTIsochrone(Isochrone):
             self._iso_full[filt] = self._iso_full[filt] + m_convert
 
         super(MISTIsochrone, self).__init__(
-            mini = self._iso_full['initial_mass'],
-            mact = self._iso_full['star_mass'],
-            mags = Table(self._iso_full[filters]),
-            eep = self._iso_full['EEP'],
-            log_L = self._iso_full['log_L'],
-            log_Teff = self._iso_full['log_Teff'],
+            mini=self._iso_full['initial_mass'],
+            mact=self._iso_full['star_mass'],
+            mags=Table(self._iso_full[filters]),
+            eep=self._iso_full['EEP'],
+            log_L=self._iso_full['log_L'],
+            log_Teff=self._iso_full['log_Teff'],
         )
 
     @property
@@ -691,8 +727,8 @@ class MISTIsochrone(Isochrone):
         i_feh = self._feh_grid.searchsorted(self.feh)
         feh_lo, feh_hi = self._feh_grid[i_feh - 1: i_feh + 1]
 
-        logger.debug('Interpolating to [Fe/H] = {:.2f} '\
-                     'using [Fe/H] = {} and {}'.\
+        logger.debug('Interpolating to [Fe/H] = {:.2f} '
+                     'using [Fe/H] = {} and {}'.
                      format(self.feh, feh_lo, feh_hi))
 
         mist_0 = fetch_mist_iso_cmd(
@@ -720,3 +756,61 @@ class MISTIsochrone(Isochrone):
         iso = np.core.records.fromarrays(y.transpose(), dtype=mist_0.dtype)
 
         return iso
+
+    def select_phase(self, phase):
+        """
+        Generate stellar evolutionary phase mask. The mask will be `True` for
+        sources that are in the give phase according to the MIST EEPs.
+
+        Parameters
+        ----------
+        phase : str
+            Evolutionary phase to select. Options are 'all', 'MS', 'giants',
+            'RGB', 'CHeB', 'AGB', 'EAGB', 'TPAGB', 'postAGB', or 'WDCS'.
+
+        Returns
+        -------
+        mask : `~numpy.ndarray`
+            Mask that is `True` for stars in input phase and `False` otherwise.
+
+        Notes
+        -----
+        The MIST EEP phases were taken from Table II: Primary Equivalent
+        Evolutionary Points (EEPs):
+        http://waps.cfa.harvard.edu/MIST/README_tables.pdf
+        """
+        if phase == 'all':
+            mask = np.ones_like(self.eep, dtype=bool)
+        elif phase == 'PMS':
+            mask = self.eep < 202
+        elif phase == 'MS':
+            mask = (self.eep >= 202) & (self.eep < 454)
+        elif phase == 'giants':
+            mask = (self.eep >= 454) & (self.eep < 1409)
+        elif phase == 'RGB':
+            mask = (self.eep >= 454) & (self.eep <= 605)
+        elif phase == 'CHeB':
+            mask = (self.eep > 605) & (self.eep < 707)
+        elif phase == 'AGB':
+            mask = (self.eep >= 707) & (self.eep < 1409)
+        elif phase == 'EAGB':
+            mask = (self.eep >= 707) & (self.eep < 808)
+        elif phase == 'TPAGB':
+            mask = (self.eep >= 808) & (self.eep < 1409)
+        elif phase == 'postAGB':
+            mask = (self.eep >= 1409) & (self.eep <= 1710)
+        elif phase == 'WDCS':
+            mask = self.eep > 1710
+        else:
+            raise Exception('Uh, what phase u want?')
+
+        return mask
+
+    def get_star_phases(self):
+        """Returns the stellar phases (as defined by the MIST EEPs)."""
+        phase_list = ['PMS', 'MS', 'RGB', 'CHeB', 'EAGB',
+                      'TPAGB', 'postAGB', 'WDCS']
+        star_phases = np.array([''] * len(self.mag_table), dtype='<U8')
+        for phase in phase_list:
+            star_phases[self.select_phase(phase)] = phase
+        return star_phases

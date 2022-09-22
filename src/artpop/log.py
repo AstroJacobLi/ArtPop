@@ -8,7 +8,7 @@ from astropy.logger import AstropyLogger
 
 class ArtPopLogger(AstropyLogger):
 
-    def _set_defaults(self, level='INFO'):
+    def _set_defaults(self, level='ERROR'):
         """
         Reset logger to its initial state
         """
