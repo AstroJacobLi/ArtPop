@@ -547,7 +547,7 @@ class SSP(StellarPopulation):
         self.sampled_mass *= u.Msun
         self.live_star_mass *= u.Msun
 
-        for attr in ['eep', 'log_L', 'log_Teff']:
+        for attr in ['eep', 'log_L', 'log_Teff', 'log_g', 'log_R']:
             if hasattr(iso, attr):
                 if getattr(iso, attr) is not None:
                     vals_interp = iso.interpolate(attr, self.initial_masses)
@@ -654,7 +654,7 @@ class SSP(StellarPopulation):
 
         # Loop over optional attributes.
         # Both SSPs must have the attribute to add them.
-        for attr in ['eep', 'log_L', 'log_Teff']:
+        for attr in ['eep', 'log_L', 'log_Teff', 'log_g', 'log_R']:
             if hasattr(new, attr) and hasattr(ssp, attr):
                 new_attr = getattr(new, attr)
                 ssp_attr = getattr(ssp, attr)

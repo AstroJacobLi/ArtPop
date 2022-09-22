@@ -5,11 +5,11 @@ import os
 import numpy as np
 from numpy.lib.recfunctions import append_fields
 from scipy.interpolate import interp1d
-from astropy.table import Table
+from astropy.table import Table, hstack
 from astropy import units as u
 
 # Project
-from ._read_mist_models import IsoCmdReader
+from ._read_mist_models import IsoCmdReader, IsoReader
 from .imf import IMFIntegrator
 from .. import MIST_PATH
 from ..log import logger
@@ -47,7 +47,7 @@ class Isochrone(object):
     """
 
     def __init__(self, mini, mact, mags, eep=None, log_L=None,
-                 log_Teff=None):
+                 log_Teff=None, log_g=None, log_R=None):
         self.mini = np.asarray(mini)
         self.mact = np.asarray(mact)
         if (np.diff(self.mini) < 0).sum() > 0:
@@ -55,6 +55,8 @@ class Isochrone(object):
         self.eep = None if eep is None else np.asarray(eep)
         self.log_L = None if log_L is None else np.asarray(log_L)
         self.log_Teff = None if log_Teff is None else np.asarray(log_Teff)
+        self.log_g = None if log_g is None else np.asarray(log_g)
+        self.log_R = None if log_R is None else np.asarray(log_R)
         if type(mags) == dict or type(mags) == np.ndarray:
             self.mag_table = Table(mags)
         elif type(mags) == Table:
@@ -598,6 +600,15 @@ def fetch_mist_iso_cmd(log_age, feh, phot_system, mist_path=MIST_PATH,
     fn = os.path.join(path, fn)
     iso_cmd = IsoCmdReader(fn, verbose=False)
     iso_cmd = iso_cmd.isocmds[iso_cmd.age_index(log_age)]
+
+    # Also add log_R from the basic isochrone
+    fn = f'MIST_{ver}_feh_{sign}{abs(feh):.2f}_afe_p0.0_vvcrit{v}_basic.iso'
+    path = os.path.join(mist_path, 'MIST_' + ver + f'_vvcrit{v}_basic_isos')
+    fn = os.path.join(path, fn)
+    iso = IsoReader(fn, verbose=False)
+    iso = iso.isos[iso.age_index(log_age)]
+    iso_cmd = np.lib.recfunctions.append_fields(
+        iso_cmd, 'log_R', iso['log_R']).data
     return iso_cmd
 
 
@@ -700,6 +711,8 @@ class MISTIsochrone(Isochrone):
             eep=self._iso_full['EEP'],
             log_L=self._iso_full['log_L'],
             log_Teff=self._iso_full['log_Teff'],
+            log_g=self._iso_full['log_g'],
+            log_R=self._iso_full['log_R'],
         )
 
     @property
@@ -717,7 +730,7 @@ class MISTIsochrone(Isochrone):
         if self.feh in self._feh_grid:
             args = [self.log_age, self.feh, phot_system, self.mist_path,
                     self.v_over_vcrit]
-            iso = fetch_mist_iso_cmd(*args)
+            iso = Table(fetch_mist_iso_cmd(*args))
         else:
             iso = self._interp_on_feh(phot_system)
         return iso
