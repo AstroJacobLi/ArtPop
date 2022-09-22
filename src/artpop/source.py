@@ -230,6 +230,34 @@ class SersicSP(Source):
         amplitude = 10**(0.4 * (zpt - mu_e)) * self.pixel_scale.value**2
         return mu_e, amplitude, param_name
 
+    def mag_to_stips_SB(self, m_tot, imager, bandpass):
+        """
+        Convert total magnitude into surface brightness at R_e (counts/s/pixel) for STIPS
+
+        Parameters
+        ----------
+        m_tot : float
+            Total magnitude in the smooth component of the system.
+        imager : `~artpop.imager.ArtImager`
+            An imager object.
+        bandpass : str
+            Name of the bandpass.
+
+        Returns
+        -------
+        I_e : float
+            Surface brightness at the effective radius of the Sersic
+            distribution, in counts/s/pixel.
+        """
+        param_name = 'amplitude'
+        b_n = gammaincinv(2.0 * self.n, 0.5)
+        f_n = gamma(2 * self.n) *self.n * np.exp(b_n) / b_n**(2 * self.n)
+        r_circ = self.r_sky * np.sqrt(1 - self.ellip) / self.pixel_scale
+        area = np.pi * r_circ.to('pixel').value**2
+        L_tot = imager.mag_to_counts(m_tot, bandpass, 1)
+        I_e = L_tot / (2 * area * f_n)
+        return I_e # counts/s/pixel
+
 
 def _check_label_type(ssp, label_type, has_phases=True):
     if label_type is not None:
