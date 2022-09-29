@@ -80,7 +80,7 @@ class Isochrone(object):
         return self.mag_table.colnames
 
     @staticmethod
-    def from_parsec(file_name, log_age=None, zini=None, num_filters=None):
+    def from_parsec(file_name, log_age=None, MH=None, num_filters=None):
         """
         Read isochrone generated from the `PARSEC website
         <http://stev.oapd.inaf.it/cgi-bin/cmd>`_. If more than one age and/or
@@ -123,27 +123,37 @@ class Isochrone(object):
         else:
             raise Exception(f'{file_name} does not exist.')
         isochrone_full = parsec.copy()
-        if log_age is not None:
-            age_cut = np.abs(parsec['logAge'] - log_age) < 1e-5
-            if age_cut.sum() < 1:
-                raise Exception(f'log_age = {log_age} not found.')
-            parsec = parsec[age_cut]
-        if zini is not None:
-            zini_cut = np.abs(parsec['Zini'] - zini) < 1e-8
-            if zini_cut.sum() < 1:
-                raise Exception(f'Zini = {zini} not found.')
-            parsec = parsec[zini_cut]
-        if num_filters is None:
-            filt_idx = np.argwhere(np.array(names) == 'mbolmag')[0][0] + 1
-        else:
-            filt_idx = len(names) - num_filters
-        iso = Isochrone(mini=parsec['Mini'],
-                        mact=parsec['Mass'],
-                        mags=parsec[names[filt_idx:]],
-                        log_L=parsec['logL'],
-                        log_Teff=parsec['logTe'])
-        iso.isochrone_full = isochrone_full
-        return iso
+
+        isochrone_full._log_age_grid = np.unique(isochrone_full['logAge'].data)
+        isochrone_full._feh_grid = np.unique(isochrone_full['MH'].data)
+        
+        try:
+            if log_age is not None:
+                age_cut = np.abs(parsec['logAge'] - log_age) < 1e-5
+                if age_cut.sum() < 1:
+                    raise Exception(f'log_age = {log_age} not found.')
+                parsec = parsec[age_cut]
+            if MH is not None:
+                zini_cut = np.abs(parsec['MH'] - MH) < 1e-8
+                if zini_cut.sum() < 1:
+                    raise Exception(f'MH = {MH} not found.')
+                parsec = parsec[zini_cut]
+            if num_filters is None:
+                filt_idx = np.argwhere(np.array(names) == 'mbolmag')[0][0] + 1
+            else:
+                filt_idx = len(names) - num_filters
+            parsec = parsec[np.argsort(parsec['Mini'])]
+            iso = Isochrone(mini=parsec['Mini'],
+                            mact=parsec['Mass'],
+                            mags=parsec[names[filt_idx:]],
+                            log_L=parsec['logL'],
+                            log_Teff=parsec['logTe'])
+            iso.isochrone_full = isochrone_full
+            return iso
+        except:
+            print('Available log_ages:', isochrone_full._log_age_grid)
+            print('Available metallicities:', isochrone_full._feh_grid)
+            raise Exception('log_age and/or zini not matched in the isochorne.')
 
     def interpolate(self, y_name, x_interp, x_name='mini',
                     slice_interp=np.s_[:], **kwargs):
