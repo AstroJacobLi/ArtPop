@@ -225,3 +225,66 @@ def fetch_mist_grid_if_needed(phot_system, v_over_vcrit=0.4,
         with tarfile.open(tarball) as tar:
             tar.extractall(mist_path)
         os.remove(tarball)
+
+
+def trim_mist_grid_if_needed(v_over_vcrit=0.4, mist_path=MIST_PATH, overwrite=False):
+    """
+    If needed, trim MIST isochrones to have a better format for interpolation.
+    Only relavent columns are kept.
+
+    Parameters
+    ----------
+    v_over_vcrit : float, optional
+        Rotation rate divided by the critical surface linear velocity. Current
+        options are 0.4 (default) and 0.0.
+    mist_path : str, optional
+        Path to MIST isochrone grids. Use this if you want to use a different
+        path from the default location of ~/.artpop/mist (or the `MIST_PATH`
+        environment variable if you have it set).
+    overwrite : bool, optional
+        If True, force an overwrite of grid if it exists.
+    """
+    from .stars._read_mist_models import IsoReader
+
+    log_ages = []
+    fehs = []
+    all_isos = []
+
+    print('Trimming MIST isochrones...')
+    for feh in [-3.0, -2.5, -2, -1.75, -1.5,
+                -1.25, -1.0, -0.75, -0.50, -0.25, 0, 0.25, 0.5]:
+        v = f'{v_over_vcrit:.1f}'
+        ver = 'v1.2'
+        sign = 'm' if feh < 0 else 'p'
+        fn = f'MIST_{ver}_feh_{sign}{abs(feh):.2f}_afe_p0.0_vvcrit{v}_basic.iso'
+        path = os.path.join(mist_path, 'MIST_' + ver +
+                            f'_vvcrit{v}_basic_isos')
+        fn = os.path.join(path, fn)
+        iso_cmd = IsoReader(fn, verbose=False)
+
+        for age in np.arange(5, 10.35, 0.05):
+            all_isos.append(
+                np.array(iso_cmd.isos[iso_cmd.age_index(age)].tolist()))
+            log_ages.append(age)
+            fehs.append(feh)
+
+        if feh == 0.5:
+            datatype = iso_cmd.isos[iso_cmd.age_index(age)].dtype
+
+        del iso_cmd
+
+    log_ages = np.array(log_ages)
+    fehs = np.array(fehs)
+
+    output_path = os.path.join(
+        mist_path, f'MIST_{ver}_vvcrit{v}_basic_trimmed')
+    if not os.path.isdir(output_path):
+        os.mkdir(output_path)
+    if overwrite or not os.path.isfile(os.path.join(output_path, 'isos.npy')):
+        logger.info(
+            f'Trimming MIST basic isochrone grid.')
+        np.save(os.path.join(output_path, 'log_ages_fehs.npy'),
+                np.vstack([log_ages, fehs]))
+        np.save(os.path.join(output_path, 'isos.npy'), all_isos)
+        np.save(os.path.join(output_path, 'datatype.npy'), datatype)
+        print('Done trimming MIST isochrones and saved to files.')
