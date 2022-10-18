@@ -599,26 +599,37 @@ def fetch_mist_iso_cmd(log_age, feh, phot_system, mist_path=MIST_PATH,
     """
 
     # fetch the mist grid if necessary
-    fetch_mist_grid_if_needed(phot_system, v_over_vcrit, mist_path)
+    print(phot_system is None)
+    if phot_system is not None:
+        fetch_mist_grid_if_needed(phot_system, v_over_vcrit, mist_path)
 
-    v = f'{v_over_vcrit:.1f}'
-    ver = 'v1.2'
-    p = phot_str_helper[phot_system.lower()]
-    path = os.path.join(mist_path, 'MIST_' + ver + f'_vvcrit{v}_' + p)
-    sign = 'm' if feh < 0 else 'p'
-    fn = f'MIST_{ver}_feh_{sign}{abs(feh):.2f}_afe_p0.0_vvcrit{v}_{p}.iso.cmd'
-    fn = os.path.join(path, fn)
-    iso_cmd = IsoCmdReader(fn, verbose=False)
-    iso_cmd = iso_cmd.isocmds[iso_cmd.age_index(log_age)]
+        v = f'{v_over_vcrit:.1f}'
+        ver = 'v1.2'
+        p = phot_str_helper[phot_system.lower()]
+        path = os.path.join(mist_path, 'MIST_' + ver + f'_vvcrit{v}_' + p)
+        sign = 'm' if feh < 0 else 'p'
+        fn = f'MIST_{ver}_feh_{sign}{abs(feh):.2f}_afe_p0.0_vvcrit{v}_{p}.iso.cmd'
+        fn = os.path.join(path, fn)
+        iso_cmd = IsoCmdReader(fn, verbose=False)
+        iso_cmd = iso_cmd.isocmds[iso_cmd.age_index(log_age)]
 
-    # Also add log_R from the basic isochrone
-    fn = f'MIST_{ver}_feh_{sign}{abs(feh):.2f}_afe_p0.0_vvcrit{v}_basic.iso'
-    path = os.path.join(mist_path, 'MIST_' + ver + f'_vvcrit{v}_basic_isos')
-    fn = os.path.join(path, fn)
-    iso = IsoReader(fn, verbose=False)
-    iso = iso.isos[iso.age_index(log_age)]
-    iso_cmd = np.lib.recfunctions.append_fields(
-        iso_cmd, 'log_R', iso['log_R']).data
+        # Also add log_R from the basic isochrone
+        fn = f'MIST_{ver}_feh_{sign}{abs(feh):.2f}_afe_p0.0_vvcrit{v}_basic.iso'
+        path = os.path.join(mist_path, 'MIST_' + ver + f'_vvcrit{v}_basic_isos')
+        fn = os.path.join(path, fn)
+        iso = IsoReader(fn, verbose=False)
+        iso = iso.isos[iso.age_index(log_age)]
+        iso_cmd = np.lib.recfunctions.append_fields(
+            iso_cmd, 'log_R', iso['log_R']).data
+    else:
+        v = f'{v_over_vcrit:.1f}'
+        ver = 'v1.2'
+        fn = f'MIST_{ver}_feh_{sign}{abs(feh):.2f}_afe_p0.0_vvcrit{v}_basic.iso'
+        path = os.path.join(mist_path, 'MIST_' + ver + f'_vvcrit{v}_basic_isos')
+        fn = os.path.join(path, fn)
+        iso_cmd = IsoReader(fn, verbose=False)
+        iso_cmd = iso_cmd.isos[iso_cmd.age_index(log_age)]
+        
     return iso_cmd
 
 
@@ -677,6 +688,224 @@ class MISTIsochrone(Isochrone):
         self.feh = feh
         self.mist_path = mist_path
         self.phot_system = phot_system
+        self.ab_or_vega = ab_or_vega
+        self.v_over_vcrit = v_over_vcrit
+
+        # use nearest age (currently not interpolating on age)
+        age_diff = np.abs(self._log_age_grid - log_age)
+        self.log_age = self._log_age_grid[age_diff.argmin()]
+        if age_diff.min() > 1e-6:
+            logger.debug('Using nearest log_age = {:.2f}'.format(self.log_age))
+
+        # store phot_system as list to allow multiple photometric systems
+        if type(phot_system) == str:
+            phot_system = [phot_system]
+
+        # fetch first isochrone grid, interpolating on [Fe/H] if necessary
+        self._iso_full = self._fetch_iso(phot_system[0])
+
+        # iterate over photometric systems and fetch remaining isochrones
+        filter_dict = get_filter_names()
+        filters = filter_dict[phot_system[0]].copy()
+        for p in phot_system[1:]:
+            filt = filter_dict[p].copy()
+            filters.extend(filt)
+            _iso = self._fetch_iso(p)
+            mags = [_iso[f].data for f in filt]
+            self._iso_full = append_fields(self._iso_full, filt, mags)
+
+        # covert magnitudes to ab or vega as necessary
+        self.zpt_convert = load_zero_point_converter()
+        for filt in filters:
+            converter = getattr(self.zpt_convert, f'to_{ab_or_vega.lower()}')
+            try:
+                m_convert = converter(filt)
+            except AttributeError:
+                m_convert = 0.0
+                logger.warning(f'No AB / Vega conversion found for {filt}.')
+            self._iso_full[filt] = self._iso_full[filt] + m_convert
+
+        super(MISTIsochrone, self).__init__(
+            mini=self._iso_full['initial_mass'],
+            mact=self._iso_full['star_mass'],
+            mags=Table(self._iso_full[filters]),
+            eep=self._iso_full['EEP'],
+            log_L=self._iso_full['log_L'],
+            log_Teff=self._iso_full['log_Teff'],
+            log_g=self._iso_full['log_g'],
+            log_R=self._iso_full['log_R'],
+        )
+
+    @property
+    def isochrone_full(self):
+        """MIST entire isochrone in a structured `~numpy.ndarray`."""
+        return self._iso_full
+
+    @staticmethod
+    def from_parsec(fn, **kwargs):
+        msg = 'PARSEC isochrones do not with MISTIsochrone.'
+        raise Exception(msg + ' Use artpop.Isochrone instead.')
+
+    def _fetch_iso(self, phot_system):
+        """Fetch MIST isochrone grid, interpolating on [Fe/H] if necessary."""
+        if self.feh in self._feh_grid:
+            args = [self.log_age, self.feh, phot_system, self.mist_path,
+                    self.v_over_vcrit]
+            iso = Table(fetch_mist_iso_cmd(*args))
+        else:
+            iso = self._interp_on_feh(phot_system)
+        return iso
+
+    def _interp_on_feh(self, phot_system):
+        """Interpolate isochrones between two [Fe/H] grid points."""
+        i_feh = self._feh_grid.searchsorted(self.feh)
+        feh_lo, feh_hi = self._feh_grid[i_feh - 1: i_feh + 1]
+
+        logger.debug('Interpolating to [Fe/H] = {:.2f} '
+                     'using [Fe/H] = {} and {}'.
+                     format(self.feh, feh_lo, feh_hi))
+
+        mist_0 = fetch_mist_iso_cmd(
+            self.log_age, feh_lo, phot_system, self.mist_path)
+        mist_1 = fetch_mist_iso_cmd(
+            self.log_age, feh_hi, phot_system, self.mist_path)
+
+        y0, y1 = np.array(mist_0.tolist()), np.array(mist_1.tolist())
+
+        x = self.feh
+        x0, x1 = feh_lo, feh_hi
+        weight = (x - x0) / (x1 - x0)
+
+        len_0, len_1 = len(y0), len(y1)
+
+        # if necessary, extrapolate using trend of the longer array
+        if (len_0 < len_1):
+            delta = y1[len_0:] - y1[len_0 - 1]
+            y0 = np.append(y0, y0[-1] + delta, axis=0)
+        elif (len_0 > len_1):
+            delta = y0[len_1:] - y0[len_1 - 1]
+            y1 = np.append(y1, y1[-1] + delta, axis=0)
+
+        y = y0 * (1 - weight) + y1 * weight
+        iso = np.core.records.fromarrays(y.transpose(), dtype=mist_0.dtype)
+
+        return iso
+
+    def select_phase(self, phase):
+        """
+        Generate stellar evolutionary phase mask. The mask will be `True` for
+        sources that are in the give phase according to the MIST EEPs.
+
+        Parameters
+        ----------
+        phase : str
+            Evolutionary phase to select. Options are 'all', 'MS', 'giants',
+            'RGB', 'CHeB', 'AGB', 'EAGB', 'TPAGB', 'postAGB', or 'WDCS'.
+
+        Returns
+        -------
+        mask : `~numpy.ndarray`
+            Mask that is `True` for stars in input phase and `False` otherwise.
+
+        Notes
+        -----
+        The MIST EEP phases were taken from Table II: Primary Equivalent
+        Evolutionary Points (EEPs):
+        http://waps.cfa.harvard.edu/MIST/README_tables.pdf
+        """
+        if phase == 'all':
+            mask = np.ones_like(self.eep, dtype=bool)
+        elif phase == 'PMS':
+            mask = self.eep < 202
+        elif phase == 'MS':
+            mask = (self.eep >= 202) & (self.eep < 454)
+        elif phase == 'giants':
+            mask = (self.eep >= 454) & (self.eep < 1409)
+        elif phase == 'RGB':
+            mask = (self.eep >= 454) & (self.eep <= 605)
+        elif phase == 'CHeB':
+            mask = (self.eep > 605) & (self.eep < 707)
+        elif phase == 'AGB':
+            mask = (self.eep >= 707) & (self.eep < 1409)
+        elif phase == 'EAGB':
+            mask = (self.eep >= 707) & (self.eep < 808)
+        elif phase == 'TPAGB':
+            mask = (self.eep >= 808) & (self.eep < 1409)
+        elif phase == 'postAGB':
+            mask = (self.eep >= 1409) & (self.eep <= 1710)
+        elif phase == 'WDCS':
+            mask = self.eep > 1710
+        else:
+            raise Exception('Uh, what phase u want?')
+
+        return mask
+
+    def get_star_phases(self):
+        """Returns the stellar phases (as defined by the MIST EEPs)."""
+        phase_list = ['PMS', 'MS', 'RGB', 'CHeB', 'EAGB',
+                      'TPAGB', 'postAGB', 'WDCS']
+        star_phases = np.array([''] * len(self.mag_table), dtype='<U8')
+        for phase in phase_list:
+            star_phases[self.select_phase(phase)] = phase
+        return star_phases
+
+
+
+class MISTBasicIsochrone(Isochrone):
+    """
+    Class for fetching, storing, and interpolating MIST isochrones. 
+    It also has several methods for calculating IMF-weighted photometric 
+    properties of a stellar population with the given age an metallicity.
+    
+    The difference between ``MISTIsochrone`` and ``MISTBasicIsochrone`` is that 
+    we don't need ``phot_system`` here.
+
+    .. note::
+        Currently, the models are interpolated in metallicity but not in age.
+        Ages are therefore limited to the age grid of the MIST models. The
+        [Fe/H] and log(Age/yr) grids are stored as the private class attributes
+        ``_feh_grid`` and ``_log_age_grid``.
+
+    Parameters
+    ----------
+    log_age : float
+        Logarithm base 10 of the simple stellar population age in years.
+    feh : float
+        Metallicity [Fe/H] of the simple stellar population.
+    mist_path : str, optional
+        Path to MIST isochrone grids. Use this if you want to use a different
+        path from the ``MIST_PATH`` environment variable.
+    ab_or_vega : str, optional
+        Magnitudes will be in the AB (default) or Vega magnitude system.
+    v_over_vcrit : float, optional
+        Rotation rate divided by the critical surface linear velocity. Current
+        options are 0.4 (default) and 0.0.
+    """
+
+    # the age grid
+    _log_age_grid = np.arange(5.0, 10.3, 0.05)
+    _log_age_min = _log_age_grid.min()
+    _log_age_max = _log_age_grid.max()
+
+    # the [Fe/H] metallicity grid
+    # mist has feh <= -4, but using <=-3 due to interpolation issues
+    _feh_grid = np.concatenate([np.arange(-3.0, -2., 0.5),
+                                np.arange(-2.0, 0.75, 0.25)])
+    _feh_min = _feh_grid.min()
+    _feh_max = _feh_grid.max()
+
+    def __init__(self, log_age, feh, mist_path=MIST_PATH,
+                 ab_or_vega='ab', v_over_vcrit=0.4):
+        self.phases = ['PMS', 'MS', 'giants', 'RGB', 'CHeB', 'AGB',
+                       'EAGB', 'TPAGB', 'postAGB', 'WDCS']
+        # verify age are metallicity are within model grids
+        if log_age < self._log_age_min or log_age > self._log_age_max:
+            raise Exception(f'log_age = {log_age} not in range of age grid')
+        if feh < self._feh_min or feh > self._feh_max:
+            raise Exception(f'feh = {feh} not in range of feh grid')
+
+        self.feh = feh
+        self.mist_path = mist_path
         self.ab_or_vega = ab_or_vega
         self.v_over_vcrit = v_over_vcrit
 
