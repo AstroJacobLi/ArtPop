@@ -893,7 +893,7 @@ class MISTBasicIsochrone(Isochrone):
 
     # the [Fe/H] metallicity grid
     # mist has feh <= -4, but using <=-3 due to interpolation issues
-    _feh_grid = np.concatenate([np.arange(-3.0, -2., 0.5),
+    _feh_grid = np.concatenate([np.arange(-4.0, -2., 0.5),
                                 np.arange(-2.0, 0.75, 0.25)])
     _feh_min = _feh_grid.min()
     _feh_max = _feh_grid.max()

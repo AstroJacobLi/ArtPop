@@ -251,7 +251,7 @@ def trim_mist_grid_if_needed(v_over_vcrit=0.4, mist_path=MIST_PATH, overwrite=Fa
     all_isos = []
 
     print('Trimming MIST isochrones...')
-    for feh in [-3.0, -2.5, -2, -1.75, -1.5,
+    for feh in [-4.0, -3.5, -3.0, -2.5, -2, -1.75, -1.5,
                 -1.25, -1.0, -0.75, -0.50, -0.25, 0, 0.25, 0.5]:
         v = f'{v_over_vcrit:.1f}'
         ver = 'v1.2'
