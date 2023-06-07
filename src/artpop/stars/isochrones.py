@@ -15,7 +15,7 @@ from .. import MIST_PATH
 from ..log import logger
 from ..filters import phot_system_list, get_filter_names
 from ..filters import load_zero_point_converter
-from ..util import check_units, fetch_mist_grid_if_needed
+from ..util import check_units, fetch_mist_grid_if_needed, trim_mist_grid_if_needed
 
 
 __all__ = ['fetch_mist_iso_cmd', 'Isochrone', 'MISTIsochrone']
@@ -61,6 +61,8 @@ class Isochrone(object):
             self.mag_table = Table(mags)
         elif type(mags) == Table:
             self.mag_table = mags
+        elif mags == None:
+            self.mag_table = None
         else:
             raise Exception(f'{type(mags)} is not a valid type for mags')
 
@@ -628,6 +630,7 @@ def fetch_mist_iso_cmd(log_age, feh, phot_system, mist_path=MIST_PATH,
     else:
         v = f'{v_over_vcrit:.1f}'
         ver = 'v1.2'
+        sign = 'm' if feh < 0 else 'p'
         fn = f'MIST_{ver}_feh_{sign}{abs(feh):.2f}_afe_p0.0_vvcrit{v}_basic.iso'
         path = os.path.join(mist_path, 'MIST_' + ver +
                             f'_vvcrit{v}_basic_isos')
@@ -893,70 +896,27 @@ class MISTBasicIsochrone(Isochrone):
 
     # the [Fe/H] metallicity grid
     # mist has feh <= -4, but using <=-3 due to interpolation issues
-    _feh_grid = np.concatenate([np.arange(-3.0, -2., 0.5),
+    _feh_grid = np.concatenate([np.arange(-4.0, -2., 0.5),
                                 np.arange(-2.0, 0.75, 0.25)])
     _feh_min = _feh_grid.min()
     _feh_max = _feh_grid.max()
 
-    def __init__(self, log_age, feh, mist_path=MIST_PATH,
-                 ab_or_vega='ab', v_over_vcrit=0.4):
+    def __init__(self, mist_path=MIST_PATH, v_over_vcrit=0.4):
+        """
+        Here we only load all isochrones, but do not do interpolation.
+        Interpolation is done on-the-fly.
+        """
         self.phases = ['PMS', 'MS', 'giants', 'RGB', 'CHeB', 'AGB',
                        'EAGB', 'TPAGB', 'postAGB', 'WDCS']
-        # verify age are metallicity are within model grids
-        if log_age < self._log_age_min or log_age > self._log_age_max:
-            raise Exception(f'log_age = {log_age} not in range of age grid')
-        if feh < self._feh_min or feh > self._feh_max:
-            raise Exception(f'feh = {feh} not in range of feh grid')
-
-        self.feh = feh
         self.mist_path = mist_path
-        self.ab_or_vega = ab_or_vega
         self.v_over_vcrit = v_over_vcrit
-
-        # use nearest age (currently not interpolating on age)
-        age_diff = np.abs(self._log_age_grid - log_age)
-        self.log_age = self._log_age_grid[age_diff.argmin()]
-        if age_diff.min() > 1e-6:
-            logger.debug('Using nearest log_age = {:.2f}'.format(self.log_age))
-
-        # store phot_system as list to allow multiple photometric systems
-        if type(phot_system) == str:
-            phot_system = [phot_system]
-
-        # fetch first isochrone grid, interpolating on [Fe/H] if necessary
-        self._iso_full = self._fetch_iso(phot_system[0])
-
-        # iterate over photometric systems and fetch remaining isochrones
-        filter_dict = get_filter_names()
-        filters = filter_dict[phot_system[0]].copy()
-        for p in phot_system[1:]:
-            filt = filter_dict[p].copy()
-            filters.extend(filt)
-            _iso = self._fetch_iso(p)
-            mags = [_iso[f].data for f in filt]
-            self._iso_full = append_fields(self._iso_full, filt, mags)
-
-        # covert magnitudes to ab or vega as necessary
-        self.zpt_convert = load_zero_point_converter()
-        for filt in filters:
-            converter = getattr(self.zpt_convert, f'to_{ab_or_vega.lower()}')
-            try:
-                m_convert = converter(filt)
-            except AttributeError:
-                m_convert = 0.0
-                logger.warning(f'No AB / Vega conversion found for {filt}.')
-            self._iso_full[filt] = self._iso_full[filt] + m_convert
-
-        super(MISTIsochrone, self).__init__(
-            mini=self._iso_full['initial_mass'],
-            mact=self._iso_full['star_mass'],
-            mags=Table(self._iso_full[filters]),
-            eep=self._iso_full['EEP'],
-            log_L=self._iso_full['log_L'],
-            log_Teff=self._iso_full['log_Teff'],
-            log_g=self._iso_full['log_g'],
-            log_R=self._iso_full['log_R'],
-        )
+        # fetch all isochrones and save them in the RAM
+        if not os.path.isfile(
+                os.path.join(
+                    mist_path, f'MIST_v1.2_vvcrit0.4_basic_trimmed', 'isos.npy')
+        ):
+            trim_mist_grid_if_needed(self.v_over_vcrit, mist_path)
+        self._load_all_isochrones()  # load the npy files to RAM
 
     @property
     def isochrone_full(self):
@@ -968,38 +928,30 @@ class MISTBasicIsochrone(Isochrone):
         msg = 'PARSEC isochrones do not with MISTIsochrone.'
         raise Exception(msg + ' Use artpop.Isochrone instead.')
 
-    def _fetch_iso(self, phot_system):
-        """Fetch MIST isochrone grid, interpolating on [Fe/H] if necessary."""
-        if self.feh in self._feh_grid:
-            args = [self.log_age, self.feh, phot_system, self.mist_path,
-                    self.v_over_vcrit]
-            iso = Table(fetch_mist_iso_cmd(*args))
-        else:
-            iso = self._interp_on_feh(phot_system)
-        return iso
+    def _load_all_isochrones(self):
+        """
+        To save time when running inference, we load all isochrones to RAM 
+        instead of loading them on the fly.
+        """
+        file_path = os.path.join(
+            self.mist_path, f'MIST_v1.2_vvcrit{self.v_over_vcrit}_basic_trimmed')
+        self.all_isos = list(np.load(
+            os.path.join(file_path, 'isos.npy'), allow_pickle=True))
+        self.all_log_ages, self.all_fehs = np.load(
+            os.path.join(file_path, 'log_ages_fehs.npy'))
+        self.isodtype = np.load(os.path.join(
+            file_path, 'datatype.npy'), allow_pickle=True).tolist()
 
-    def _interp_on_feh(self, phot_system):
-        """Interpolate isochrones between two [Fe/H] grid points."""
-        i_feh = self._feh_grid.searchsorted(self.feh)
-        feh_lo, feh_hi = self._feh_grid[i_feh - 1: i_feh + 1]
+    def _recover_iso_format(self, array):
+        """Recover the format of the isochrone."""
+        return np.core.records.fromarrays(array.transpose(), dtype=self.isodtype)
 
-        logger.debug('Interpolating to [Fe/H] = {:.2f} '
-                     'using [Fe/H] = {} and {}'.
-                     format(self.feh, feh_lo, feh_hi))
-
-        mist_0 = fetch_mist_iso_cmd(
-            self.log_age, feh_lo, phot_system, self.mist_path)
-        mist_1 = fetch_mist_iso_cmd(
-            self.log_age, feh_hi, phot_system, self.mist_path)
-
-        y0, y1 = np.array(mist_0.tolist()), np.array(mist_1.tolist())
-
-        x = self.feh
-        x0, x1 = feh_lo, feh_hi
-        weight = (x - x0) / (x1 - x0)
-
+    def _extrapolate_array(self, y0, y1):
+        """
+        For two arrays, we extrapolate the shorter array to fit the longer array.
+        User should be aware that the extrapolation is not accurate.
+        """
         len_0, len_1 = len(y0), len(y1)
-
         # if necessary, extrapolate using trend of the longer array
         if (len_0 < len_1):
             delta = y1[len_0:] - y1[len_0 - 1]
@@ -1008,10 +960,48 @@ class MISTBasicIsochrone(Isochrone):
             delta = y0[len_1:] - y0[len_1 - 1]
             y1 = np.append(y1, y1[-1] + delta, axis=0)
 
-        y = y0 * (1 - weight) + y1 * weight
-        iso = np.core.records.fromarrays(y.transpose(), dtype=mist_0.dtype)
+        return y0, y1
 
-        return iso
+    def _pad_all_isos(self, isos):
+        """
+        Since the isochrones for different age and FeH have different length, we
+        have to pad them to the same length. Here we pad them to the one with
+        the maximum length.
+        """
+        ind_longest = np.argmax([len(temp) for temp in isos])
+        for i in range(len(isos)):
+            isos[i], isos[ind_longest] = self._extrapolate_array(
+                isos[i], isos[ind_longest])
+        return isos
+
+    def interp_on_age_feh(self, log_age, feh):
+        """
+        For a given age and [Fe/H], interpolate isochrones among four 
+        isochrones with the closest age and [Fe/H].
+        """
+        from scipy.interpolate import LinearNDInterpolator
+        i_feh = self._feh_grid.searchsorted(feh)
+        i_age = self._log_age_grid.searchsorted(log_age)
+        inds = np.ravel_multi_index([[i_feh - 1, i_feh - 1, i_feh, i_feh],
+                                     [i_age - 1, i_age, i_age - 1, i_age]],
+                                    (len(self._feh_grid), len(self._log_age_grid)))
+        _four_isos = [self.all_isos[ind].copy() for ind in inds]
+        _four_isos = self._pad_all_isos(_four_isos)
+        f = LinearNDInterpolator(
+            list(zip(self.all_log_ages[inds], self.all_fehs[inds])), np.array(_four_isos))
+
+        self._iso_full = self._recover_iso_format(f(log_age, feh))
+        self.feh = feh
+        self.log_age = log_age
+
+        self.mini = self._iso_full['initial_mass']
+        self.mact = self._iso_full['star_mass']
+        self.mags = None
+        self.eep = self._iso_full['EEP']
+        self.log_L = self._iso_full['log_L']
+        self.log_Teff = self._iso_full['log_Teff']
+        self.log_g = self._iso_full['log_g']
+        self.log_R = self._iso_full['log_R']
 
     def select_phase(self, phase):
         """
