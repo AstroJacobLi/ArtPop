@@ -126,7 +126,7 @@ class Isochrone(object):
 
         isochrone_full._log_age_grid = np.unique(isochrone_full['logAge'].data)
         isochrone_full._feh_grid = np.unique(isochrone_full['MH'].data)
-        
+
         try:
             if log_age is not None:
                 age_cut = np.abs(parsec['logAge'] - log_age) < 1e-5
@@ -143,6 +143,9 @@ class Isochrone(object):
             else:
                 filt_idx = len(names) - num_filters
             parsec = parsec[np.argsort(parsec['Mini'])]
+            if np.argmax(parsec['Mini'] - parsec['Mass']) == len(parsec['Mini']) - 1:
+                parsec = parsec[:-1]
+            # parsec = parsec[parsec['imag'] < 20]
             iso = Isochrone(mini=parsec['Mini'],
                             mact=parsec['Mass'],
                             mags=parsec[names[filt_idx:]],
@@ -153,7 +156,8 @@ class Isochrone(object):
         except:
             print('Available log_ages:', isochrone_full._log_age_grid)
             print('Available metallicities:', isochrone_full._feh_grid)
-            raise Exception('log_age and/or zini not matched in the isochorne.')
+            raise Exception(
+                'log_age and/or zini not matched in the isochorne.')
 
     def interpolate(self, y_name, x_interp, x_name='mini',
                     slice_interp=np.s_[:], **kwargs):
@@ -599,7 +603,6 @@ def fetch_mist_iso_cmd(log_age, feh, phot_system, mist_path=MIST_PATH,
     """
 
     # fetch the mist grid if necessary
-    print(phot_system is None)
     if phot_system is not None:
         fetch_mist_grid_if_needed(phot_system, v_over_vcrit, mist_path)
 
@@ -615,7 +618,8 @@ def fetch_mist_iso_cmd(log_age, feh, phot_system, mist_path=MIST_PATH,
 
         # Also add log_R from the basic isochrone
         fn = f'MIST_{ver}_feh_{sign}{abs(feh):.2f}_afe_p0.0_vvcrit{v}_basic.iso'
-        path = os.path.join(mist_path, 'MIST_' + ver + f'_vvcrit{v}_basic_isos')
+        path = os.path.join(mist_path, 'MIST_' + ver +
+                            f'_vvcrit{v}_basic_isos')
         fn = os.path.join(path, fn)
         iso = IsoReader(fn, verbose=False)
         iso = iso.isos[iso.age_index(log_age)]
@@ -625,11 +629,12 @@ def fetch_mist_iso_cmd(log_age, feh, phot_system, mist_path=MIST_PATH,
         v = f'{v_over_vcrit:.1f}'
         ver = 'v1.2'
         fn = f'MIST_{ver}_feh_{sign}{abs(feh):.2f}_afe_p0.0_vvcrit{v}_basic.iso'
-        path = os.path.join(mist_path, 'MIST_' + ver + f'_vvcrit{v}_basic_isos')
+        path = os.path.join(mist_path, 'MIST_' + ver +
+                            f'_vvcrit{v}_basic_isos')
         fn = os.path.join(path, fn)
         iso_cmd = IsoReader(fn, verbose=False)
         iso_cmd = iso_cmd.isos[iso_cmd.age_index(log_age)]
-        
+
     return iso_cmd
 
 
@@ -850,13 +855,12 @@ class MISTIsochrone(Isochrone):
         return star_phases
 
 
-
 class MISTBasicIsochrone(Isochrone):
     """
     Class for fetching, storing, and interpolating MIST isochrones. 
     It also has several methods for calculating IMF-weighted photometric 
     properties of a stellar population with the given age an metallicity.
-    
+
     The difference between ``MISTIsochrone`` and ``MISTBasicIsochrone`` is that 
     we don't need ``phot_system`` here.
 
