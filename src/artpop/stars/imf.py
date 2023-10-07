@@ -235,8 +235,8 @@ class IMFIntegrator(object):
         Which IMF to use, if str then must be one of pre-defined: 'kroupa',
         'scalo' or 'salpeter'. Can also specify broken power law as dict,
         which must contain either 'a' as a Float (describing the slope of a
-        single power law) or 'a' (a list with 3 elements describing the slopes
-        of a broken power law) and 'b' (a list  with 2 elements describing the
+        single power law) or 'a' (a list with 4 elements describing the slopes
+        of a broken power law) and 'b' (a list  with 3 elements describing the
         locations of the breaks).
     m_min : float, optional
         Minimum stellar mass.
@@ -250,8 +250,8 @@ class IMFIntegrator(object):
             if params in imf_params_dict.keys():
                 params_dict = imf_params_dict[params]
                 if params == 'salpeter':
-                    self.a = [ params_dict['a'] ]*3
-                    self.b = [301.,302.]
+                    self.a = [ params_dict['a'] ]*4
+                    self.b = [301.,302.,303.]
                 else:
                     self.a = params_dict['a']
                     self.b = params_dict['b']
@@ -272,8 +272,8 @@ class IMFIntegrator(object):
                 self.b = params['b']
                 self.name = 'custom'
             elif 'a' in params.keys() and isinstance(params['a'], float):
-                self.a = [ params['a'] ]*3
-                self.b = [301.,302.]
+                self.a = [ params['a'] ]*4
+                self.b = [301.,302.,303.]
                 self.name = 'custom'
             else:
                 raise Exception(
@@ -312,8 +312,8 @@ class IMFIntegrator(object):
         """
 
         mass_grid = np.asarray(mass_grid)
-        a1, a2, a3 = self.a
-        b1, b2 = self.b
+        a1, a2, a3, a4 = self.a
+        b1, b2, b3 = self.b
         alpha = np.where(mass_grid < b1, a1, np.where(mass_grid < b2, a2, a3))
         m_break = np.where(mass_grid < b2, b1, b2 * (b1 / b2)**(a2 / a3))
         weights = (mass_grid / m_break)**(alpha)
