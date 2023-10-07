@@ -583,12 +583,17 @@ class SSP(StellarPopulation):
             if  mag_limit_band is None:
                 raise Exception('Must give bandpass of limiting magnitude.')
             mags = iso.mag_table[mag_limit_band] + self.dist_mod
+            if mag_limit < mags.min():
+                print(f'mag_lim = {mag_limit} is brighter than the brightest end, so no stars will be sampled.')
+                mag_limit = mags.min() + 0.01
+                
             if mag_limit < mags.max() and mag_limit > mags.min():
                 m_lim = iso.mag_to_mass(
                     mag_limit - self.dist_mod, mag_limit_band).min()
                 f_num_sampled  = imfint.integrate(m_lim, iso.m_max, True)
                 f_mass_sampled = imfint.m_integrate(m_lim, iso.m_max, True)
             else:
+                print(f'mag_lim = {mag_limit} is outside mag range: {mags.min(), mags.max()}.')
                 logger.warning(f'mag_lim = {mag_limit} is outside mag range.')
         return m_lim, f_num_sampled, f_mass_sampled
 

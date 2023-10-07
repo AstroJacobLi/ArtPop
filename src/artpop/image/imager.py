@@ -356,7 +356,7 @@ class ArtImager(Imager):
         self.lam_eff = None
         self.filters = None
         self.zpt_inst = None
-        if phot_system is not None:
+        if phot_system is not None and phot_system != 'Roman':
             self.dlam = {}
             self.lam_eff = {}
             self.phot_system = phot_system
@@ -379,6 +379,28 @@ class ArtImager(Imager):
                     select = np.array(self.filters_speclite.names) == 'WFIRST-' + filt
                     self.dlam[filt] = self.filters_speclite.dlam[select].to(u.AA)
                     self.lam_eff[filt] = self.filters_speclite.effective_wavelengths[select].to(u.AA)
+                    
+        elif phot_system == 'Roman':
+            self.dlam = {}
+            self.lam_eff = {}
+            self.phot_system = phot_system
+            ## add speclite support for Roman WFI filters (newer than WFIRST)
+            import speclite.filters
+            from speclite.filters import default_flux_unit
+            speclite.filters.filter_group_names += ['Roman']
+            self.filters_speclite = speclite.filters.load_filters('Roman-*')
+            # self.filters_speclite.dlam = [np.trapz(filt.response / filt.response.max(), filt.wavelength) for filt in self.filters_speclite] * u.AA
+            self.filters_speclite.dlam = [np.trapz(filt.response, filt.wavelength) for filt in self.filters_speclite] * u.AA
+            # This width takes into account the fact that the filter curves are not normalized to 1
+            # So the width will be smaller than the width of the filter curve if it were normalized to 1
+            self.filters = [item.replace('Roman-', '') for item in self.filters_speclite.names]
+            
+            for filt in self.filters:
+                select = np.array(self.filters_speclite.names) == 'Roman-' + filt
+                self.dlam[filt] = self.filters_speclite.dlam[select].to(u.AA)
+                self.lam_eff[filt] = self.filters_speclite.effective_wavelengths[select].to(u.AA)
+                self.efficiency[filt] = efficiency
+            
         elif zpt_inst is not None:
             self.filters = list(zpt_inst.keys())
             self.zpt_inst = zpt_inst
@@ -411,7 +433,7 @@ class ArtImager(Imager):
         return np.pi * r**2
 
     def calib_efficiency(self):
-        assert self.phot_system == 'WFIRST', 'only WFIRST has to calibrate efficiency'
+        assert self.phot_system == 'WFIRST' or self.phot_system == 'Roman', 'only WFIRST and Roman (newer WFIRST) have to calibrate efficiency'
         # recalbirate the efficiency
         from speclite.filters import default_flux_unit
         import astropy.constants as const
@@ -419,8 +441,8 @@ class ArtImager(Imager):
         for filt in self.filters_speclite._responses:
             fluxes = (lambda wlen=mag: (const.c / wlen**2 * fnu_from_AB_mag(mag)).to(default_flux_unit) for mag in mags)
             counts = [(filt.convolve_with_function(flux) * self.area.to(u.cm**2)).value for flux in fluxes]
-            counts_atp = self.mag_to_counts(mags, filt.name.replace('WFIRST-', ''), 1)
-            self.efficiency[filt.name.replace('WFIRST-', '')] = np.mean(counts / counts_atp)
+            counts_artpop = self.mag_to_counts(mags, filt.name.replace(f'{self.phot_system}-', ''), 1)
+            self.efficiency[filt.name.replace(f'{self.phot_system}-', '')] = np.mean(counts / counts_artpop)
 
     def mag_to_counts(self, mags, bandpass, exptime):
         """

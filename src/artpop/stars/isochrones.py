@@ -145,6 +145,9 @@ class Isochrone(object):
             else:
                 filt_idx = len(names) - num_filters
             parsec = parsec[np.argsort(parsec['Mini'])]
+            if np.argmax(parsec['Mini'] - parsec['Mass']) == len(parsec['Mini']) - 1:
+                parsec = parsec[:-1]
+            # parsec = parsec[parsec['imag'] < 20]
             iso = Isochrone(mini=parsec['Mini'],
                             mact=parsec['Mass'],
                             mags=parsec[names[filt_idx:]],
