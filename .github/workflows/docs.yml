@@ -20,7 +20,7 @@ jobs:
 
    - name: Install pandoc
      run: |
-        sudo apt-get install -y --no-install-recommends pandoc
+        $APT_INSTALL pandoc
     
     - name: Install docs dependencies
       run: |
