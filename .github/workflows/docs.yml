@@ -2,9 +2,6 @@ name: sphinxdocumentation
 
 on: [push, pull_request]
 
-env:
-  APT_INSTALL: sudo apt-get install -y --no-install-recommends
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,7 +20,7 @@ jobs:
 
    - name: Install pandoc
      run: |
-        $APT_INSTALL pandoc
+        sudo apt-get install -y --no-install-recommends pandoc
     
     - name: Install docs dependencies
       run: |
