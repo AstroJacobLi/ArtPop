@@ -19,6 +19,9 @@ jobs:
       with:
         python-version: "3.9"
 
+    - name: pandoc
+      uses: docker://pandoc/core:2.9
+
 
     - name: Install docs dependencies
       run: |
