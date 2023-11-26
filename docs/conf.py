@@ -46,7 +46,7 @@ plot_include_source = False
 
 
 # Custom setting for nbsphinx - timeout for executing one cell
-# nbsphinx_timeout = 300
+nbsphinx_timeout = 300
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

@@ -316,9 +316,12 @@ class ArtImager(Imager):
         will be assumed to be meters.
     read_noise : float, optional
         RMS of Gaussian read noise. Set to zero by default.
-    efficiency : float, optional
+    efficiency : dict, optional
         Efficiency factor (e.g., to account for CCD efficiency, atmospheric
-        transmission, etc). It is set to one by default.
+        transmission, etc) for each band. It is set to one by default. 
+        If a float is given, the same efficiency will be used for all bands.
+    transparency : float, optional
+        Atmospheric transparency. Set to one by default.
     dlam : dict of floats or dict of ~astropy.units.Quantity`, optional
         Dictionary containing the filter widths. Used for converting magnitudes
         into counts. Filter names should be the keys and the widths the values.
@@ -345,8 +348,8 @@ class ArtImager(Imager):
     """
 
     def __init__(self, phot_system=None, diameter=10, read_noise=0.0,
-                 efficiency=1.0, dlam=None, lam_eff=None, filter_system=None,
-                 zpt_inst=None, random_state=None):
+                 efficiency=1.0, transparency=1.0, dlam=None, lam_eff=None, 
+                 filter_system=None, zpt_inst=None, random_state=None):
         if isinstance(efficiency, float):
             efficiency = {filt: efficiency for filt in get_filter_names(phot_system)}
         elif isinstance(efficiency, dict):
@@ -354,6 +357,7 @@ class ArtImager(Imager):
         else:
             raise Exception('efficiency must be a float or a dictionary')
         self.efficiency = efficiency
+        self.transparency = transparency
         self.read_noise = read_noise
         self.diameter = check_units(diameter, 'm')
         self.rng = check_random_state(random_state)
@@ -372,7 +376,6 @@ class ArtImager(Imager):
                 select = props['bandpass'] == filt
                 self.dlam[filt] = props[select]['dlam'][0]
                 self.lam_eff[filt] = props[select]['lam_eff'][0]
-                # self.efficiency[filt] = efficiency
 
             if phot_system == 'WFIRST':
                 ## add speclite support for WFIRST filters
@@ -479,7 +482,7 @@ class ArtImager(Imager):
             counts = photon_flux * self.area.to('cm2') * exptime.to('s')
             counts = counts.decompose()
             assert counts.unit == u.dimensionless_unscaled
-            counts *= self.efficiency[bandpass]
+            counts *= self.efficiency[bandpass] * self.transparency
             counts = counts.value
 
         else:
@@ -525,7 +528,7 @@ class ArtImager(Imager):
             counts_per_pixel = photon_flux_per_sq_pixel * exptime.to('s')
             counts_per_pixel *= self.area.to('cm2') * u.pixel**2
             assert counts_per_pixel.unit == u.dimensionless_unscaled
-            counts_per_pixel *= self.efficiency[bandpass]
+            counts_per_pixel *= self.efficiency[bandpass] * self.transparency
             counts_per_pixel = counts_per_pixel.value
         else:
             counts_per_pixel = 10**(0.4 * (self.zpt_inst[bandpass] - sb))
@@ -559,7 +562,7 @@ class ArtImager(Imager):
             cali_factor = 10**(0.4 * zpt) * 10**(0.4 * mAB_0) / lam_factor
             cali_factor /= exptime.to('s').value
             cali_factor /= self.area.to('cm2').value
-            cali_factor /= self.efficiency[bandpass]
+            cali_factor /= self.efficiency[bandpass] * self.transparency
         else:
             cali_factor = 10**(0.4 * (zpt - self.zpt_inst[bandpass]))
             cali_factor /= exptime.to('s').value
