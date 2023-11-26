@@ -10,8 +10,8 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# sys.path.insert(0, os.path.abspath('.'))
+import os
+sys.path.insert(0, os.path.abspath('.'))
 import sys
 try:
     from sphinx_astropy.conf.v1  import *
@@ -30,14 +30,11 @@ author = 'Johnny Greco and Shany Danieli'
 # -- General configuration ---------------------------------------------------
 
 highlight_language = 'python3'
-needs_sphinx = '1.7'
-
-check_sphinx_version("1.2.1")
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-#extensions = ['sphinx_automodapi.automodapi']
+extensions = ['sphinx_automodapi.automodapi']
 #numpydoc_show_class_members = False
 
 extensions.append('sphinxemoji.sphinxemoji')
