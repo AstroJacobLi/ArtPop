@@ -31,7 +31,7 @@ Getting Started
    getting_started/citing
 
 
-<!-- *********
+*********
 Tutorials
 *********
 
@@ -43,7 +43,7 @@ Tutorials
    tutorials/spatial.ipynb
    tutorials/source.ipynb
    tutorials/artimages.ipynb
-   tutorials/inject.ipynb -->
+   tutorials/inject.ipynb
 
 *******
 Modules
