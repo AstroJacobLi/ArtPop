@@ -27,7 +27,7 @@ jobs:
     - name: Build docs
       working-directory: ./docs
       run: |
-        make html
+        make clean html
 #      uses: ammaraskar/sphinx-action@master
 #      with:
 #        docs-folder: "docs/"
