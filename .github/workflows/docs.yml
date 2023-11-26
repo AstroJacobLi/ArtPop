@@ -18,12 +18,14 @@ jobs:
       with:
         python-version: "3.9"
 
-   - name: Install pandoc
-     run: |
-        $APT_INSTALL pandoc
-    
+    - name: Test Pandoc
+      uses: docker://pandoc/core:2.9
+      with:
+        args: "--help" # gets appended to pandoc command
+
     - name: Install docs dependencies
       run: |
+        sudo apt-get install -y --no-install-recommends pandoc
         pip install --upgrade pip
         pip install -e .
         pip install -r ./docs/requirements.txt
@@ -31,7 +33,7 @@ jobs:
     - name: Build docs
       working-directory: ./docs
       run: |
-        make html
+        make clean html
 #      uses: ammaraskar/sphinx-action@master
 #      with:
 #        docs-folder: "docs/"
