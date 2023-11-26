@@ -4,4 +4,4 @@ sphinx-automodapi
 sphinx-astropy
 sphinxemoji
 nbsphinx
-pandoc
+pypandoc
