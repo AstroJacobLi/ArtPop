@@ -347,7 +347,13 @@ class ArtImager(Imager):
     def __init__(self, phot_system=None, diameter=10, read_noise=0.0,
                  efficiency=1.0, dlam=None, lam_eff=None, filter_system=None,
                  zpt_inst=None, random_state=None):
-        self.efficiency = {}
+        if isinstance(efficiency, float):
+            efficiency = {filt: efficiency for filt in get_filter_names(phot_system)}
+        elif isinstance(efficiency, dict):
+            efficiency = {filt: efficiency[filt] for filt in get_filter_names(phot_system)}
+        else:
+            raise Exception('efficiency must be a float or a dictionary')
+        self.efficiency = efficiency
         self.read_noise = read_noise
         self.diameter = check_units(diameter, 'm')
         self.rng = check_random_state(random_state)
@@ -366,7 +372,7 @@ class ArtImager(Imager):
                 select = props['bandpass'] == filt
                 self.dlam[filt] = props[select]['dlam'][0]
                 self.lam_eff[filt] = props[select]['lam_eff'][0]
-                self.efficiency[filt] = efficiency
+                # self.efficiency[filt] = efficiency
 
             if phot_system == 'WFIRST':
                 ## add speclite support for WFIRST filters
