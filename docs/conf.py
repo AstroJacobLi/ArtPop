@@ -11,8 +11,8 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
-sys.path.insert(0, os.path.abspath('.'))
 import sys
+sys.path.insert(0, os.path.abspath('.'))
 try:
     from sphinx_astropy.conf.v1  import *
 except ImportError:
