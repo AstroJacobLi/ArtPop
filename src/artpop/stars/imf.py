@@ -13,8 +13,8 @@ __all__ = ['IMFIntegrator', 'salpeter_params', 'kroupa_params', 'scalo_params',
 
 
 # pre-defined IMF parameter dictionaries
-kroupa_params = {'a': [-0.3, -1.3, -2.3],'b': [0.08, 0.5]}
-scalo_params = {'a': [-1.2, -2.7, -2.3], 'b': [1,10]}
+kroupa_params = {'a': [-0.3, -1.3, -2.3, -2.3],'b': [0.08, 0.5, 1.0]}
+scalo_params = {'a': [-1.2, -2.7, -2.3, -2.3], 'b': [1, 10, 11]}
 salpeter_params = {'a': -2.35, 'b': [2e2, 3e2]}
 imf_params_dict = {'salpeter': salpeter_params,
                    'kroupa': kroupa_params,
@@ -235,8 +235,8 @@ class IMFIntegrator(object):
         Which IMF to use, if str then must be one of pre-defined: 'kroupa',
         'scalo' or 'salpeter'. Can also specify broken power law as dict,
         which must contain either 'a' as a Float (describing the slope of a
-        single power law) or 'a' (a list with 3 elements describing the slopes
-        of a broken power law) and 'b' (a list  with 2 elements describing the
+        single power law) or 'a' (a list with 4 elements describing the slopes
+        of a broken power law) and 'b' (a list  with 3 elements describing the
         locations of the breaks).
     m_min : float, optional
         Minimum stellar mass.
@@ -250,8 +250,8 @@ class IMFIntegrator(object):
             if params in imf_params_dict.keys():
                 params_dict = imf_params_dict[params]
                 if params == 'salpeter':
-                    self.a = [ params_dict['a'] ]*3
-                    self.b = [301.,302.]
+                    self.a = [ params_dict['a'] ]*4
+                    self.b = [301.,302.,303.]
                 else:
                     self.a = params_dict['a']
                     self.b = params_dict['b']
@@ -272,8 +272,8 @@ class IMFIntegrator(object):
                 self.b = params['b']
                 self.name = 'custom'
             elif 'a' in params.keys() and isinstance(params['a'], float):
-                self.a = [ params['a'] ]*3
-                self.b = [301.,302.]
+                self.a = [ params['a'] ]*4
+                self.b = [301.,302.,303.]
                 self.name = 'custom'
             else:
                 raise Exception(
@@ -292,6 +292,15 @@ class IMFIntegrator(object):
         """
         Calculate the weights of the IMF at grid of stellar masses.
 
+        The IMF function dn / dM is given by
+        dn / dM = M**a0 / c0 for M < b0
+        dn / dM = M**a1 / c1 for b0 < M < b1
+        dn / dM = M**a2 / c2 for b1 < M < b2
+        dn / dM = M**a3 / c3 for b2 < M,
+        
+        where c0, c1, c2, c3 are constants that are defined to ensure
+        continuity at the breaks.
+        
         Parameters
         ----------
         mass_grid : `~numpy.ndarray`
@@ -312,11 +321,18 @@ class IMFIntegrator(object):
         """
 
         mass_grid = np.asarray(mass_grid)
-        a1, a2, a3 = self.a
-        b1, b2 = self.b
-        alpha = np.where(mass_grid < b1, a1, np.where(mass_grid < b2, a2, a3))
-        m_break = np.where(mass_grid < b2, b1, b2 * (b1 / b2)**(a2 / a3))
-        weights = (mass_grid / m_break)**(alpha)
+        a0, a1, a2, a3 = self.a
+        b0, b1, b2 = self.b
+
+        # define constants to normalize functions
+        c0 = b0**a0
+        c1 = c0 * b0**(a1 - a0)
+        c2 = c1 * b1**(a2 - a1)
+        c3 = c2 * b2**(a3 - a2)
+        
+        alpha = np.where(mass_grid < b0, a0, np.where(mass_grid < b1, a1, np.where(mass_grid < b2, a2, a3)))
+        m_break = np.where(mass_grid < b0, c0, np.where(mass_grid < b1, c1, np.where(mass_grid < b2, c2, c3)))
+        weights = (mass_grid)**(alpha) / m_break
 
         if norm_type is None:
             norm = 1.
@@ -373,16 +389,23 @@ class IMFIntegrator(object):
         Helper function to calculate integral for `0` to some mass
         """
 
-        a0,a1,a2 = self.a
-        b0,b1 = self.b
+        a0, a1, a2, a3 = self.a
+        b0, b1, b2 = self.b
 
         # define constants to normalize functions
         c0 = b0**a0
-        c1 = b0**a1
-        c2 = (b1 * (b0 / b1)**(a1 / a2) )**a2
-
+        c1 = c0 * b0**(a1 - a0)
+        c2 = c1 * b1**(a2 - a1)
+        c3 = c2 * b2**(a3 - a2)
+        
         ans = 0
-        if m > b1:
+        
+        if m > b2:
+            ans = (b0**(a0+1.) - self.eval_min**(a0+1.)) / (a0+1)/c0  \
+             + (b1**(a1+1.) - b0**(a1+1.))/(a1+1)/c1  \
+             + (b2**(a2+1.) - b1**(a2+1.))/(a2+1)/c2  \
+             + (m**(a3+1.) - b2**(a3+1.))/(a3+1)/c3
+        elif m > b1:
             ans = (b0**(a0+1.) - self.eval_min**(a0+1.)) / (a0+1)/c0  \
              + (b1**(a1+1.) - b0**(a1+1.))/(a1+1)/c1  \
              + (m**(a2+1.) - b1**(a2+1.))/(a2+1)/c2
@@ -431,31 +454,37 @@ class IMFIntegrator(object):
         Helper function to calculate integral for `0` to some mass
         """
 
-        a0, a1, a2 = self.a
-        b0, b1 = self.b
+        a0, a1, a2, a3 = self.a
+        b0, b1, b2 = self.b
 
         # define constants to normalize functions
         c0 = b0**a0
-        c1 = b0**a1
-        c2 = (b1 * (b0 / b1)**(a1 / a2))**a2
+        c1 = c0 * b0**(a1 - a0)
+        c2 = c1 * b1**(a2 - a1)
+        c3 = c2 * b2**(a3 - a2)
 
         # multiply by M
         a0 += 1
         a1 += 1
         a2 += 1
+        a3 += 1
 
         ans = 0
-
-        if m > b1:
-            ans = (b0**(a0+1.) - self.eval_min**(a0+1.)) / (a0+1)/c0 \
-             + (b1**(a1+1.) - b0**(a1+1.))/(a1+1)/c1 \
+        
+        if m > b2:
+            ans = (b0**(a0+1.) - self.eval_min**(a0+1.)) / (a0+1)/c0  \
+             + (b1**(a1+1.) - b0**(a1+1.))/(a1+1)/c1  \
+             + (b2**(a2+1.) - b1**(a2+1.))/(a2+1)/c2  \
+             + (m**(a3+1.) - b2**(a3+1.))/(a3+1)/c3
+        elif m > b1:
+            ans = (b0**(a0+1.) - self.eval_min**(a0+1.)) / (a0+1)/c0  \
+             + (b1**(a1+1.) - b0**(a1+1.))/(a1+1)/c1  \
              + (m**(a2+1.) - b1**(a2+1.))/(a2+1)/c2
         elif m > b0:
             ans = (b0**(a0+1.) - self.eval_min**(a0+1.))/(a0+1)/c0 \
-             + (m**(a1+1.) - b0**(a1+1.))/(a1+1) /c1
+             + (m**(a1+1.)- b0**(a1+1.))/(a1+1) /c1
         else:
             ans = (m**(a0+1.) - self.eval_min**(a0+1.))/(a0+1)/c0
-
         return ans
 
     def m_integrate(self, m_min=None, m_max=None, norm=False):
