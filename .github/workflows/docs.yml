@@ -5,7 +5,6 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: docker://pandoc/core:2.9
 
     steps:  
     - name: Checkout code
@@ -19,7 +18,13 @@ jobs:
       with:
         python-version: "3.9"
 
+    - name: Test Pandoc
+      uses: docker://pandoc/core:2.9
+      with:
+        args: "--help" # gets appended to pandoc command
+
     - name: Install docs dependencies
+      container: docker://pandoc/core:2.9
       run: |
         pip install --upgrade pip
         pip install -e .
