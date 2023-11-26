@@ -22,14 +22,15 @@ jobs:
     - name: pandoc
       uses: docker://pandoc/core:2.9
 
-
     - name: Install docs dependencies
+      uses: docker://pandoc/core:2.9
       run: |
         pip install --upgrade pip
         pip install -e .
         pip install -r ./docs/requirements.txt
 
     - name: Build docs
+      uses: docker://pandoc/core:2.9
       working-directory: ./docs
       run: |
         make html
