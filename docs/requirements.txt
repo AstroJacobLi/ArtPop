@@ -5,3 +5,4 @@ sphinx-astropy
 sphinxemoji
 nbsphinx
 pypandoc
+pandoc
