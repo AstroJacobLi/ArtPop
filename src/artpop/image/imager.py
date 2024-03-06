@@ -315,11 +315,16 @@ class ArtImager(Imager):
         Diameter of the telescope aperture. If a float is given, the units
         will be assumed to be meters.
     read_noise : float, optional
-        RMS of Gaussian read noise. Set to zero by default.
+        RMS of Gaussian read noise, in electron (e-). Set to zero by default.
+    gain : float, optional
+        Gain of the CCD, in e-/ADU. Set to one by default.
+        Typical values for gain is around 3 e-/ADU.
     efficiency : dict, optional
         Efficiency factor (e.g., to account for CCD efficiency, atmospheric
         transmission, etc) for each band. It is set to one by default. 
         If a float is given, the same efficiency will be used for all bands.
+        If a dictionary is given, the keys should be the filter names and the
+        values the efficiencies.
     transparency : float, optional
         Atmospheric transparency. Set to one by default.
     dlam : dict of floats or dict of ~astropy.units.Quantity`, optional
@@ -347,7 +352,7 @@ class ArtImager(Imager):
         return it. Otherwise raise ``ValueError``.
     """
 
-    def __init__(self, phot_system=None, diameter=10, read_noise=0.0,
+    def __init__(self, phot_system=None, diameter=10, read_noise=0.0, gain=None,
                  efficiency=1.0, transparency=1.0, dlam=None, lam_eff=None, 
                  filter_system=None, zpt_inst=None, random_state=None):
         if isinstance(efficiency, float):
@@ -359,6 +364,12 @@ class ArtImager(Imager):
         self.efficiency = efficiency
         self.transparency = transparency
         self.read_noise = read_noise
+        if gain is None:
+            self.gain = 1.0
+            # alert user that gain is set to 1
+            print('Warning: gain was set to 1.0 by default.')
+        else:
+            self.gain = gain
         self.diameter = check_units(diameter, 'm')
         self.rng = check_random_state(random_state)
 
@@ -482,7 +493,8 @@ class ArtImager(Imager):
             counts = photon_flux * self.area.to('cm2') * exptime.to('s')
             counts = counts.decompose()
             assert counts.unit == u.dimensionless_unscaled
-            counts *= self.efficiency[bandpass] * self.transparency
+            counts *= self.efficiency[bandpass] * self.transparency # here it's in e-
+            counts /= self.gain
             counts = counts.value
 
         else:
@@ -528,7 +540,8 @@ class ArtImager(Imager):
             counts_per_pixel = photon_flux_per_sq_pixel * exptime.to('s')
             counts_per_pixel *= self.area.to('cm2') * u.pixel**2
             assert counts_per_pixel.unit == u.dimensionless_unscaled
-            counts_per_pixel *= self.efficiency[bandpass] * self.transparency
+            counts_per_pixel *= self.efficiency[bandpass] * self.transparency # here it's in e-
+            counts_per_pixel /= self.gain
             counts_per_pixel = counts_per_pixel.value
         else:
             counts_per_pixel = 10**(0.4 * (self.zpt_inst[bandpass] - sb))
@@ -650,7 +663,9 @@ class ArtImager(Imager):
         if sky_sb is not None:
             sky_counts = self.sb_to_counts_per_pixel(
                 sky_sb, bandpass, exptime, source.pixel_scale)
-            n_s = np.sqrt(self.read_noise**2 + sky_counts + counts) / counts
+            # read noise is in e- so we need to convert sky_counts to e-
+            # n_s = np.sqrt(self.read_noise**2 + sky_counts + counts) / counts
+            n_s = np.sqrt(self.read_noise**2 + sky_counts * self.gain + counts * self.gain) / (counts * self.gain)
             mag_error = 2.5 * np.log10(1 + n_s)
         else:
             src_counts[src_counts < 0] = 0
@@ -658,17 +673,18 @@ class ArtImager(Imager):
             mag_error = None
         # HACK: Use Normal distribution for Windows. Poisson sampling
         # breaks in Windows due to long ints being 32 bit.
+        # Poisson process happens on electron level
         if sys.platform =='win32':
             _c = src_counts + sky_counts
             raw_counts = self.rng.normal(loc=_c, scale=np.sqrt(_c))
         else:
-            raw_counts = self.rng.poisson(src_counts + sky_counts)
+            raw_counts = self.rng.poisson((src_counts + sky_counts) * self.gain) / self.gain
         if self.read_noise > 0.0:
-            rn = self.rng.normal(scale=self.read_noise, size=src_counts.shape)
+            rn = self.rng.normal(scale=self.read_noise / self.gain, size=src_counts.shape)
             raw_counts = raw_counts + rn
         cali = self.calibration(bandpass, exptime, zpt)
         image_cali = (raw_counts - sky_counts) * cali
-        var = raw_counts + self.read_noise**2
+        var = raw_counts + (self.read_noise / self.gain)**2
         observation = ArtObservation(
             raw_counts=raw_counts,
             src_counts=src_counts,
