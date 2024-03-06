@@ -541,8 +541,7 @@ class ArtImager(Imager):
             counts_per_pixel *= self.area.to('cm2') * u.pixel**2
             assert counts_per_pixel.unit == u.dimensionless_unscaled
             counts_per_pixel *= self.efficiency[bandpass] * self.transparency # here it's in e-
-            counts_per_pixel /= self.gain
-            counts_per_pixel = counts_per_pixel.value
+            counts_per_pixel = counts_per_pixel.value / self.gain # now in ADU
         else:
             counts_per_pixel = 10**(0.4 * (self.zpt_inst[bandpass] - sb))
             counts_per_pixel *= exptime.to('s').value
@@ -576,6 +575,7 @@ class ArtImager(Imager):
             cali_factor /= exptime.to('s').value
             cali_factor /= self.area.to('cm2').value
             cali_factor /= self.efficiency[bandpass] * self.transparency
+            cali_factor *= self.gain
         else:
             cali_factor = 10**(0.4 * (zpt - self.zpt_inst[bandpass]))
             cali_factor /= exptime.to('s').value
