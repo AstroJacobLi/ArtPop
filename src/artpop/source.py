@@ -7,6 +7,7 @@ from astropy import units as u
 from astropy.table import Table, vstack
 from astropy.modeling.models import Sersic2D
 from scipy.special import gammaincinv, gamma
+import copy
 
 # Project
 from . import MIST_PATH
@@ -18,6 +19,7 @@ from .util import check_units, check_xy_dim
 
 __all__ = [
     'Source',
+    'BackgroundSource',
     'SersicSP',
     'MISTSersicSSP',
     'PlummerSP',
@@ -51,7 +53,7 @@ class Source(object):
         if type(mags) == dict:
             self.mags = Table(mags)
         else:
-            self.mags = mags.copy()
+            self.mags = copy.copy(mags)
         if len(xy) != len(self.mags):
             raise Exception('numbers of magnitudes and positions must match')
         if type(xy) == np.ma.MaskedArray:
@@ -121,6 +123,61 @@ class CompositeSource(Source):
     """A source consisting of 2 or more `~artpop.source.Source` objects."""
     pass
 
+class BackgroundSource(Source):
+    """A background galaxy or other extended source. We do not sample stars, and we
+    assume everything is Sersic. We give a position, mags, and a Sersic index."""
+
+    def __init__(self, xy, mags, xy_dim, pixel_scale, n, r_eff, theta, ellip, labels=None):
+        self.xy = xy
+        self.mags = mags
+        self.xy_dim = check_xy_dim(xy_dim)
+        self.pixel_scale = check_units(pixel_scale, u.arcsec / u.pixel)
+        self.n = n
+        self.ellip = ellip # 1 - b/a, not following (1-q)/(1+q) convention
+        self.r_eff = r_eff # arcsec
+        self.theta = theta
+        self.labels = labels
+        
+        self.r_sky = r_eff * u.arcsec
+        self.r_pix = self.r_sky.to('pixel', u.pixel_scale(pixel_scale)).value
+        
+        self.smooth_model = Sersic2D(
+                x_0=self.xy[0], y_0=self.xy[1], n=self.n, 
+                r_eff=self.r_pix, theta=self.theta, ellip=self.ellip)
+        super(BackgroundSource, self).__init__(
+            [xy], Table(mags), xy_dim, pixel_scale, labels)
+    
+    def mag_to_image_amplitude(self, m_tot, zpt):
+        """
+        Convert total magnitude into amplitude parameter for the smooth model.
+
+        Parameters
+        ----------
+        m_tot : float
+            Total magnitude in the smooth component of the system.
+        zpt : float
+            Photometric zero point.
+
+        Returns
+        -------
+        mu_e : float
+            Surface brightness at the effective radius of the Sersic
+            distribution in mags per square arcsec.
+        amplitude : float
+            Amplitude parameter for the smooth model in image flux units.
+        param_name : str
+            Name of amplitude parameter (needed to set its value when
+            generating the smooth model).
+        """
+        param_name = 'amplitude'
+        b_n = gammaincinv(2.0 * self.n, 0.5)
+        f_n = gamma(2 * self.n) *self.n * np.exp(b_n) / b_n**(2 * self.n)
+        r_circ = self.r_sky * np.sqrt(1 - self.ellip)
+        area = np.pi * r_circ.to('arcsec').value**2
+        mu_e = m_tot + 2.5 * np.log10(2 * area) + 2.5 * np.log10(f_n)
+        amplitude = 10**(0.4 * (zpt - mu_e)) * self.pixel_scale.value**2
+        return mu_e, amplitude, param_name
+    
 
 class SersicSP(Source):
     """

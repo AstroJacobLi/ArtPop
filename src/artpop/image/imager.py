@@ -15,7 +15,7 @@ from fast_histogram import histogram2d
 # Project
 from ..util import check_units, check_random_state
 from ..filters import FilterSystem, get_filter_names, get_filter_properties
-from ..source import Source
+from ..source import Source, BackgroundSource
 
 
 __all__ = ['IdealObservation', 'ArtObservation', 'IdealImager', 'ArtImager']
@@ -131,7 +131,7 @@ class Imager(metaclass=abc.ABCMeta):
     def _check_source(self, source):
         """Verify that input object is a Source object."""
         if Source not in source.__class__.__mro__:
-            raise Exception(f'{type(src)} is not a valid Source object.')
+            raise Exception(f'{type(source)} is not a valid Source object.')
 
     def _check_bandpass(self, bandpass):
         """Verify bandpass is the loaded filter list."""
@@ -609,7 +609,10 @@ class ArtImager(Imager):
             if source.smooth_model is None:
                 image = image
             else:
-                mag = source.sp.mag_integrated_component(bandpass)
+                if hasattr(source, 'sp'):
+                    mag = source.sp.mag_integrated_component(bandpass)
+                else:
+                    mag = float(source.mags[bandpass])
                 amp, _, name = source.mag_to_image_amplitude(mag, zpt)
                 amp_counts = self.sb_to_counts_per_pixel(
                     amp, bandpass, exptime, source.pixel_scale)
@@ -620,8 +623,42 @@ class ArtImager(Imager):
             image = image
         return image
 
+    def inject_gals(self, image, objs, bandpass, exptime, zpt, pixel_scale, xy_dim):
+        from astropy.modeling.models import Sersic2D
+        from ..util import mag_to_image_amplitude
+        from tqdm import trange
+        if objs is None:
+            image = image
+        else:
+            if image is None:
+                image = np.zeros(xy_dim, dtype=float)
+            amps, _, _ = mag_to_image_amplitude(objs[f'{bandpass}'].value, 
+                                                objs['r_eff'], # arcsec
+                                                objs['n'],
+                                                objs['ellip'], 
+                                                zpt, pixel_scale)
+            # amps is actually mu_e
+            amp_counts = self.sb_to_counts_per_pixel(amps, bandpass, exptime, pixel_scale)
+            yy, xx = np.mgrid[:image.shape[0], :image.shape[1]]
+            for i in trange(len(objs)):
+                obj = objs[i]
+                smooth_model = Sersic2D(
+                    amplitude=amp_counts[i],
+                    x_0=obj['x'], y_0=obj['y'], n=obj['n'], 
+                    r_eff=(obj['r_eff'] / pixel_scale.value), # pixel
+                    theta=obj['theta'], ellip=obj['ellip'])
+                image = image + smooth_model(xx, yy)
+
+        return image
+    
+    def import_bkg(self, bkg_file, exptime):
+        temp = fits.open(bkg_file)[1].data
+        temp *= exptime.to('s').value
+        return temp
+        
+
     def observe(self, source, bandpass, exptime, sky_sb=None, psf=None,
-                zpt=27.0, mask=None, **kwargs):
+                zpt=27.0, mask=None, bkg_file=None, bkg_ori=None, **kwargs):
         """
         Make artificial observation.
 
@@ -656,9 +693,21 @@ class ArtImager(Imager):
         exptime = check_units(exptime, 's')
         counts = self.mag_to_counts(source.mags[bandpass], bandpass, exptime)
         src_counts = self.inject_stars(source.x, source.y,
-                                       counts, source.xy_dim, mask)
+                                    counts, source.xy_dim, mask)
         src_counts = self.inject_smooth_model(src_counts, source,
                                               bandpass, exptime, zpt)
+        if bkg_file is not None:
+            temp = self.import_bkg(bkg_file, exptime)
+            # cen = (600, 600)
+            half_size = (source.xy_dim[0]//2, source.xy_dim[1]//2)
+            if bkg_ori is None:
+                ori = (temp.shape[0]//2 - half_size[0], temp.shape[1]//2 - half_size[1])
+            else:
+                ori = bkg_ori
+            cut_region = np.s_[ori[0]:ori[0]+source.xy_dim[0], ori[1]:ori[1]+source.xy_dim[1]]
+            src_counts += temp[cut_region]
+        # src_counts += self.import_bkg(bkg_file, exptime, source.xy_dim)
+
         src_counts = self.apply_seeing(src_counts, psf, **kwargs)
         if sky_sb is not None:
             sky_counts = self.sb_to_counts_per_pixel(
@@ -696,5 +745,53 @@ class ArtImager(Imager):
             bandpass=bandpass,
             exptime=exptime,
             mag_error=mag_error
+        )
+        return observation
+
+    def observe_background(self, bkg_file, bandpass, exptime, xy_dim, pixel_scale, 
+                           sky_sb=None, psf=None, zpt=27.0, **kwargs):
+        """
+        Make artificial observation only for background galaxies. 
+        """
+        self._check_bandpass(bandpass)
+        exptime = check_units(exptime, 's')
+        src_counts = self.import_bkg(bkg_file, exptime)
+        src_counts = self.apply_seeing(src_counts, psf, **kwargs)
+        if sky_sb is not None:
+            sky_counts = self.sb_to_counts_per_pixel(
+                sky_sb, bandpass, exptime, pixel_scale)
+            # read noise is in e- so we need to convert sky_counts to e-
+            # n_s = np.sqrt(self.read_noise**2 + sky_counts + counts) / counts
+            # n_s = np.sqrt(self.read_noise**2 + sky_counts * self.gain + counts * self.gain) / (counts * self.gain)
+            # mag_error = 2.5 * np.log10(1 + n_s)
+        else:
+            src_counts[src_counts < 0] = 0
+            sky_counts = 0
+            mag_error = None
+        # HACK: Use Normal distribution for Windows. Poisson sampling
+        # breaks in Windows due to long ints being 32 bit.
+        # Poisson process happens on electron level
+        if sys.platform =='win32':
+            _c = src_counts + sky_counts
+            raw_counts = self.rng.normal(loc=_c, scale=np.sqrt(_c))
+        else:
+            raw_counts = self.rng.poisson((src_counts + sky_counts) * self.gain) / self.gain
+        if self.read_noise > 0.0:
+            rn = self.rng.normal(scale=self.read_noise / self.gain, size=src_counts.shape)
+            raw_counts = raw_counts + rn
+        cali = self.calibration(bandpass, exptime, zpt)
+        image_cali = (raw_counts - sky_counts) * cali
+        var = raw_counts + (self.read_noise / self.gain)**2
+        observation = ArtObservation(
+            raw_counts=raw_counts,
+            src_counts=src_counts,
+            sky_counts=sky_counts,
+            image=image_cali,
+            var_image=var,
+            calibration=cali,
+            zpt=zpt,
+            bandpass=bandpass,
+            exptime=exptime,
+            mag_error=None
         )
         return observation

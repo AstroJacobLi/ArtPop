@@ -288,3 +288,36 @@ def trim_mist_grid_if_needed(v_over_vcrit=0.4, mist_path=MIST_PATH, overwrite=Fa
         np.save(os.path.join(output_path, 'isos.npy'), all_isos)
         np.save(os.path.join(output_path, 'datatype.npy'), datatype)
         print('Done trimming MIST isochrones and saved to files.')
+
+
+def mag_to_image_amplitude(m_tot, r_sky, n, ellip, zpt, pixel_scale):
+    """
+    Convert total magnitude into amplitude parameter for the smooth Sersic model.
+
+    Parameters
+    ----------
+    m_tot : float
+        Total magnitude in the smooth component of the system.
+    zpt : float
+        Photometric zero point.
+
+    Returns
+    -------
+    mu_e : float
+        Surface brightness at the effective radius of the Sersic
+        distribution in mags per square arcsec.
+    amplitude : float
+        Amplitude parameter for the smooth model in image flux units.
+    param_name : str
+        Name of amplitude parameter (needed to set its value when
+        generating the smooth model).
+    """
+    from scipy.special import gammaincinv, gamma
+    param_name = 'amplitude'
+    b_n = gammaincinv(2.0 * n, 0.5)
+    f_n = gamma(2 * n) *n * np.exp(b_n) / b_n**(2 * n)
+    r_circ = r_sky * np.sqrt(1 - ellip)
+    area = np.pi * r_circ.to('arcsec').value**2
+    mu_e = m_tot + 2.5 * np.log10(2 * area) + 2.5 * np.log10(f_n)
+    amplitude = 10**(0.4 * (zpt - mu_e)) * pixel_scale.value**2
+    return mu_e, amplitude, param_name
