@@ -358,7 +358,7 @@ class ArtImager(Imager):
         if isinstance(efficiency, float):
             efficiency = {filt: efficiency for filt in get_filter_names(phot_system)}
         elif isinstance(efficiency, dict):
-            efficiency = {filt: efficiency[filt] for filt in get_filter_names(phot_system)}
+            efficiency = efficiency # {filt: efficiency[filt] for filt in get_filter_names(phot_system)}
         else:
             raise Exception('efficiency must be a float or a dictionary')
         self.efficiency = efficiency
@@ -420,7 +420,7 @@ class ArtImager(Imager):
                 self.dlam[filt] = self.filters_speclite.dlam[select].to(u.AA)
                 self.lam_eff[filt] = self.filters_speclite.effective_wavelengths[select].to(u.AA)
                 self.efficiency[filt] = efficiency
-            
+
         elif zpt_inst is not None:
             self.filters = list(zpt_inst.keys())
             self.zpt_inst = zpt_inst
