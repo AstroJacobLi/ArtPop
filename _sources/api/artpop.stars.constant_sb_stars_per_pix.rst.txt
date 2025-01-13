@@ -1,0 +1,6 @@
+constant_sb_stars_per_pix
+=========================
+
+.. currentmodule:: artpop.stars
+
+.. autofunction:: constant_sb_stars_per_pix

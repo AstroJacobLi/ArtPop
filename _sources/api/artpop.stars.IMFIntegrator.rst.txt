@@ -1,0 +1,25 @@
+IMFIntegrator
+=============
+
+.. currentmodule:: artpop.stars
+
+.. autoclass:: IMFIntegrator
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~IMFIntegrator.func
+      ~IMFIntegrator.integrate
+      ~IMFIntegrator.m_func
+      ~IMFIntegrator.m_integrate
+      ~IMFIntegrator.weights
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: func
+   .. automethod:: integrate
+   .. automethod:: m_func
+   .. automethod:: m_integrate
+   .. automethod:: weights

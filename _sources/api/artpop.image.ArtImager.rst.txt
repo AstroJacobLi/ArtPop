@@ -1,0 +1,47 @@
+ArtImager
+=========
+
+.. currentmodule:: artpop.image
+
+.. autoclass:: ArtImager
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~ArtImager.area
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~ArtImager.apply_seeing
+      ~ArtImager.calib_efficiency
+      ~ArtImager.calibration
+      ~ArtImager.import_bkg
+      ~ArtImager.inject_gals
+      ~ArtImager.inject_smooth_model
+      ~ArtImager.inject_stars
+      ~ArtImager.mag_to_counts
+      ~ArtImager.observe
+      ~ArtImager.observe_background
+      ~ArtImager.sb_to_counts_per_pixel
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: area
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: apply_seeing
+   .. automethod:: calib_efficiency
+   .. automethod:: calibration
+   .. automethod:: import_bkg
+   .. automethod:: inject_gals
+   .. automethod:: inject_smooth_model
+   .. automethod:: inject_stars
+   .. automethod:: mag_to_counts
+   .. automethod:: observe
+   .. automethod:: observe_background
+   .. automethod:: sb_to_counts_per_pixel

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>IdealObservation &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Source (artpop.source)" href="../modules/source.html" />
+    <link rel="prev" title="IdealImager" href="artpop.image.IdealImager.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="../modules/source.html" title="Source (artpop.source)">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="artpop.image.IdealImager.html" title="IdealImager">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      <li><a href="../modules/image/index.html" accesskey="U">Image Simulation (<code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.image</span></code>)</a> &#187;</li>
+      
+      <li>IdealObservation</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="idealobservation">
+<h1>IdealObservation<a class="headerlink" href="#idealobservation" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="artpop.image.IdealObservation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">artpop.image.</span></span><span class="sig-name descname"><span class="pre">IdealObservation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zpt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.image.IdealObservation" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Observation</span></code></p>
+<p>Return object for the ideal imager.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>image<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>The ideal mock image.</p>
+</dd>
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>Filter of the observation.</p>
+</dd>
+<dt>zpt<span class="classifier">float</span></dt><dd><p>The magnitude zero point.</p>
+</dd>
+</dl>
+<p class="rubric">Methods Summary</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.image.IdealObservation.copy" title="artpop.image.IdealObservation.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>()</p></td>
+<td><p>Create deep copy of observation object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.image.IdealObservation.from_pickle" title="artpop.image.IdealObservation.from_pickle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_pickle</span></code></a>(file_name)</p></td>
+<td><p>Load pickle of observation object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.image.IdealObservation.to_fits" title="artpop.image.IdealObservation.to_fits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_fits</span></code></a>(file_name[, overwrite, image_type])</p></td>
+<td><p>Write image to fits file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.image.IdealObservation.to_pickle" title="artpop.image.IdealObservation.to_pickle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_pickle</span></code></a>(file_name)</p></td>
+<td><p>Pickle observation object.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Documentation</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.image.IdealObservation.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#artpop.image.IdealObservation.copy" title="Link to this definition">¶</a></dt>
+<dd><p>Create deep copy of observation object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.image.IdealObservation.from_pickle">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_pickle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.image.IdealObservation.from_pickle" title="Link to this definition">¶</a></dt>
+<dd><p>Load pickle of observation object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.image.IdealObservation.to_fits">
+<span class="sig-name descname"><span class="pre">to_fits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'image'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.image.IdealObservation.to_fits" title="Link to this definition">¶</a></dt>
+<dd><p>Write image to fits file.</p>
+<section id="id1">
+<h3>Parameters<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>file_name<span class="classifier">str</span></dt><dd><p>Name of fits file.</p>
+</dd>
+<dt>overwrite<span class="classifier">str, optional</span></dt><dd><p>If True (default), overwrite the image if it exists.</p>
+</dd>
+<dt>image_type<span class="classifier">str, optional</span></dt><dd><p>Attribute name of the image to be written.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.image.IdealObservation.to_pickle">
+<span class="sig-name descname"><span class="pre">to_pickle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.image.IdealObservation.to_pickle" title="Link to this definition">¶</a></dt>
+<dd><p>Pickle observation object.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">IdealObservation</a><ul>
+<li><a class="reference internal" href="#artpop.image.IdealObservation"><code class="docutils literal notranslate"><span class="pre">IdealObservation</span></code></a><ul>
+<li><a class="reference internal" href="#artpop.image.IdealObservation.copy"><code class="docutils literal notranslate"><span class="pre">IdealObservation.copy()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.image.IdealObservation.from_pickle"><code class="docutils literal notranslate"><span class="pre">IdealObservation.from_pickle()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.image.IdealObservation.to_fits"><code class="docutils literal notranslate"><span class="pre">IdealObservation.to_fits()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.image.IdealObservation.to_pickle"><code class="docutils literal notranslate"><span class="pre">IdealObservation.to_pickle()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/api/artpop.image.IdealObservation.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

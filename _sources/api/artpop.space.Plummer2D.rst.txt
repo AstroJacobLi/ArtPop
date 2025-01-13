@@ -1,0 +1,143 @@
+Plummer2D
+=========
+
+.. currentmodule:: artpop.space
+
+.. autoclass:: Plummer2D
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~Plummer2D.amplitude
+      ~Plummer2D.bbox_with_units
+      ~Plummer2D.bounding_box
+      ~Plummer2D.bounds
+      ~Plummer2D.col_fit_deriv
+      ~Plummer2D.cov_matrix
+      ~Plummer2D.eqcons
+      ~Plummer2D.fit_deriv
+      ~Plummer2D.fittable
+      ~Plummer2D.fixed
+      ~Plummer2D.has_user_bounding_box
+      ~Plummer2D.has_user_inverse
+      ~Plummer2D.ineqcons
+      ~Plummer2D.input_units
+      ~Plummer2D.input_units_allow_dimensionless
+      ~Plummer2D.input_units_equivalencies
+      ~Plummer2D.input_units_strict
+      ~Plummer2D.inputs
+      ~Plummer2D.inverse
+      ~Plummer2D.linear
+      ~Plummer2D.meta
+      ~Plummer2D.model_constraints
+      ~Plummer2D.model_set_axis
+      ~Plummer2D.n_inputs
+      ~Plummer2D.n_outputs
+      ~Plummer2D.n_submodels
+      ~Plummer2D.name
+      ~Plummer2D.outputs
+      ~Plummer2D.param_names
+      ~Plummer2D.param_sets
+      ~Plummer2D.parameter_constraints
+      ~Plummer2D.parameters
+      ~Plummer2D.return_units
+      ~Plummer2D.scale_radius
+      ~Plummer2D.separable
+      ~Plummer2D.standard_broadcasting
+      ~Plummer2D.stds
+      ~Plummer2D.sync_constraints
+      ~Plummer2D.tied
+      ~Plummer2D.uses_quantity
+      ~Plummer2D.x_0
+      ~Plummer2D.y_0
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~Plummer2D.__call__
+      ~Plummer2D.coerce_units
+      ~Plummer2D.copy
+      ~Plummer2D.deepcopy
+      ~Plummer2D.evaluate
+      ~Plummer2D.get_bounding_box
+      ~Plummer2D.has_inverse
+      ~Plummer2D.input_shape
+      ~Plummer2D.output_units
+      ~Plummer2D.prepare_inputs
+      ~Plummer2D.prepare_outputs
+      ~Plummer2D.rename
+      ~Plummer2D.render
+      ~Plummer2D.set_slice_args
+      ~Plummer2D.strip_units_from_tree
+      ~Plummer2D.sum_of_implicit_terms
+      ~Plummer2D.with_units_from_data
+      ~Plummer2D.without_units_for_data
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: amplitude
+   .. autoattribute:: bbox_with_units
+   .. autoattribute:: bounding_box
+   .. autoattribute:: bounds
+   .. autoattribute:: col_fit_deriv
+   .. autoattribute:: cov_matrix
+   .. autoattribute:: eqcons
+   .. autoattribute:: fit_deriv
+   .. autoattribute:: fittable
+   .. autoattribute:: fixed
+   .. autoattribute:: has_user_bounding_box
+   .. autoattribute:: has_user_inverse
+   .. autoattribute:: ineqcons
+   .. autoattribute:: input_units
+   .. autoattribute:: input_units_allow_dimensionless
+   .. autoattribute:: input_units_equivalencies
+   .. autoattribute:: input_units_strict
+   .. autoattribute:: inputs
+   .. autoattribute:: inverse
+   .. autoattribute:: linear
+   .. autoattribute:: meta
+   .. autoattribute:: model_constraints
+   .. autoattribute:: model_set_axis
+   .. autoattribute:: n_inputs
+   .. autoattribute:: n_outputs
+   .. autoattribute:: n_submodels
+   .. autoattribute:: name
+   .. autoattribute:: outputs
+   .. autoattribute:: param_names
+   .. autoattribute:: param_sets
+   .. autoattribute:: parameter_constraints
+   .. autoattribute:: parameters
+   .. autoattribute:: return_units
+   .. autoattribute:: scale_radius
+   .. autoattribute:: separable
+   .. autoattribute:: standard_broadcasting
+   .. autoattribute:: stds
+   .. autoattribute:: sync_constraints
+   .. autoattribute:: tied
+   .. autoattribute:: uses_quantity
+   .. autoattribute:: x_0
+   .. autoattribute:: y_0
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: __call__
+   .. automethod:: coerce_units
+   .. automethod:: copy
+   .. automethod:: deepcopy
+   .. automethod:: evaluate
+   .. automethod:: get_bounding_box
+   .. automethod:: has_inverse
+   .. automethod:: input_shape
+   .. automethod:: output_units
+   .. automethod:: prepare_inputs
+   .. automethod:: prepare_outputs
+   .. automethod:: rename
+   .. automethod:: render
+   .. automethod:: set_slice_args
+   .. automethod:: strip_units_from_tree
+   .. automethod:: sum_of_implicit_terms
+   .. automethod:: with_units_from_data
+   .. automethod:: without_units_for_data

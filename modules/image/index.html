@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Image Simulation (artpop.image) &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+    
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="../../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../../_static/copybutton.js"></script>
+    <link rel="icon" href="../../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="gaussian_psf" href="../../api/artpop.image.gaussian_psf.html" />
+    <link rel="prev" title="Plummer2D" href="../../api/artpop.space.Plummer2D.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="../../api/artpop.image.gaussian_psf.html" title="gaussian_psf">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="../../api/artpop.space.Plummer2D.html" title="Plummer2D">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      
+      <li>Image Simulation (<code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.image</span></code>)</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="image-simulation-artpop-image">
+<h1>Image Simulation (<a class="reference internal" href="#module-artpop.image" title="artpop.image"><code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.image</span></code></a>)<a class="headerlink" href="#image-simulation-artpop-image" title="Link to this heading">¶</a></h1>
+<section id="api">
+<h2>API<a class="headerlink" href="#api" title="Link to this heading">¶</a></h2>
+<section id="module-artpop.image">
+<span id="artpop-image-package"></span><h3>artpop.image Package<a class="headerlink" href="#module-artpop.image" title="Link to this heading">¶</a></h3>
+<section id="functions">
+<h4>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h4>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../api/artpop.image.gaussian_psf.html#artpop.image.gaussian_psf" title="artpop.image.gaussian_psf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gaussian_psf</span></code></a>(fwhm[, pixel_scale, shape, ...])</p></td>
+<td><p>Gaussian point-spread function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../../api/artpop.image.moffat_psf.html#artpop.image.moffat_psf" title="artpop.image.moffat_psf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">moffat_psf</span></code></a>(fwhm[, pixel_scale, shape, ...])</p></td>
+<td><p>Moffat point-spread function.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h4>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h4>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../api/artpop.image.ArtImager.html#artpop.image.ArtImager" title="artpop.image.ArtImager"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ArtImager</span></code></a>([phot_system, diameter, ...])</p></td>
+<td><p>Imager for making fully artificial images.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../../api/artpop.image.ArtObservation.html#artpop.image.ArtObservation" title="artpop.image.ArtObservation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ArtObservation</span></code></a>(raw_counts, src_counts, ...)</p></td>
+<td><p>Return object for the artificial imager.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../api/artpop.image.IdealImager.html#artpop.image.IdealImager" title="artpop.image.IdealImager"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IdealImager</span></code></a>()</p></td>
+<td><p>Ideal imager for making noise-free images.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../../api/artpop.image.IdealObservation.html#artpop.image.IdealObservation" title="artpop.image.IdealObservation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IdealObservation</span></code></a>(image, zpt, bandpass)</p></td>
+<td><p>Return object for the ideal imager.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">Image Simulation (<code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.image</span></code>)</a><ul>
+<li><a class="reference internal" href="#api">API</a><ul>
+<li><a class="reference internal" href="#module-artpop.image">artpop.image Package</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../../_sources/modules/image/index.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>SersicSP &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="MISTSersicSSP" href="artpop.source.MISTSersicSSP.html" />
+    <link rel="prev" title="BackgroundSource" href="artpop.source.BackgroundSource.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="artpop.source.MISTSersicSSP.html" title="MISTSersicSSP">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="artpop.source.BackgroundSource.html" title="BackgroundSource">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      <li><a href="../modules/source.html" accesskey="U">Source (<code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.source</span></code>)</a> &#187;</li>
+      
+      <li>SersicSP</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="sersicsp">
+<h1>SersicSP<a class="headerlink" href="#sersicsp" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="artpop.source.SersicSP">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">artpop.source.</span></span><span class="sig-name descname"><span class="pre">SersicSP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_eff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ellip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xy_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_r_eff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.source.SersicSP" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="artpop.source.Source.html#artpop.source.Source" title="artpop.source.Source"><code class="xref py py-class docutils literal notranslate"><span class="pre">Source</span></code></a></p>
+<p>Stellar population with a Sersic spatial distribution.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>sp<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StellarPopulation</span></code></span></dt><dd><p>A stellar population object.</p>
+</dd>
+<dt>r_eff<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></span></dt><dd><p>Effective radius of the source. If a float is given, the units are
+assumed to be <code class="xref py py-obj docutils literal notranslate"><span class="pre">kpc</span></code>. Must be greater than zero.</p>
+</dd>
+<dt>n<span class="classifier">float</span></dt><dd><p>Sersic index. Must be greater than zero.</p>
+</dd>
+<dt>theta<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></span></dt><dd><p>Rotation angle, counterclockwise from the positive x-axis. If a float
+is given, the units are assumed to be <code class="xref py py-obj docutils literal notranslate"><span class="pre">degree</span></code>.</p>
+</dd>
+<dt>ellip<span class="classifier">float</span></dt><dd><p>Ellipticity.</p>
+</dd>
+<dt>xy_dim<span class="classifier">int or list-like</span></dt><dd><p>Dimensions of the mock image in xy coordinates. If int is given,
+will make the x and y dimensions the same.</p>
+</dd>
+<dt>pixel_scale<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></span></dt><dd><p>The pixel scale of the mock image. If a float is given, the units will
+be assumed to be <code class="xref py py-obj docutils literal notranslate"><span class="pre">arcsec</span> <span class="pre">/</span> <span class="pre">pixels</span></code>. Default is <code class="xref py py-obj docutils literal notranslate"><span class="pre">0.2</span> <span class="pre">arcsec</span> <span class="pre">/</span> <span class="pre">pixel</span></code>.</p>
+</dd>
+<dt>num_r_eff<span class="classifier">float, optional</span></dt><dd><p>Number of r_eff to sample positions within. This parameter is needed
+because the current Sersic sampling function samples from within a
+discrete grid. Default is 10.</p>
+</dd>
+<dt>dx<span class="classifier">float, optional</span></dt><dd><p>Shift from center of image in the x direction.</p>
+</dd>
+<dt>dy<span class="classifier">float, optional</span></dt><dd><p>Shift from center of image in the y direction.</p>
+</dd>
+<dt>labels<span class="classifier">list-like, optional</span></dt><dd><p>Labels for the stars. For example, EEP values (int or float) or name
+of evolutionary phase (str).</p>
+</dd>
+</dl>
+<p class="rubric">Attributes Summary</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.source.SersicSP.num_stars" title="artpop.source.SersicSP.num_stars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_stars</span></code></a></p></td>
+<td><p>Number of stars in source</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.source.SersicSP.x" title="artpop.source.SersicSP.x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">x</span></code></a></p></td>
+<td><p>x coordinates</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.source.SersicSP.y" title="artpop.source.SersicSP.y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">y</span></code></a></p></td>
+<td><p>y coordinates</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Summary</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.source.SersicSP.copy" title="artpop.source.SersicSP.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>()</p></td>
+<td><p>Create deep copy of source object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.source.SersicSP.mag_to_image_amplitude" title="artpop.source.SersicSP.mag_to_image_amplitude"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mag_to_image_amplitude</span></code></a>(m_tot, zpt)</p></td>
+<td><p>Convert total magnitude into amplitude parameter for the smooth model.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.source.SersicSP.mag_to_stips_SB" title="artpop.source.SersicSP.mag_to_stips_SB"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mag_to_stips_SB</span></code></a>(m_tot, imager, bandpass)</p></td>
+<td><p>Convert total magnitude into surface brightness at R_e (counts/s/pixel) for STIPS</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.source.SersicSP.select_stars" title="artpop.source.SersicSP.select_stars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_stars</span></code></a>(label)</p></td>
+<td><p>Return boolean mask that is set to True for stars of given label.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes Documentation</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.source.SersicSP.num_stars">
+<span class="sig-name descname"><span class="pre">num_stars</span></span><a class="headerlink" href="#artpop.source.SersicSP.num_stars" title="Link to this definition">¶</a></dt>
+<dd><p>Number of stars in source</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.source.SersicSP.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#artpop.source.SersicSP.x" title="Link to this definition">¶</a></dt>
+<dd><p>x coordinates</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.source.SersicSP.y">
+<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#artpop.source.SersicSP.y" title="Link to this definition">¶</a></dt>
+<dd><p>y coordinates</p>
+</dd></dl>
+
+<p class="rubric">Methods Documentation</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.source.SersicSP.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#artpop.source.SersicSP.copy" title="Link to this definition">¶</a></dt>
+<dd><p>Create deep copy of source object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.source.SersicSP.mag_to_image_amplitude">
+<span class="sig-name descname"><span class="pre">mag_to_image_amplitude</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m_tot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zpt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.source.SersicSP.mag_to_image_amplitude" title="Link to this definition">¶</a></dt>
+<dd><p>Convert total magnitude into amplitude parameter for the smooth model.</p>
+<section id="id1">
+<h3>Parameters<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>m_tot<span class="classifier">float</span></dt><dd><p>Total magnitude in the smooth component of the system.</p>
+</dd>
+<dt>zpt<span class="classifier">float</span></dt><dd><p>Photometric zero point.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>mu_e<span class="classifier">float</span></dt><dd><p>Surface brightness at the effective radius of the Sersic
+distribution in mags per square arcsec.</p>
+</dd>
+<dt>amplitude<span class="classifier">float</span></dt><dd><p>Amplitude parameter for the smooth model in image flux units.</p>
+</dd>
+<dt>param_name<span class="classifier">str</span></dt><dd><p>Name of amplitude parameter (needed to set its value when
+generating the smooth model).</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.source.SersicSP.mag_to_stips_SB">
+<span class="sig-name descname"><span class="pre">mag_to_stips_SB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m_tot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imager</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.source.SersicSP.mag_to_stips_SB" title="Link to this definition">¶</a></dt>
+<dd><p>Convert total magnitude into surface brightness at R_e (counts/s/pixel) for STIPS</p>
+<section id="id2">
+<h3>Parameters<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>m_tot<span class="classifier">float</span></dt><dd><p>Total magnitude in the smooth component of the system.</p>
+</dd>
+<dt>imager<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ArtImager</span></code></span></dt><dd><p>An imager object.</p>
+</dd>
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>Name of the bandpass.</p>
+</dd>
+</dl>
+</section>
+<section id="id3">
+<h3>Returns<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>I_e<span class="classifier">float</span></dt><dd><p>Surface brightness at the effective radius of the Sersic
+distribution, in counts/s/pixel.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.source.SersicSP.select_stars">
+<span class="sig-name descname"><span class="pre">select_stars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.source.SersicSP.select_stars" title="Link to this definition">¶</a></dt>
+<dd><p>Return boolean mask that is set to True for stars of given label.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">SersicSP</a><ul>
+<li><a class="reference internal" href="#artpop.source.SersicSP"><code class="docutils literal notranslate"><span class="pre">SersicSP</span></code></a><ul>
+<li><a class="reference internal" href="#artpop.source.SersicSP.num_stars"><code class="docutils literal notranslate"><span class="pre">SersicSP.num_stars</span></code></a></li>
+<li><a class="reference internal" href="#artpop.source.SersicSP.x"><code class="docutils literal notranslate"><span class="pre">SersicSP.x</span></code></a></li>
+<li><a class="reference internal" href="#artpop.source.SersicSP.y"><code class="docutils literal notranslate"><span class="pre">SersicSP.y</span></code></a></li>
+<li><a class="reference internal" href="#artpop.source.SersicSP.copy"><code class="docutils literal notranslate"><span class="pre">SersicSP.copy()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.source.SersicSP.mag_to_image_amplitude"><code class="docutils literal notranslate"><span class="pre">SersicSP.mag_to_image_amplitude()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.source.SersicSP.mag_to_stips_SB"><code class="docutils literal notranslate"><span class="pre">SersicSP.mag_to_stips_SB()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.source.SersicSP.select_stars"><code class="docutils literal notranslate"><span class="pre">SersicSP.select_stars()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/api/artpop.source.SersicSP.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

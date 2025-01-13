@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Building Stellar Populations &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Sampling Spatial Distributions" href="spatial.html" />
+    <link rel="prev" title="Quick Start" href="quickstart.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="spatial.html" title="Sampling Spatial Distributions">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="quickstart.html" title="Quick Start">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      
+      <li>Building Stellar Populations</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="Building-Stellar-Populations">
+<h1>Building Stellar Populations<a class="headerlink" href="#Building-Stellar-Populations" title="Link to this heading">¶</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/ArtificialStellarPopulations/ArtPop/blob/main/colab_tutorials/pops.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p>In this tutorial, we demonstrate <strong>ArtPop</strong>’s built-in stellar population synthesis capability. Because of the modular design of the code, it is possible to build stellar populations independently from generating mock images. This is useful, for example, when you are only interested in calculating integrated photometric properties of the population.</p>
+<p><strong>Note:</strong> To generate MIST synthetic photometry using <strong>ArtPop</strong>, <a class="reference internal" href="../getting_started/mist.html"><span class="doc">MIST isochrone grids</span></a> are required. The first time you use a MIST grid, <strong>ArtPop</strong> will download it and save it to your <code class="docutils literal notranslate"><span class="pre">MIST_PATH</span></code>. If this environment variable is not set, the grid(s) will be saved in <code class="docutils literal notranslate"><span class="pre">~/.artpop/mist</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Third-party imports</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy</span><span class="w"> </span><span class="kn">import</span> <span class="n">units</span> <span class="k">as</span> <span class="n">u</span>
+
+<span class="c1"># Project import</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">artpop</span>
+
+<span class="c1"># artpop&#39;s matplotlib style</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">artpop</span><span class="o">.</span><span class="n">mpl_style</span><span class="p">)</span>
+
+<span class="c1"># use this random state for reproducibility</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">112</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="Simple-Stellar-Population-(SSP)">
+<h2>Simple Stellar Population (SSP)<a class="headerlink" href="#Simple-Stellar-Population-(SSP)" title="Link to this heading">¶</a></h2>
+<p>In <strong>ArtPop</strong>, the basic stellar population unit is the simple stellar population (SSP), which is a population of stars of a single age and metallicity. To synthesize an SSP, <strong>ArtPop</strong> samples stellar masses from a user-specified initial mass function (<code class="docutils literal notranslate"><span class="pre">imf</span></code>) and generates stellar magnitudes by interpolating synthetic photometry from an isochrone model.</p>
+<p>Here, we will use the MIST isochrone models using <strong>ArtPop</strong>’s built-in tools for fetching MIST synthetic photometry grids. To generate an SSP using MIST, we use the <code class="docutils literal notranslate"><span class="pre">MISTSSP</span></code> class:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ssp</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">MISTSSP</span><span class="p">(</span>
+    <span class="n">log_age</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span>          <span class="c1"># log of age in years</span>
+    <span class="n">feh</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>             <span class="c1"># metallicity [Fe/H]</span>
+    <span class="n">phot_system</span> <span class="o">=</span> <span class="s1">&#39;LSST&#39;</span><span class="p">,</span> <span class="c1"># photometric system(s)</span>
+    <span class="n">num_stars</span> <span class="o">=</span> <span class="mf">1e5</span><span class="p">,</span>      <span class="c1"># number of stars</span>
+    <span class="n">imf</span> <span class="o">=</span> <span class="s1">&#39;kroupa&#39;</span><span class="p">,</span>       <span class="c1"># default imf</span>
+    <span class="n">random_state</span> <span class="o">=</span> <span class="n">rng</span><span class="p">,</span>   <span class="c1"># random state for reproducibility</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>This generates a population of 10<span class="math notranslate nohighlight">\(^5\)</span> stars of age 1 Gyr and metallicity [Fe/H] = -1 (a tenth the solar value). With <code class="docutils literal notranslate"><span class="pre">phot_system</span> <span class="pre">=</span> <span class="pre">'LSST'</span></code>, stellar magnitudes in the LSST <em>ugrizy</em> photometric system are interpolated and stored in the <code class="docutils literal notranslate"><span class="pre">ssp</span></code> object. It is also possible to pass a list of photometric systems, e.g. <code class="docutils literal notranslate"><span class="pre">['LSST',</span> <span class="pre">'SDSSugriz']</span></code>, in which case magnitudes in both systems are interpolated and stored.</p>
+<p>For reference, the supported MIST photometric system names are stored in the variable <code class="docutils literal notranslate"><span class="pre">phot_system_list</span></code>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">artpop</span><span class="o">.</span><span class="n">phot_system_list</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;HST_WFC3&#39;,
+ &#39;HST_ACSWF&#39;,
+ &#39;SDSSugriz&#39;,
+ &#39;CFHTugriz&#39;,
+ &#39;DECam&#39;,
+ &#39;HSC&#39;,
+ &#39;JWST&#39;,
+ &#39;LSST&#39;,
+ &#39;UBVRIplus&#39;,
+ &#39;UKIDSS&#39;,
+ &#39;WFIRST&#39;]
+</pre></div></div>
+</div>
+<p>The filter names for a given photometric system may be recovered using the <code class="docutils literal notranslate"><span class="pre">get_filter_names</span></code> function:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">artpop</span><span class="o">.</span><span class="n">get_filter_names</span><span class="p">(</span><span class="s1">&#39;LSST&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;LSST_u&#39;, &#39;LSST_g&#39;, &#39;LSST_r&#39;, &#39;LSST_i&#39;, &#39;LSST_z&#39;, &#39;LSST_y&#39;]
+</pre></div></div>
+</div>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">log_Teff</span></code> and <code class="docutils literal notranslate"><span class="pre">log_L</span></code> attributes of <code class="docutils literal notranslate"><span class="pre">ssp</span></code>, the HR-diagram for the population may be plotted like this:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ssp</span><span class="o">.</span><span class="n">log_Teff</span><span class="p">,</span> <span class="n">ssp</span><span class="o">.</span><span class="n">log_L</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">,</span> <span class="n">mec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">invert_xaxis</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\log(\mathrm{T_</span><span class="si">{eff}</span><span class="s1">/K})$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\log(\mathrm{L/L_\odot})$&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_pops_11_0.png" class="no-scaled-link" src="../_images/tutorials_pops_11_0.png" style="width: 396px; height: 271px;" />
+</div>
+</div>
+<section id="Integrated-Properties">
+<h3>Integrated Properties<a class="headerlink" href="#Integrated-Properties" title="Link to this heading">¶</a></h3>
+<p>There are several methods for calculating integrated photometric properties of the population:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;M_i   = </span><span class="si">{</span><span class="n">ssp</span><span class="o">.</span><span class="n">total_mag</span><span class="p">(</span><span class="s1">&#39;LSST_i&#39;</span><span class="p">)</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SBF_i = </span><span class="si">{</span><span class="n">ssp</span><span class="o">.</span><span class="n">sbf_mag</span><span class="p">(</span><span class="s1">&#39;LSST_i&#39;</span><span class="p">)</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;g - i = </span><span class="si">{</span><span class="n">ssp</span><span class="o">.</span><span class="n">integrated_color</span><span class="p">(</span><span class="s1">&#39;LSST_g&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;LSST_i&#39;</span><span class="p">)</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+M_i   = -8.23
+SBF_i = -1.53
+g - i =  0.40
+</pre></div></div>
+</div>
+<p>Note the returned magnitudes are in absolute units. This is because by default the SSP is assumed to be at 10 pc. To change the distance, you can either pass <code class="docutils literal notranslate"><span class="pre">distance</span></code> as an argument when you initialize <code class="docutils literal notranslate"><span class="pre">SSP</span></code>, or you can use the <code class="docutils literal notranslate"><span class="pre">set_distance</span></code> method:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># the distance can be given as a float or an astropy unit</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">kpc</span>
+<span class="n">ssp</span><span class="o">.</span><span class="n">set_distance</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;D = </span><span class="si">{</span><span class="n">distance</span><span class="si">:</span><span class="s1">.0f</span><span class="si">}</span><span class="se">\n</span><span class="s1">--------------&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;m_i   = </span><span class="si">{</span><span class="n">ssp</span><span class="o">.</span><span class="n">total_mag</span><span class="p">(</span><span class="s1">&#39;LSST_i&#39;</span><span class="p">)</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sbf_i = </span><span class="si">{</span><span class="n">ssp</span><span class="o">.</span><span class="n">sbf_mag</span><span class="p">(</span><span class="s1">&#39;LSST_i&#39;</span><span class="p">)</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;g - i = </span><span class="si">{</span><span class="n">ssp</span><span class="o">.</span><span class="n">integrated_color</span><span class="p">(</span><span class="s1">&#39;LSST_g&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;LSST_i&#39;</span><span class="p">)</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># if a float is given, the unit is assumed to be Mpc</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">ssp</span><span class="o">.</span><span class="n">set_distance</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">D = </span><span class="si">{</span><span class="n">distance</span><span class="si">}</span><span class="s1"> Mpc</span><span class="se">\n</span><span class="s1">--------------&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;m_i   = </span><span class="si">{</span><span class="n">ssp</span><span class="o">.</span><span class="n">total_mag</span><span class="p">(</span><span class="s1">&#39;LSST_i&#39;</span><span class="p">)</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sbf_i = </span><span class="si">{</span><span class="n">ssp</span><span class="o">.</span><span class="n">sbf_mag</span><span class="p">(</span><span class="s1">&#39;LSST_i&#39;</span><span class="p">)</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;g - i = </span><span class="si">{</span><span class="n">ssp</span><span class="o">.</span><span class="n">integrated_color</span><span class="p">(</span><span class="s1">&#39;LSST_g&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;LSST_i&#39;</span><span class="p">)</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+D = 10 kpc
+--------------
+m_i   =  6.77
+sbf_i =  13.47
+g - i =  0.40
+
+D = 10 Mpc
+--------------
+m_i   =  21.77
+sbf_i =  28.47
+g - i =  0.40
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># the distance and distance modulus are attributes</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;D = </span><span class="si">{</span><span class="n">ssp</span><span class="o">.</span><span class="n">distance</span><span class="si">}</span><span class="s1">, m - M = </span><span class="si">{</span><span class="n">ssp</span><span class="o">.</span><span class="n">dist_mod</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+D = 10.0 Mpc, m - M = 30.0
+</pre></div></div>
+</div>
+</section>
+<section id="Phase-Masks">
+<h3>Phase Masks<a class="headerlink" href="#Phase-Masks" title="Link to this heading">¶</a></h3>
+<p>When using MIST SSPs, <strong>ArtPop</strong> uses the <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2016ApJS..222....8D/abstract">Primary Equivalent Evolutionary Points (EEPs)</a> to identify the phase of stellar evolution of each star in the population. Use the <code class="docutils literal notranslate"><span class="pre">select_phase</span></code> method to generate a boolean mask that is set to <code class="docutils literal notranslate"><span class="pre">True</span></code> for stars in the given phase.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># available phases</span>
+<span class="n">ssp</span><span class="o">.</span><span class="n">phases</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;PMS&#39;,
+ &#39;MS&#39;,
+ &#39;giants&#39;,
+ &#39;RGB&#39;,
+ &#39;CHeB&#39;,
+ &#39;AGB&#39;,
+ &#39;EAGB&#39;,
+ &#39;TPAGB&#39;,
+ &#39;postAGB&#39;,
+ &#39;WDCS&#39;]
+</pre></div></div>
+</div>
+<p>Let’s plot the HR-diagram with different colors for the main sequence (MS), red giant branch (RGB), and asymptotic giant branch (note that here the subgiant branch is included in the RGB):</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># generate boolean phase masks</span>
+<span class="n">MS</span> <span class="o">=</span> <span class="n">ssp</span><span class="o">.</span><span class="n">select_phase</span><span class="p">(</span><span class="s1">&#39;MS&#39;</span><span class="p">)</span>
+<span class="n">RGB</span> <span class="o">=</span> <span class="n">ssp</span><span class="o">.</span><span class="n">select_phase</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">)</span>
+<span class="n">AGB</span> <span class="o">=</span> <span class="n">ssp</span><span class="o">.</span><span class="n">select_phase</span><span class="p">(</span><span class="s1">&#39;AGB&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ssp</span><span class="o">.</span><span class="n">log_Teff</span><span class="p">[</span><span class="n">MS</span><span class="p">],</span> <span class="n">ssp</span><span class="o">.</span><span class="n">log_L</span><span class="p">[</span><span class="n">MS</span><span class="p">],</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span>
+         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;MS&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">mec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ssp</span><span class="o">.</span><span class="n">log_Teff</span><span class="p">[</span><span class="n">RGB</span><span class="p">],</span> <span class="n">ssp</span><span class="o">.</span><span class="n">log_L</span><span class="p">[</span><span class="n">RGB</span><span class="p">],</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span>
+         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;RGB + subgiant branch&#39;</span><span class="p">,</span>
+         <span class="n">c</span><span class="o">=</span><span class="s1">&#39;tab:green&#39;</span><span class="p">,</span> <span class="n">mec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ssp</span><span class="o">.</span><span class="n">log_Teff</span><span class="p">[</span><span class="n">AGB</span><span class="p">],</span> <span class="n">ssp</span><span class="o">.</span><span class="n">log_L</span><span class="p">[</span><span class="n">AGB</span><span class="p">],</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span>
+         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;AGB&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">,</span> <span class="n">mec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">invert_xaxis</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\log(\mathrm{T_</span><span class="si">{eff}</span><span class="s1">/K})$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\log(\mathrm{L/L_\odot})$&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_pops_21_0.png" class="no-scaled-link" src="../_images/tutorials_pops_21_0.png" style="width: 396px; height: 271px;" />
+</div>
+</div>
+<p>Check out the <a class="reference internal" href="../api/artpop.stars.SSP.html"><span class="doc">SSP</span></a> API (or use tab complete) to see the full list of attributes and methods that are available.</p>
+</section>
+<section id="Sampling-an-IMF">
+<h3>Sampling an IMF<a class="headerlink" href="#Sampling-an-IMF" title="Link to this heading">¶</a></h3>
+<p>As noted above, <strong>ArtPop</strong> is modular, which means all of its components can be used independently. For example, here we sample stellar masses from the <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2001MNRAS.322..231K/abstract">Kroupa initial mass function</a>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># sample the Kroupa IMF</span>
+<span class="n">m_min</span> <span class="o">=</span> <span class="mf">0.08</span> <span class="c1"># minimum mass</span>
+<span class="n">m_max</span> <span class="o">=</span> <span class="mf">5.0</span>  <span class="c1"># maximum mass</span>
+<span class="n">sampled_masses</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">sample_imf</span><span class="p">(</span><span class="mf">1e6</span><span class="p">,</span> <span class="n">imf</span><span class="o">=</span><span class="s1">&#39;kroupa&#39;</span><span class="p">,</span>
+                                   <span class="n">m_min</span><span class="o">=</span><span class="n">m_min</span><span class="p">,</span> <span class="n">m_max</span><span class="o">=</span><span class="n">m_max</span><span class="p">,</span>
+                                   <span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+
+<span class="c1"># plot histogram of sampled masses</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">sampled_masses</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">,</span>
+         <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sampled masses&#39;</span><span class="p">)</span>
+
+<span class="c1"># plot the analytic Kroupa and Salpeter IMFs for comparison</span>
+<span class="n">mass_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">m_min</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">m_max</span><span class="p">),</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">mass_grid</span><span class="p">,</span> <span class="n">artpop</span><span class="o">.</span><span class="n">kroupa</span><span class="p">(</span><span class="n">mass_grid</span><span class="p">,</span> <span class="n">norm_type</span><span class="o">=</span><span class="s1">&#39;number&#39;</span><span class="p">),</span>
+           <span class="n">c</span><span class="o">=</span><span class="s1">&#39;tomato&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Kroupa IMF&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">mass_grid</span><span class="p">,</span> <span class="n">artpop</span><span class="o">.</span><span class="n">salpeter</span><span class="p">(</span><span class="n">mass_grid</span><span class="p">,</span> <span class="n">norm_type</span><span class="o">=</span><span class="s1">&#39;number&#39;</span><span class="p">),</span>
+           <span class="n">c</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Salpeter IMF&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;M/M$_\odot$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;dN/dM&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_pops_24_0.png" class="no-scaled-link" src="../_images/tutorials_pops_24_0.png" style="width: 406px; height: 271px;" />
+</div>
+</div>
+</section>
+</section>
+<section id="Composite-Stellar-Populations">
+<h2>Composite Stellar Populations<a class="headerlink" href="#Composite-Stellar-Populations" title="Link to this heading">¶</a></h2>
+<p>In <strong>ArtPop</strong>, building composite stellar populations (CSPs) composed of two or more SSPs is as simple adding together <code class="docutils literal notranslate"><span class="pre">SSP</span></code> objects. In this example, we’ll create three SSPs <span class="math notranslate nohighlight">\(-\)</span> an old, intermediate-age, and young population, which we will combine into a composite population.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ssp_old</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">MISTSSP</span><span class="p">(</span>
+    <span class="n">log_age</span> <span class="o">=</span> <span class="mf">10.1</span><span class="p">,</span>       <span class="c1"># log of age in years</span>
+    <span class="n">feh</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">,</span>           <span class="c1"># metallicity [Fe/H]</span>
+    <span class="n">phot_system</span> <span class="o">=</span> <span class="s1">&#39;LSST&#39;</span><span class="p">,</span> <span class="c1"># photometric system(s)</span>
+    <span class="n">num_stars</span> <span class="o">=</span> <span class="mf">5e5</span><span class="p">,</span>      <span class="c1"># number of stars</span>
+    <span class="n">random_state</span> <span class="o">=</span> <span class="n">rng</span><span class="p">,</span>   <span class="c1"># random state for reproducibility</span>
+<span class="p">)</span>
+
+<span class="n">ssp_intermediate</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">MISTSSP</span><span class="p">(</span>
+    <span class="n">log_age</span> <span class="o">=</span> <span class="mf">9.5</span><span class="p">,</span>        <span class="c1"># log of age in years</span>
+    <span class="n">feh</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>             <span class="c1"># metallicity [Fe/H]</span>
+    <span class="n">phot_system</span> <span class="o">=</span> <span class="s1">&#39;LSST&#39;</span><span class="p">,</span> <span class="c1"># photometric system(s)</span>
+    <span class="n">num_stars</span> <span class="o">=</span> <span class="mf">1e5</span><span class="p">,</span>      <span class="c1"># number of stars</span>
+    <span class="n">random_state</span> <span class="o">=</span> <span class="n">rng</span><span class="p">,</span>   <span class="c1"># random state for reproducibility</span>
+<span class="p">)</span>
+
+<span class="n">ssp_young</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">MISTSSP</span><span class="p">(</span>
+    <span class="n">log_age</span> <span class="o">=</span> <span class="mf">8.5</span><span class="p">,</span>        <span class="c1"># log of age in years</span>
+    <span class="n">feh</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>              <span class="c1"># metallicity [Fe/H]</span>
+    <span class="n">phot_system</span> <span class="o">=</span> <span class="s1">&#39;LSST&#39;</span><span class="p">,</span> <span class="c1"># photometric system(s)</span>
+    <span class="n">num_stars</span> <span class="o">=</span> <span class="mf">1e4</span><span class="p">,</span>      <span class="c1"># number of stars</span>
+    <span class="n">random_state</span> <span class="o">=</span> <span class="n">rng</span><span class="p">,</span>   <span class="c1"># random state for reproducibility</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>We then intuitively combine the SSPs using the <code class="docutils literal notranslate"><span class="pre">+</span></code> operator:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">csp</span> <span class="o">=</span> <span class="n">ssp_old</span> <span class="o">+</span> <span class="n">ssp_intermediate</span> <span class="o">+</span> <span class="n">ssp_young</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">csp</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;class &#39;artpop.stars.populations.CompositePopulation&#39;&gt;
+</pre></div></div>
+</div>
+<p>All of the <code class="docutils literal notranslate"><span class="pre">SSP</span></code> attributes and methods are available to <code class="docutils literal notranslate"><span class="pre">CSP</span></code> objects. Let’s use the <code class="docutils literal notranslate"><span class="pre">star_mags</span></code> method to plot a color magnitude diagram for the CSP:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="n">csp</span><span class="o">.</span><span class="n">star_mags</span><span class="p">(</span><span class="s1">&#39;LSST_i&#39;</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">csp</span><span class="o">.</span><span class="n">star_mags</span><span class="p">(</span><span class="s1">&#39;LSST_g&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">g</span><span class="o">-</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;blueviolet&#39;</span><span class="p">,</span> <span class="n">mec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$g-i$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;M$_i$&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_pops_30_0.png" class="no-scaled-link" src="../_images/tutorials_pops_30_0.png" style="width: 392px; height: 271px;" />
+</div>
+</div>
+<p>Each SSP is labeled (1, 2, 3, etc.) from left to right in the <code class="docutils literal notranslate"><span class="pre">csp</span></code> definition. You can isolate each population like this:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">old</span> <span class="o">=</span> <span class="n">csp</span><span class="o">.</span><span class="n">ssp_labels</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="n">med</span> <span class="o">=</span> <span class="n">csp</span><span class="o">.</span><span class="n">ssp_labels</span> <span class="o">==</span> <span class="mi">2</span>
+<span class="n">young</span> <span class="o">=</span> <span class="n">csp</span><span class="o">.</span><span class="n">ssp_labels</span> <span class="o">==</span> <span class="mi">3</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="n">old</span><span class="p">]</span> <span class="o">-</span> <span class="n">i</span><span class="p">[</span><span class="n">old</span><span class="p">],</span> <span class="n">i</span><span class="p">[</span><span class="n">old</span><span class="p">],</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span>
+         <span class="n">c</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">,</span> <span class="n">mec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;old&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="n">med</span><span class="p">]</span> <span class="o">-</span> <span class="n">i</span><span class="p">[</span><span class="n">med</span><span class="p">],</span> <span class="n">i</span><span class="p">[</span><span class="n">med</span><span class="p">],</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span>
+         <span class="n">c</span><span class="o">=</span><span class="s1">&#39;tab:green&#39;</span><span class="p">,</span> <span class="n">mec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;intermediate&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="n">young</span><span class="p">]</span> <span class="o">-</span> <span class="n">i</span><span class="p">[</span><span class="n">young</span><span class="p">],</span> <span class="n">i</span><span class="p">[</span><span class="n">young</span><span class="p">],</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span>
+         <span class="n">c</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">mec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;young&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$g-i$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;M$_i$&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_pops_32_0.png" class="no-scaled-link" src="../_images/tutorials_pops_32_0.png" style="width: 392px; height: 271px;" />
+</div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">Building Stellar Populations</a><ul>
+<li><a class="reference internal" href="#Simple-Stellar-Population-(SSP)">Simple Stellar Population (SSP)</a><ul>
+<li><a class="reference internal" href="#Integrated-Properties">Integrated Properties</a></li>
+<li><a class="reference internal" href="#Phase-Masks">Phase Masks</a></li>
+<li><a class="reference internal" href="#Sampling-an-IMF">Sampling an IMF</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Composite-Stellar-Populations">Composite Stellar Populations</a></li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/tutorials/pops.ipynb.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+uniform_xy
+==========
+
+.. currentmodule:: artpop.space
+
+.. autofunction:: uniform_xy

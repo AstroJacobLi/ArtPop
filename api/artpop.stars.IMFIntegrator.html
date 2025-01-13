@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>IMFIntegrator &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Isochrone" href="artpop.stars.Isochrone.html" />
+    <link rel="prev" title="scalo" href="artpop.stars.scalo.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="artpop.stars.Isochrone.html" title="Isochrone">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="artpop.stars.scalo.html" title="scalo">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      <li><a href="../modules/stars/index.html" accesskey="U">Stellar Populations (<code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.stars</span></code>)</a> &#187;</li>
+      
+      <li>IMFIntegrator</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="imfintegrator">
+<h1>IMFIntegrator<a class="headerlink" href="#imfintegrator" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="artpop.stars.IMFIntegrator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">artpop.stars.</span></span><span class="sig-name descname"><span class="pre">IMFIntegrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">120.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.IMFIntegrator" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A helper class for numerically integrating the IMF.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>params<span class="classifier">str or dict</span></dt><dd><p>Which IMF to use, if str then must be one of pre-defined: ‘kroupa’,
+‘scalo’ or ‘salpeter’. Can also specify broken power law as dict,
+which must contain either ‘a’ as a Float (describing the slope of a
+single power law) or ‘a’ (a list with 4 elements describing the slopes
+of a broken power law) and ‘b’ (a list  with 3 elements describing the
+locations of the breaks).</p>
+</dd>
+<dt>m_min<span class="classifier">float, optional</span></dt><dd><p>Minimum stellar mass.</p>
+</dd>
+<dt>m_max<span class="classifier">float, optional</span></dt><dd><p>Maximum stellar mass.</p>
+</dd>
+</dl>
+<p class="rubric">Methods Summary</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.IMFIntegrator.func" title="artpop.stars.IMFIntegrator.func"><code class="xref py py-obj docutils literal notranslate"><span class="pre">func</span></code></a>(m)</p></td>
+<td><p>Wrapper function to calculate the un-normalized values of of the IMF (i.e. dN / dM ) at grid of stellar masses.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.stars.IMFIntegrator.integrate" title="artpop.stars.IMFIntegrator.integrate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">integrate</span></code></a>([m_min, m_max, norm])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.IMFIntegrator.m_func" title="artpop.stars.IMFIntegrator.m_func"><code class="xref py py-obj docutils literal notranslate"><span class="pre">m_func</span></code></a>(m)</p></td>
+<td><p>Wrapper function to calculate the un-normalized values of the mass times the IMF (i.e. dN / d logM ) at grid of stellar masses.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.stars.IMFIntegrator.m_integrate" title="artpop.stars.IMFIntegrator.m_integrate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">m_integrate</span></code></a>([m_min, m_max, norm])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.IMFIntegrator.weights" title="artpop.stars.IMFIntegrator.weights"><code class="xref py py-obj docutils literal notranslate"><span class="pre">weights</span></code></a>(mass_grid[, norm_type, ...])</p></td>
+<td><p>Calculate the weights of the IMF at grid of stellar masses.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Documentation</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.IMFIntegrator.func">
+<span class="sig-name descname"><span class="pre">func</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.IMFIntegrator.func" title="Link to this definition">¶</a></dt>
+<dd><p>Wrapper function to calculate the un-normalized values of
+of the IMF (i.e. dN / dM ) at grid of stellar masses.</p>
+<section id="id1">
+<h3>Parameters<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>mass_grid<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>Stellar mass grid.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>weights<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>Values of dN/dM associated with each mass in the input <code class="xref py py-obj docutils literal notranslate"><span class="pre">mass_grid</span></code>.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.IMFIntegrator.integrate">
+<span class="sig-name descname"><span class="pre">integrate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.IMFIntegrator.integrate" title="Link to this definition">¶</a></dt>
+<dd><p>”
+Function to calculate the integral under the IMF.</p>
+<section id="id2">
+<h3>Parameters<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>m_min<span class="classifier">Float</span></dt><dd><p>Lower stellar mass bound of integral.</p>
+</dd>
+<dt>m_max<span class="classifier">Float</span></dt><dd><p>Upper stellar mass bound of integral.</p>
+</dd>
+<dt>norm:<span class="classifier">Bool or Float</span></dt><dd><p>Whether or not to normalize the inegral, default False. If True
+will normalize by number of stars. If a Float is given, then
+will use that value as the normalization.</p>
+</dd>
+</dl>
+</section>
+<section id="id3">
+<h3>Returns<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>weights<span class="classifier">Float</span></dt><dd><p>Value of the integral of the IMF between m_min and m_mass.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.IMFIntegrator.m_func">
+<span class="sig-name descname"><span class="pre">m_func</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.IMFIntegrator.m_func" title="Link to this definition">¶</a></dt>
+<dd><p>Wrapper function to calculate the un-normalized values of
+the mass times the IMF (i.e. dN / d logM ) at grid of stellar masses.</p>
+<section id="id4">
+<h3>Parameters<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>mass_grid<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>Stellar mass grid.</p>
+</dd>
+</dl>
+</section>
+<section id="id5">
+<h3>Returns<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>weights<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>Values dN/d logM associated with each mass in <code class="xref py py-obj docutils literal notranslate"><span class="pre">mass_grid</span></code>.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.IMFIntegrator.m_integrate">
+<span class="sig-name descname"><span class="pre">m_integrate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.IMFIntegrator.m_integrate" title="Link to this definition">¶</a></dt>
+<dd><p>”
+Function to calculate the integral under mass times the IMF.</p>
+<section id="id6">
+<h3>Parameters<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>m_min<span class="classifier">Float</span></dt><dd><p>Lower stellar mass bound of integral.</p>
+</dd>
+<dt>m_max<span class="classifier">Float</span></dt><dd><p>Upper stellar mass bound of integral.</p>
+</dd>
+<dt>norm:<span class="classifier">Bool or Float</span></dt><dd><p>Whether or not to normalize the integral, default False. If True
+will normalize by the total stellar mass. If a Float is given,
+then will use that value as the normalization.</p>
+</dd>
+</dl>
+</section>
+<section id="id7">
+<h3>Returns<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>weights<span class="classifier">Float</span></dt><dd><p>Value of the integral of mass times the IMF between
+m_min and m_mass.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.IMFIntegrator.weights">
+<span class="sig-name descname"><span class="pre">weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mass_grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_mass_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_mass_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.IMFIntegrator.weights" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the weights of the IMF at grid of stellar masses.</p>
+<p>The IMF function dn / dM is given by
+dn / dM = M**a0 / c0 for M &lt; b0
+dn / dM = M**a1 / c1 for b0 &lt; M &lt; b1
+dn / dM = M**a2 / c2 for b1 &lt; M &lt; b2
+dn / dM = M**a3 / c3 for b2 &lt; M,</p>
+<p>where c0, c1, c2, c3 are constants that are defined to ensure
+continuity at the breaks.</p>
+<section id="id8">
+<h3>Parameters<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>mass_grid<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>Stellar mass grid.</p>
+</dd>
+<dt>norm_type<span class="classifier">str, optional</span></dt><dd><p>How to normalize the weights: by ‘number’, ‘mass’, or the ‘sum’.</p>
+</dd>
+<dt>norm_mass_min<span class="classifier">int or None, optional</span></dt><dd><p>Minimum mass to use for normalization. If None, use minimum of
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">mass_grid</span></code> will be used.</p>
+</dd>
+<dt>norm_mass_max<span class="classifier">int or None, optional</span></dt><dd><p>Maximum mass to use for normalization. If None, use maximum of
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">mass_grid</span></code> will be used.</p>
+</dd>
+</dl>
+</section>
+<section id="id9">
+<h3>Returns<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>weights<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>The weights associated with each mass in the input <code class="xref py py-obj docutils literal notranslate"><span class="pre">mass_grid</span></code>.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">IMFIntegrator</a><ul>
+<li><a class="reference internal" href="#artpop.stars.IMFIntegrator"><code class="docutils literal notranslate"><span class="pre">IMFIntegrator</span></code></a><ul>
+<li><a class="reference internal" href="#artpop.stars.IMFIntegrator.func"><code class="docutils literal notranslate"><span class="pre">IMFIntegrator.func()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.IMFIntegrator.integrate"><code class="docutils literal notranslate"><span class="pre">IMFIntegrator.integrate()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.IMFIntegrator.m_func"><code class="docutils literal notranslate"><span class="pre">IMFIntegrator.m_func()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.IMFIntegrator.m_integrate"><code class="docutils literal notranslate"><span class="pre">IMFIntegrator.m_integrate()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.IMFIntegrator.weights"><code class="docutils literal notranslate"><span class="pre">IMFIntegrator.weights()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/api/artpop.stars.IMFIntegrator.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

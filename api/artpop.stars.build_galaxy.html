@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>build_galaxy &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="constant_sb_stars_per_pix" href="artpop.stars.constant_sb_stars_per_pix.html" />
+    <link rel="prev" title="Stellar Populations (artpop.stars)" href="../modules/stars/index.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="artpop.stars.constant_sb_stars_per_pix.html" title="constant_sb_stars_per_pix">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="../modules/stars/index.html" title="Stellar Populations (artpop.stars)">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      <li><a href="../modules/stars/index.html" accesskey="U">Stellar Populations (<code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.stars</span></code>)</a> &#187;</li>
+      
+      <li>build_galaxy</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="build-galaxy">
+<h1>build_galaxy<a class="headerlink" href="#build-galaxy" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="artpop.stars.build_galaxy">
+<span class="sig-prename descclassname"><span class="pre">artpop.stars.</span></span><span class="sig-name descname"><span class="pre">build_galaxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stellar_mass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_stars_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">120</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'kroupa'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_mass_bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imf_kw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.build_galaxy" title="Link to this definition">¶</a></dt>
+<dd><p>Build galaxy of a given stellar mass.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>stellar_mass<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></span></dt><dd><p>Stellar mass of galaxy. If float is given, the units are assumed to be
+solar masses.</p>
+</dd>
+<dt>num_stars_iter<span class="classifier">int</span></dt><dd><p>Number of stars to generate at each iteration. Lower this
+number (at the expense of speed) to get a more accurate total mass.)</p>
+</dd>
+<dt>num_stars<span class="classifier">int</span></dt><dd><p>Number of stars to sample.</p>
+</dd>
+<dt>m_min<span class="classifier">float, optional</span></dt><dd><p>Minimum stellar mass.</p>
+</dd>
+<dt>m_max<span class="classifier">float, optional</span></dt><dd><p>Maximum stellar mass.</p>
+</dd>
+<dt>imf<span class="classifier">str or dict</span></dt><dd><p>Which IMF to use, if str then must be one of pre-defined: ‘kroupa’,
+‘scalo’ or ‘salpeter’. Can also specify broken power law as dict,
+which must contain either ‘a’ as a Float (describing the slope of a
+single power law) or ‘a’ (a list with 3 elements describing the slopes
+of a broken power law) and ‘b’ (a list  with 2 elements describing the
+locations of the breaks).</p>
+</dd>
+<dt>num_mass_bins<span class="classifier">int, optional</span></dt><dd><p>Number of mass bins in logarithmic spaced mass grid.</p>
+</dd>
+<dt>random_state<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, int, list of ints, or <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code></span></dt><dd><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, return the <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code> singleton used by
+<code class="docutils literal notranslate"><span class="pre">numpy.random</span></code>. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>, return a new <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code>
+instance seeded with the <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>.  If <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code>,
+return it. Otherwise raise <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p>
+</dd>
+<dt>imf_kw<span class="classifier">dict, optional</span></dt><dd><p>Keyword arguments for the imf function.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>stars<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>Stellar masses of all the stars.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">build_galaxy</a><ul>
+<li><a class="reference internal" href="#artpop.stars.build_galaxy"><code class="docutils literal notranslate"><span class="pre">build_galaxy()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/api/artpop.stars.build_galaxy.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

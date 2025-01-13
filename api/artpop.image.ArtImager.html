@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ArtImager &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ArtObservation" href="artpop.image.ArtObservation.html" />
+    <link rel="prev" title="moffat_psf" href="artpop.image.moffat_psf.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="artpop.image.ArtObservation.html" title="ArtObservation">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="artpop.image.moffat_psf.html" title="moffat_psf">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      <li><a href="../modules/image/index.html" accesskey="U">Image Simulation (<code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.image</span></code>)</a> &#187;</li>
+      
+      <li>ArtImager</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="artimager">
+<h1>ArtImager<a class="headerlink" href="#artimager" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="artpop.image.ArtImager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">artpop.image.</span></span><span class="sig-name descname"><span class="pre">ArtImager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phot_system</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diameter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_noise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">efficiency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dlam</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lam_eff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_system</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zpt_inst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.image.ArtImager" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Imager</span></code></p>
+<p>Imager for making fully artificial images.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Stars are injected in the center of pixels even if subpixel coordinates
+are given. If you need subpixel precision, we recommend creating
+upsampled mock images and downsampling to the desired resolution.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you use a <code class="xref py py-obj docutils literal notranslate"><span class="pre">phot_system</span></code> and its pre-calculated filter properties, the
+conversion from magnitude to counts assumes AB magnitudes.</p>
+</div>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>phot_system<span class="classifier">str or list-like, optional</span></dt><dd><p>Name of the photometric system(s). Use this option if you are using
+magnitudes from one of the systems with pre-calculated filter
+properties included with ArtPop. See <code class="xref py py-obj docutils literal notranslate"><span class="pre">phot_system_list</span></code>.</p>
+</dd>
+<dt>diameter<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code>, optional</span></dt><dd><p>Diameter of the telescope aperture. If a float is given, the units
+will be assumed to be meters.</p>
+</dd>
+<dt>read_noise<span class="classifier">float, optional</span></dt><dd><p>RMS of Gaussian read noise, in electron (e-). Set to zero by default.</p>
+</dd>
+<dt>gain<span class="classifier">float, optional</span></dt><dd><p>Gain of the CCD, in e-/ADU. Set to one by default.
+Typical values for gain is around 3 e-/ADU.</p>
+</dd>
+<dt>efficiency<span class="classifier">dict, optional</span></dt><dd><p>Efficiency factor (e.g., to account for CCD efficiency, atmospheric
+transmission, etc) for each band. It is set to one by default. 
+If a float is given, the same efficiency will be used for all bands.
+If a dictionary is given, the keys should be the filter names and the
+values the efficiencies.</p>
+</dd>
+<dt>transparency<span class="classifier">float, optional</span></dt><dd><p>Atmospheric transparency. Set to one by default.</p>
+</dd>
+<dt>dlam<span class="classifier">dict of floats or dict of ~astropy.units.Quantity`, optional</span></dt><dd><p>Dictionary containing the filter widths. Used for converting magnitudes
+into counts. Filter names should be the keys and the widths the values.
+If the wavelengths are given as floats, angstroms will be assumed.</p>
+</dd>
+<dt>lam_eff<span class="classifier">dict of floats or dict of ~astropy.units.Quantity`, optional</span></dt><dd><p>Dictionary containing the filter effective wavelengths. Used for
+converting magnitudes into counts. Filter names should be the keys
+and the widths should be the values. If the wavelengths are given as
+floats, angstroms will be assumed.</p>
+</dd>
+<dt>filter_system<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FilterSystem</span></code>, optional</span></dt><dd><p>Filter system object with filter curves for the filters you use to
+create artificial images. This object calculates <code class="xref py py-obj docutils literal notranslate"><span class="pre">dlam</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">lam_eff</span></code>
+for converting magnitudes into counts.</p>
+</dd>
+<dt>zpt_inst<span class="classifier">dictionary, optional</span></dt><dd><p>Instrumental zero points. Format should be a dictionary with the filter
+names as keys and the zero points as values. If not None, this alone
+sets the magnitude associated with 1 count per second. This parameter
+takes precedence; parameters such as the diameter will be ignored.</p>
+</dd>
+<dt>random_state<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, int, list of ints, or <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code></span></dt><dd><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, return the <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code> singleton used by
+<code class="docutils literal notranslate"><span class="pre">numpy.random</span></code>. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>, return a new <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code>
+instance seeded with the <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>.  If <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code>,
+return it. Otherwise raise <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p>
+</dd>
+</dl>
+<p class="rubric">Attributes Summary</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.image.ArtImager.area" title="artpop.image.ArtImager.area"><code class="xref py py-obj docutils literal notranslate"><span class="pre">area</span></code></a></p></td>
+<td><p>Area of aperture.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Summary</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.image.ArtImager.apply_seeing" title="artpop.image.ArtImager.apply_seeing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_seeing</span></code></a>(image[, psf, boundary])</p></td>
+<td><p>Convolve mock image with psf.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.image.ArtImager.calib_efficiency" title="artpop.image.ArtImager.calib_efficiency"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calib_efficiency</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.image.ArtImager.calibration" title="artpop.image.ArtImager.calibration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calibration</span></code></a>(bandpass, exptime[, zpt])</p></td>
+<td><p>Calculate the calibration factor, which converts counts into calibrated flux units.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.image.ArtImager.import_bkg" title="artpop.image.ArtImager.import_bkg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">import_bkg</span></code></a>(bkg_file, exptime)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.image.ArtImager.inject_gals" title="artpop.image.ArtImager.inject_gals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inject_gals</span></code></a>(image, objs, bandpass, exptime, ...)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.image.ArtImager.inject_smooth_model" title="artpop.image.ArtImager.inject_smooth_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inject_smooth_model</span></code></a>(image, source, bandpass, ...)</p></td>
+<td><p>Inject smooth component of the star system into image if it exists.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.image.ArtImager.inject_stars" title="artpop.image.ArtImager.inject_stars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inject_stars</span></code></a>(x, y, signal, xy_dim[, mask])</p></td>
+<td><p>Inject sources into image.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.image.ArtImager.mag_to_counts" title="artpop.image.ArtImager.mag_to_counts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mag_to_counts</span></code></a>(mags, bandpass, exptime)</p></td>
+<td><p>Convert magnitudes to counts.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.image.ArtImager.observe" title="artpop.image.ArtImager.observe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">observe</span></code></a>(source, bandpass, exptime[, sky_sb, ...])</p></td>
+<td><p>Make artificial observation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.image.ArtImager.observe_background" title="artpop.image.ArtImager.observe_background"><code class="xref py py-obj docutils literal notranslate"><span class="pre">observe_background</span></code></a>(bkg_file, bandpass, ...)</p></td>
+<td><p>Make artificial observation only for background galaxies.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.image.ArtImager.sb_to_counts_per_pixel" title="artpop.image.ArtImager.sb_to_counts_per_pixel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sb_to_counts_per_pixel</span></code></a>(sb, bandpass, ...)</p></td>
+<td><p>Convert a constant surface brightness into counts per pixel.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes Documentation</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.image.ArtImager.area">
+<span class="sig-name descname"><span class="pre">area</span></span><a class="headerlink" href="#artpop.image.ArtImager.area" title="Link to this definition">¶</a></dt>
+<dd><p>Area of aperture.</p>
+</dd></dl>
+
+<p class="rubric">Methods Documentation</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.image.ArtImager.apply_seeing">
+<span class="sig-name descname"><span class="pre">apply_seeing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'wrap'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.image.ArtImager.apply_seeing" title="Link to this definition">¶</a></dt>
+<dd><p>Convolve mock image with psf.</p>
+<section id="id1">
+<h3>Parameters<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>image<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>The mock image.</p>
+</dd>
+<dt>psf<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code> or None, optional</span></dt><dd><p>The point-spread function. If None, will return the input image.</p>
+</dd>
+<dt>boundary<span class="classifier">{‘fill’, ‘wrap’}, optional</span></dt><dd><p>A flag indicating how to handle boundaries:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘fill’: set values outside the array boundary to fill_value
+(default)</p></li>
+<li><p>‘wrap’: periodic boundary</p></li>
+</ul>
+</div></blockquote>
+<p>The <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code> and ‘extend’ parameters are not supported for FFT-based
+convolution.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>image<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>The psf-convolved image. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">psf</span></code> is not <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, the original image
+is returned.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.image.ArtImager.calib_efficiency">
+<span class="sig-name descname"><span class="pre">calib_efficiency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#artpop.image.ArtImager.calib_efficiency" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.image.ArtImager.calibration">
+<span class="sig-name descname"><span class="pre">calibration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exptime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">27.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.image.ArtImager.calibration" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the calibration factor, which converts counts into
+calibrated flux units.</p>
+<section id="id2">
+<h3>Parameters<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>Filter of observation. Must be a filter in the given
+photometric system(s).</p>
+</dd>
+<dt>exptime<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></span></dt><dd><p>Exposure time. If float is given, the units are assumed to
+be <code class="xref py py-obj docutils literal notranslate"><span class="pre">second</span></code>.</p>
+</dd>
+<dt>zpt<span class="classifier">float, optional</span></dt><dd><p>The magnitude zero point of the mock image.</p>
+</dd>
+</dl>
+</section>
+<section id="id3">
+<h3>Returns<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>cali_factor<span class="classifier">float</span></dt><dd><p>The calibration factor.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.image.ArtImager.import_bkg">
+<span class="sig-name descname"><span class="pre">import_bkg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bkg_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exptime</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.image.ArtImager.import_bkg" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.image.ArtImager.inject_gals">
+<span class="sig-name descname"><span class="pre">inject_gals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exptime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zpt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xy_dim</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.image.ArtImager.inject_gals" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.image.ArtImager.inject_smooth_model">
+<span class="sig-name descname"><span class="pre">inject_smooth_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exptime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zpt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.image.ArtImager.inject_smooth_model" title="Link to this definition">¶</a></dt>
+<dd><p>Inject smooth component of the star system into image if it exists.</p>
+<section id="id4">
+<h3>Parameters<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>image<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>The artificial image.</p>
+</dd>
+<dt>source<span class="classifier"><a class="reference internal" href="artpop.source.Source.html#artpop.source.Source" title="artpop.source.Source"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Source</span></code></a></span></dt><dd><p>The artificial source.</p>
+</dd>
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>Observational bandpass of the mock observation.</p>
+</dd>
+<dt>exptime<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></span></dt><dd><p>Exposure time. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code> is given, the units are assumed to
+be <code class="xref py py-obj docutils literal notranslate"><span class="pre">second</span></code>.</p>
+</dd>
+<dt>zpt<span class="classifier">float</span></dt><dd><p>Photometric zero point.</p>
+</dd>
+</dl>
+</section>
+<section id="id5">
+<h3>Returns<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>image<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>The artificial image with the smooth model injected into it. If no
+smooth model exists, the original image will be returned.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.image.ArtImager.inject_stars">
+<span class="sig-name descname"><span class="pre">inject_stars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xy_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.image.ArtImager.inject_stars" title="Link to this definition">¶</a></dt>
+<dd><p>Inject sources into image.</p>
+<section id="id6">
+<h3>Parameters<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>x<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>Source x coordinates.</p>
+</dd>
+<dt>y<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>Source y coordinates.</p>
+</dd>
+<dt>signal<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>The signal to inject into image (e.g., flux, counts, etc…).</p>
+</dd>
+<dt>xy_dim<span class="classifier">int or list-like</span></dt><dd><p>The dimensions of mock image in xy units. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code> is given, it is
+assumed to be both the x and y dimensions: (xy_dim, xy_dim).</p>
+</dd>
+<dt>mask<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code>, optional</span></dt><dd><p>Boolean mask that is set to True for stars you want to inject.
+If None, all stars will be injected.</p>
+</dd>
+</dl>
+</section>
+<section id="id7">
+<h3>Returns<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>image<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>The mock image <em>before</em> psf convolution.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.image.ArtImager.mag_to_counts">
+<span class="sig-name descname"><span class="pre">mag_to_counts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mags</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exptime</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.image.ArtImager.mag_to_counts" title="Link to this definition">¶</a></dt>
+<dd><p>Convert magnitudes to counts.</p>
+<section id="id8">
+<h3>Parameters<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>mags<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Column</span></code></span></dt><dd><p>AB magnitudes to be converted into counts.</p>
+</dd>
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>Filter of observation. Must be a filter in the given
+photometric system(s).</p>
+</dd>
+<dt>exptime<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></span></dt><dd><p>Exposure time. If float is given, the units are assumed to
+be <code class="xref py py-obj docutils literal notranslate"><span class="pre">second</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="id9">
+<h3>Returns<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>counts<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>The counts associated with each magnitude.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.image.ArtImager.observe">
+<span class="sig-name descname"><span class="pre">observe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exptime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sky_sb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">27.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bkg_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bkg_ori</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.image.ArtImager.observe" title="Link to this definition">¶</a></dt>
+<dd><p>Make artificial observation.</p>
+<section id="id10">
+<h3>Parameters<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>source<span class="classifier"><a class="reference internal" href="artpop.source.Source.html#artpop.source.Source" title="artpop.source.Source"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Source</span></code></a></span></dt><dd><p>Artificial source to be observed.</p>
+</dd>
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>Filter of observation. Must be a filter in the given
+photometric system(s).</p>
+</dd>
+<dt>exptime<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></span></dt><dd><p>Exposure time. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code> is given, the units are assumed to
+be <code class="xref py py-obj docutils literal notranslate"><span class="pre">second</span></code>.</p>
+</dd>
+<dt>sky_sb<span class="classifier">float or None, optional</span></dt><dd><p>Constant surface brightness of the sky. If None is given, then no
+sky noise will be added.</p>
+</dd>
+<dt>psf<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code> or None, optional</span></dt><dd><p>The point-spread function. If None, will not psf-convolve image.</p>
+</dd>
+<dt>zpt<span class="classifier">float, optional</span></dt><dd><p>The magnitude zero point of the mock image.</p>
+</dd>
+<dt>mask<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code>, optional</span></dt><dd><p>Boolean mask that is set to True for stars you want to inject.
+If None, all stars will be injected.</p>
+</dd>
+</dl>
+</section>
+<section id="id11">
+<h3>Returns<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>observation<span class="classifier"><a class="reference internal" href="artpop.image.ArtObservation.html#artpop.image.ArtObservation" title="artpop.image.ArtObservation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ArtObservation</span></code></a></span></dt><dd><p>Observation object for the artificial imager.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.image.ArtImager.observe_background">
+<span class="sig-name descname"><span class="pre">observe_background</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bkg_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exptime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xy_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sky_sb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">27.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.image.ArtImager.observe_background" title="Link to this definition">¶</a></dt>
+<dd><p>Make artificial observation only for background galaxies.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.image.ArtImager.sb_to_counts_per_pixel">
+<span class="sig-name descname"><span class="pre">sb_to_counts_per_pixel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exptime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_scale</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.image.ArtImager.sb_to_counts_per_pixel" title="Link to this definition">¶</a></dt>
+<dd><p>Convert a constant surface brightness into counts per pixel.</p>
+<section id="id12">
+<h3>Parameters<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>sb<span class="classifier">float</span></dt><dd><p>Surface brightness in units of <code class="xref py py-obj docutils literal notranslate"><span class="pre">mag</span></code> per square
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">arcsec</span></code>.</p>
+</dd>
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>Filter of observation. Must be a filter in the given
+photometric system(s).</p>
+</dd>
+<dt>exptime<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></span></dt><dd><p>Exposure time. If float is given, the units are assumed to
+be <code class="xref py py-obj docutils literal notranslate"><span class="pre">second</span></code>.</p>
+</dd>
+<dt>pixel_scale<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></span></dt><dd><p>Pixel scale.</p>
+</dd>
+</dl>
+</section>
+<section id="id13">
+<h3>Returns<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>counts_per_pixel<span class="classifier">float</span></dt><dd><p>Counts per pixel associated with the given surface brightness.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">ArtImager</a><ul>
+<li><a class="reference internal" href="#artpop.image.ArtImager"><code class="docutils literal notranslate"><span class="pre">ArtImager</span></code></a><ul>
+<li><a class="reference internal" href="#artpop.image.ArtImager.area"><code class="docutils literal notranslate"><span class="pre">ArtImager.area</span></code></a></li>
+<li><a class="reference internal" href="#artpop.image.ArtImager.apply_seeing"><code class="docutils literal notranslate"><span class="pre">ArtImager.apply_seeing()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.image.ArtImager.calib_efficiency"><code class="docutils literal notranslate"><span class="pre">ArtImager.calib_efficiency()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.image.ArtImager.calibration"><code class="docutils literal notranslate"><span class="pre">ArtImager.calibration()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.image.ArtImager.import_bkg"><code class="docutils literal notranslate"><span class="pre">ArtImager.import_bkg()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.image.ArtImager.inject_gals"><code class="docutils literal notranslate"><span class="pre">ArtImager.inject_gals()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.image.ArtImager.inject_smooth_model"><code class="docutils literal notranslate"><span class="pre">ArtImager.inject_smooth_model()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.image.ArtImager.inject_stars"><code class="docutils literal notranslate"><span class="pre">ArtImager.inject_stars()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.image.ArtImager.mag_to_counts"><code class="docutils literal notranslate"><span class="pre">ArtImager.mag_to_counts()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.image.ArtImager.observe"><code class="docutils literal notranslate"><span class="pre">ArtImager.observe()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.image.ArtImager.observe_background"><code class="docutils literal notranslate"><span class="pre">ArtImager.observe_background()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.image.ArtImager.sb_to_counts_per_pixel"><code class="docutils literal notranslate"><span class="pre">ArtImager.sb_to_counts_per_pixel()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/api/artpop.image.ArtImager.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

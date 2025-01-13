@@ -1,0 +1,59 @@
+MISTIsochrone
+=============
+
+.. currentmodule:: artpop.stars
+
+.. autoclass:: MISTIsochrone
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~MISTIsochrone.filters
+      ~MISTIsochrone.isochrone_full
+      ~MISTIsochrone.m_max
+      ~MISTIsochrone.m_min
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~MISTIsochrone.calculate_mag_limit
+      ~MISTIsochrone.from_parsec
+      ~MISTIsochrone.get_star_phases
+      ~MISTIsochrone.imf_weights
+      ~MISTIsochrone.interpolate
+      ~MISTIsochrone.mag_to_mass
+      ~MISTIsochrone.nearest_mini
+      ~MISTIsochrone.select_phase
+      ~MISTIsochrone.ssp_color
+      ~MISTIsochrone.ssp_mag
+      ~MISTIsochrone.ssp_mean_star_mass
+      ~MISTIsochrone.ssp_sbf_mag
+      ~MISTIsochrone.ssp_sbf_mag_phase
+      ~MISTIsochrone.ssp_surviving_mass
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: filters
+   .. autoattribute:: isochrone_full
+   .. autoattribute:: m_max
+   .. autoattribute:: m_min
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: calculate_mag_limit
+   .. automethod:: from_parsec
+   .. automethod:: get_star_phases
+   .. automethod:: imf_weights
+   .. automethod:: interpolate
+   .. automethod:: mag_to_mass
+   .. automethod:: nearest_mini
+   .. automethod:: select_phase
+   .. automethod:: ssp_color
+   .. automethod:: ssp_mag
+   .. automethod:: ssp_mean_star_mass
+   .. automethod:: ssp_sbf_mag
+   .. automethod:: ssp_sbf_mag_phase
+   .. automethod:: ssp_surviving_mass

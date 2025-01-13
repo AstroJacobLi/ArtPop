@@ -1,0 +1,137 @@
+Constant2D
+==========
+
+.. currentmodule:: artpop.space
+
+.. autoclass:: Constant2D
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~Constant2D.amplitude
+      ~Constant2D.bbox_with_units
+      ~Constant2D.bounding_box
+      ~Constant2D.bounds
+      ~Constant2D.col_fit_deriv
+      ~Constant2D.cov_matrix
+      ~Constant2D.eqcons
+      ~Constant2D.fit_deriv
+      ~Constant2D.fittable
+      ~Constant2D.fixed
+      ~Constant2D.has_user_bounding_box
+      ~Constant2D.has_user_inverse
+      ~Constant2D.ineqcons
+      ~Constant2D.input_units
+      ~Constant2D.input_units_allow_dimensionless
+      ~Constant2D.input_units_equivalencies
+      ~Constant2D.input_units_strict
+      ~Constant2D.inputs
+      ~Constant2D.inverse
+      ~Constant2D.linear
+      ~Constant2D.meta
+      ~Constant2D.model_constraints
+      ~Constant2D.model_set_axis
+      ~Constant2D.n_inputs
+      ~Constant2D.n_outputs
+      ~Constant2D.n_submodels
+      ~Constant2D.name
+      ~Constant2D.outputs
+      ~Constant2D.param_names
+      ~Constant2D.param_sets
+      ~Constant2D.parameter_constraints
+      ~Constant2D.parameters
+      ~Constant2D.return_units
+      ~Constant2D.separable
+      ~Constant2D.standard_broadcasting
+      ~Constant2D.stds
+      ~Constant2D.sync_constraints
+      ~Constant2D.tied
+      ~Constant2D.uses_quantity
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~Constant2D.__call__
+      ~Constant2D.coerce_units
+      ~Constant2D.copy
+      ~Constant2D.deepcopy
+      ~Constant2D.evaluate
+      ~Constant2D.get_bounding_box
+      ~Constant2D.has_inverse
+      ~Constant2D.input_shape
+      ~Constant2D.output_units
+      ~Constant2D.prepare_inputs
+      ~Constant2D.prepare_outputs
+      ~Constant2D.rename
+      ~Constant2D.render
+      ~Constant2D.set_slice_args
+      ~Constant2D.strip_units_from_tree
+      ~Constant2D.sum_of_implicit_terms
+      ~Constant2D.with_units_from_data
+      ~Constant2D.without_units_for_data
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: amplitude
+   .. autoattribute:: bbox_with_units
+   .. autoattribute:: bounding_box
+   .. autoattribute:: bounds
+   .. autoattribute:: col_fit_deriv
+   .. autoattribute:: cov_matrix
+   .. autoattribute:: eqcons
+   .. autoattribute:: fit_deriv
+   .. autoattribute:: fittable
+   .. autoattribute:: fixed
+   .. autoattribute:: has_user_bounding_box
+   .. autoattribute:: has_user_inverse
+   .. autoattribute:: ineqcons
+   .. autoattribute:: input_units
+   .. autoattribute:: input_units_allow_dimensionless
+   .. autoattribute:: input_units_equivalencies
+   .. autoattribute:: input_units_strict
+   .. autoattribute:: inputs
+   .. autoattribute:: inverse
+   .. autoattribute:: linear
+   .. autoattribute:: meta
+   .. autoattribute:: model_constraints
+   .. autoattribute:: model_set_axis
+   .. autoattribute:: n_inputs
+   .. autoattribute:: n_outputs
+   .. autoattribute:: n_submodels
+   .. autoattribute:: name
+   .. autoattribute:: outputs
+   .. autoattribute:: param_names
+   .. autoattribute:: param_sets
+   .. autoattribute:: parameter_constraints
+   .. autoattribute:: parameters
+   .. autoattribute:: return_units
+   .. autoattribute:: separable
+   .. autoattribute:: standard_broadcasting
+   .. autoattribute:: stds
+   .. autoattribute:: sync_constraints
+   .. autoattribute:: tied
+   .. autoattribute:: uses_quantity
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: __call__
+   .. automethod:: coerce_units
+   .. automethod:: copy
+   .. automethod:: deepcopy
+   .. automethod:: evaluate
+   .. automethod:: get_bounding_box
+   .. automethod:: has_inverse
+   .. automethod:: input_shape
+   .. automethod:: output_units
+   .. automethod:: prepare_inputs
+   .. automethod:: prepare_outputs
+   .. automethod:: rename
+   .. automethod:: render
+   .. automethod:: set_slice_args
+   .. automethod:: strip_units_from_tree
+   .. automethod:: sum_of_implicit_terms
+   .. automethod:: with_units_from_data
+   .. automethod:: without_units_for_data

@@ -1,0 +1,37 @@
+SersicSP
+========
+
+.. currentmodule:: artpop.source
+
+.. autoclass:: SersicSP
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~SersicSP.num_stars
+      ~SersicSP.x
+      ~SersicSP.y
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~SersicSP.copy
+      ~SersicSP.mag_to_image_amplitude
+      ~SersicSP.mag_to_stips_SB
+      ~SersicSP.select_stars
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: num_stars
+   .. autoattribute:: x
+   .. autoattribute:: y
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: copy
+   .. automethod:: mag_to_image_amplitude
+   .. automethod:: mag_to_stips_SB
+   .. automethod:: select_stars

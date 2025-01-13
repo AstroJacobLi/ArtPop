@@ -1,0 +1,6 @@
+get_filter_properties
+=====================
+
+.. currentmodule:: artpop.filters
+
+.. autofunction:: get_filter_properties

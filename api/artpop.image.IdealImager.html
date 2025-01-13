@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>IdealImager &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="IdealObservation" href="artpop.image.IdealObservation.html" />
+    <link rel="prev" title="ArtObservation" href="artpop.image.ArtObservation.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="artpop.image.IdealObservation.html" title="IdealObservation">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="artpop.image.ArtObservation.html" title="ArtObservation">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      <li><a href="../modules/image/index.html" accesskey="U">Image Simulation (<code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.image</span></code>)</a> &#187;</li>
+      
+      <li>IdealImager</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="idealimager">
+<h1>IdealImager<a class="headerlink" href="#idealimager" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="artpop.image.IdealImager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">artpop.image.</span></span><span class="sig-name descname"><span class="pre">IdealImager</span></span><a class="headerlink" href="#artpop.image.IdealImager" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Imager</span></code></p>
+<p>Ideal imager for making noise-free images.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Stars are injected in the center of pixels even if subpixel coordinates
+are given. If you need subpixel precision, we recommend creating
+upsampled mock images and downsampling to the desired resolution.</p>
+</div>
+<p class="rubric">Methods Summary</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.image.IdealImager.apply_seeing" title="artpop.image.IdealImager.apply_seeing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_seeing</span></code></a>(image[, psf, boundary])</p></td>
+<td><p>Convolve mock image with psf.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.image.IdealImager.inject_smooth_model" title="artpop.image.IdealImager.inject_smooth_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inject_smooth_model</span></code></a>(image, source, bandpass, zpt)</p></td>
+<td><p>Inject smooth component of the star system into image if it exists.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.image.IdealImager.inject_stars" title="artpop.image.IdealImager.inject_stars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inject_stars</span></code></a>(x, y, signal, xy_dim[, mask])</p></td>
+<td><p>Inject sources into image.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.image.IdealImager.observe" title="artpop.image.IdealImager.observe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">observe</span></code></a>(source, bandpass[, psf, zpt, mask])</p></td>
+<td><p>Make ideal observation.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Documentation</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.image.IdealImager.apply_seeing">
+<span class="sig-name descname"><span class="pre">apply_seeing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'wrap'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.image.IdealImager.apply_seeing" title="Link to this definition">¶</a></dt>
+<dd><p>Convolve mock image with psf.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>image<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>The mock image.</p>
+</dd>
+<dt>psf<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code> or None, optional</span></dt><dd><p>The point-spread function. If None, will return the input image.</p>
+</dd>
+<dt>boundary<span class="classifier">{‘fill’, ‘wrap’}, optional</span></dt><dd><p>A flag indicating how to handle boundaries:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘fill’: set values outside the array boundary to fill_value
+(default)</p></li>
+<li><p>‘wrap’: periodic boundary</p></li>
+</ul>
+</div></blockquote>
+<p>The <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code> and ‘extend’ parameters are not supported for FFT-based
+convolution.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>image<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>The psf-convolved image. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">psf</span></code> is not <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, the original image
+is returned.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.image.IdealImager.inject_smooth_model">
+<span class="sig-name descname"><span class="pre">inject_smooth_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zpt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.image.IdealImager.inject_smooth_model" title="Link to this definition">¶</a></dt>
+<dd><p>Inject smooth component of the star system into image if it exists.</p>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>image<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>The artificial image.</p>
+</dd>
+<dt>source<span class="classifier"><a class="reference internal" href="artpop.source.Source.html#artpop.source.Source" title="artpop.source.Source"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Source</span></code></a></span></dt><dd><p>The artificial source.</p>
+</dd>
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>Observational bandpass of the mock observation.</p>
+</dd>
+<dt>zpt<span class="classifier">float</span></dt><dd><p>Photometric zero point.</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h2>Returns<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>image<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>The artificial image with the smooth model injected into it. If no
+smooth model exists, the original image will be returned.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.image.IdealImager.inject_stars">
+<span class="sig-name descname"><span class="pre">inject_stars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xy_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.image.IdealImager.inject_stars" title="Link to this definition">¶</a></dt>
+<dd><p>Inject sources into image.</p>
+<section id="id3">
+<h2>Parameters<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>x<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>Source x coordinates.</p>
+</dd>
+<dt>y<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>Source y coordinates.</p>
+</dd>
+<dt>signal<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>The signal to inject into image (e.g., flux, counts, etc…).</p>
+</dd>
+<dt>xy_dim<span class="classifier">int or list-like</span></dt><dd><p>The dimensions of mock image in xy units. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code> is given, it is
+assumed to be both the x and y dimensions: (xy_dim, xy_dim).</p>
+</dd>
+<dt>mask<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code>, optional</span></dt><dd><p>Boolean mask that is set to True for stars you want to inject.
+If None, all stars will be injected.</p>
+</dd>
+</dl>
+</section>
+<section id="id4">
+<h2>Returns<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>image<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>The mock image <em>before</em> psf convolution.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.image.IdealImager.observe">
+<span class="sig-name descname"><span class="pre">observe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">27</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.image.IdealImager.observe" title="Link to this definition">¶</a></dt>
+<dd><p>Make ideal observation.</p>
+<section id="id5">
+<h2>Parameters<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>source<span class="classifier"><a class="reference internal" href="artpop.source.Source.html#artpop.source.Source" title="artpop.source.Source"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Source</span></code></a></span></dt><dd><p>Source to mock observer.</p>
+</dd>
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>Filter of observation. Must be a filter in the given
+photometric system(s).</p>
+</dd>
+<dt>psf<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code> or None, optional</span></dt><dd><p>The point-spread function. If None, will not psf-convolve image.</p>
+</dd>
+<dt>zpt<span class="classifier">float, optional</span></dt><dd><p>The magnitude zero point of the mock image.</p>
+</dd>
+<dt>mask<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code>, optional</span></dt><dd><p>Boolean mask that is set to True for stars you want to inject.
+If None, all stars will be injected.</p>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h2>Returns<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>observation<span class="classifier"><a class="reference internal" href="artpop.image.IdealObservation.html#artpop.image.IdealObservation" title="artpop.image.IdealObservation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IdealObservation</span></code></a></span></dt><dd><p>Observation object for the ideal imager.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">IdealImager</a><ul>
+<li><a class="reference internal" href="#artpop.image.IdealImager"><code class="docutils literal notranslate"><span class="pre">IdealImager</span></code></a><ul>
+<li><a class="reference internal" href="#artpop.image.IdealImager.apply_seeing"><code class="docutils literal notranslate"><span class="pre">IdealImager.apply_seeing()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.image.IdealImager.inject_smooth_model"><code class="docutils literal notranslate"><span class="pre">IdealImager.inject_smooth_model()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.image.IdealImager.inject_stars"><code class="docutils literal notranslate"><span class="pre">IdealImager.inject_stars()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.image.IdealImager.observe"><code class="docutils literal notranslate"><span class="pre">IdealImager.observe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/api/artpop.image.IdealImager.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

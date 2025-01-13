@@ -1,0 +1,35 @@
+MISTPlummerSSP
+==============
+
+.. currentmodule:: artpop.source
+
+.. autoclass:: MISTPlummerSSP
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~MISTPlummerSSP.num_stars
+      ~MISTPlummerSSP.x
+      ~MISTPlummerSSP.y
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~MISTPlummerSSP.copy
+      ~MISTPlummerSSP.mag_to_image_amplitude
+      ~MISTPlummerSSP.select_stars
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: num_stars
+   .. autoattribute:: x
+   .. autoattribute:: y
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: copy
+   .. automethod:: mag_to_image_amplitude
+   .. automethod:: select_stars

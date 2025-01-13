@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>MISTPlummerSSP &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="UniformSSP" href="artpop.source.UniformSSP.html" />
+    <link rel="prev" title="PlummerSP" href="artpop.source.PlummerSP.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="artpop.source.UniformSSP.html" title="UniformSSP">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="artpop.source.PlummerSP.html" title="PlummerSP">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      <li><a href="../modules/source.html" accesskey="U">Source (<code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.source</span></code>)</a> &#187;</li>
+      
+      <li>MISTPlummerSSP</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="mistplummerssp">
+<h1>MISTPlummerSSP<a class="headerlink" href="#mistplummerssp" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="artpop.source.MISTPlummerSSP">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">artpop.source.</span></span><span class="sig-name descname"><span class="pre">MISTPlummerSSP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_age</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phot_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xy_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_stars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a_lam</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_remnants</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mag_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mag_limit_band</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'kroupa'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imf_kw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mist_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/home/runner/.artpop/mist'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass_tolerance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.source.MISTPlummerSSP" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="artpop.source.PlummerSP.html#artpop.source.PlummerSP" title="artpop.source.PlummerSP"><code class="xref py py-class docutils literal notranslate"><span class="pre">PlummerSP</span></code></a></p>
+<p>MIST simple stellar population with a Plummer spatial distribution.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must give <code class="xref py py-obj docutils literal notranslate"><span class="pre">total_mass</span></code> <em>or</em> <a class="reference internal" href="#artpop.source.MISTPlummerSSP.num_stars" title="artpop.source.MISTPlummerSSP.num_stars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_stars</span></code></a>.</p>
+</div>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>log_age<span class="classifier">float</span></dt><dd><p>Log (base 10) of the simple stellar population age in years.</p>
+</dd>
+<dt>feh<span class="classifier">float</span></dt><dd><p>Metallicity [Fe/H] of the simple stellar population.</p>
+</dd>
+<dt>phot_system<span class="classifier">str or list-like</span></dt><dd><p>Name of the photometric system(s).</p>
+</dd>
+<dt>scale_radius<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></span></dt><dd><p>Scale radius of the source. If a float is given, the units are
+assumed to be <code class="xref py py-obj docutils literal notranslate"><span class="pre">kpc</span></code>. Must be greater than zero.</p>
+</dd>
+<dt>distance<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></span></dt><dd><p>Distance to source. If float is given, the units are assumed
+to be <code class="xref py py-obj docutils literal notranslate"><span class="pre">Mpc</span></code>.</p>
+</dd>
+<dt>xy_dim<span class="classifier">int or list-like</span></dt><dd><p>Dimensions of the mock image in xy coordinates. If int is given,
+will make the x and y dimensions the same.</p>
+</dd>
+<dt>pixel_scale<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></span></dt><dd><p>The pixel scale of the mock image. If a float is given, the units will
+be assumed to be <code class="xref py py-obj docutils literal notranslate"><span class="pre">arcsec</span> <span class="pre">/</span> <span class="pre">pixels</span></code>. Default is <code class="xref py py-obj docutils literal notranslate"><span class="pre">0.2</span> <span class="pre">arcsec</span> <span class="pre">/</span> <span class="pre">pixel</span></code>.</p>
+</dd>
+<dt>num_stars<span class="classifier">int or <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></dt><dd><p>Number of stars in source. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, then must give <code class="xref py py-obj docutils literal notranslate"><span class="pre">total_mass</span></code>.</p>
+</dd>
+<dt>total_mass<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></dt><dd><p>Stellar mass of the source. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, then must give <a class="reference internal" href="#artpop.source.MISTPlummerSSP.num_stars" title="artpop.source.MISTPlummerSSP.num_stars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_stars</span></code></a>. This
+mass accounts for stellar remnants, so the actual sampled mass will be
+less than the given value.</p>
+</dd>
+<dt>a_lam<span class="classifier">float or dict, optional</span></dt><dd><p>Magnitude(s) of extinction. If float, the same extinction will be applied
+to all bands. If dict, the keys must be the same as the observational filters.</p>
+</dd>
+<dt>add_remnants<span class="classifier">bool, optional</span></dt><dd><p>If True (default), apply scaling factor to total mass to account for
+stellar remnants in the form of white dwarfs, neutron stars,
+and black holes.</p>
+</dd>
+<dt>mag_limit<span class="classifier">float, optional</span></dt><dd><p>Only sample individual stars that are brighter than this magnitude. All
+fainter stars will be combined into an integrated component. Otherwise,
+all stars in the population will be sampled. You must also give the
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">mag_limit_band</span></code> if you use this parameter.</p>
+</dd>
+<dt>mag_limit_band<span class="classifier">str, optional</span></dt><dd><p>Bandpass of the limiting magnitude. You must give this parameter if
+you use the <code class="xref py py-obj docutils literal notranslate"><span class="pre">mag_limit</span></code> parameter.</p>
+</dd>
+<dt>imf<span class="classifier">str, optional</span></dt><dd><p>The initial stellar mass function. Default is <code class="xref py py-obj docutils literal notranslate"><span class="pre">'kroupa'</span></code>.</p>
+</dd>
+<dt>imf_kw<span class="classifier">dict, optional</span></dt><dd><p>Optional keyword arguments for sampling the stellar mass function.</p>
+</dd>
+<dt>mist_path<span class="classifier">str, optional</span></dt><dd><p>Path to MIST isochrone grids. Use this if you want to use a different
+path from the <code class="xref py py-obj docutils literal notranslate"><span class="pre">MIST_PATH</span></code> environment variable.</p>
+</dd>
+<dt>mass_tolerance<span class="classifier">float, optional</span></dt><dd><p>Tolerance in the fractional difference between the input mass and the
+final mass of the population. The parameter is only used when
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">total_mass</span></code> is given.</p>
+</dd>
+<dt>dx<span class="classifier">float, optional</span></dt><dd><p>Shift from center of image in the x direction.</p>
+</dd>
+<dt>dy<span class="classifier">float, optional</span></dt><dd><p>Shift from center of image in the y direction.</p>
+</dd>
+<dt>label_type<span class="classifier">str, optional</span></dt><dd><p>If not None, the type of labels to pass to the <a class="reference internal" href="artpop.source.Source.html#artpop.source.Source" title="artpop.source.Source"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Source</span></code></a>
+object. Can be <code class="xref py py-obj docutils literal notranslate"><span class="pre">phases</span></code> or an attribute of <a class="reference internal" href="artpop.stars.MISTSSP.html#artpop.stars.MISTSSP" title="artpop.stars.MISTSSP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MISTSSP</span></code></a>.</p>
+</dd>
+<dt>random_state<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, int, list of ints, or <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code></span></dt><dd><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, return the <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code> singleton used by
+<code class="docutils literal notranslate"><span class="pre">numpy.random</span></code>. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>, return a new <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code>
+instance seeded with the <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>.  If <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code>,
+return it. Otherwise raise <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p>
+</dd>
+</dl>
+<p class="rubric">Attributes Summary</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.source.MISTPlummerSSP.num_stars" title="artpop.source.MISTPlummerSSP.num_stars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_stars</span></code></a></p></td>
+<td><p>Number of stars in source</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.source.MISTPlummerSSP.x" title="artpop.source.MISTPlummerSSP.x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">x</span></code></a></p></td>
+<td><p>x coordinates</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.source.MISTPlummerSSP.y" title="artpop.source.MISTPlummerSSP.y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">y</span></code></a></p></td>
+<td><p>y coordinates</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Summary</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.source.MISTPlummerSSP.copy" title="artpop.source.MISTPlummerSSP.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>()</p></td>
+<td><p>Create deep copy of source object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.source.MISTPlummerSSP.mag_to_image_amplitude" title="artpop.source.MISTPlummerSSP.mag_to_image_amplitude"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mag_to_image_amplitude</span></code></a>(m_tot, zpt)</p></td>
+<td><p>Convert total magnitude into amplitude parameter for the smooth model.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.source.MISTPlummerSSP.select_stars" title="artpop.source.MISTPlummerSSP.select_stars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_stars</span></code></a>(label)</p></td>
+<td><p>Return boolean mask that is set to True for stars of given label.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes Documentation</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.source.MISTPlummerSSP.num_stars">
+<span class="sig-name descname"><span class="pre">num_stars</span></span><a class="headerlink" href="#artpop.source.MISTPlummerSSP.num_stars" title="Link to this definition">¶</a></dt>
+<dd><p>Number of stars in source</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.source.MISTPlummerSSP.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#artpop.source.MISTPlummerSSP.x" title="Link to this definition">¶</a></dt>
+<dd><p>x coordinates</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.source.MISTPlummerSSP.y">
+<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#artpop.source.MISTPlummerSSP.y" title="Link to this definition">¶</a></dt>
+<dd><p>y coordinates</p>
+</dd></dl>
+
+<p class="rubric">Methods Documentation</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.source.MISTPlummerSSP.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#artpop.source.MISTPlummerSSP.copy" title="Link to this definition">¶</a></dt>
+<dd><p>Create deep copy of source object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.source.MISTPlummerSSP.mag_to_image_amplitude">
+<span class="sig-name descname"><span class="pre">mag_to_image_amplitude</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m_tot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zpt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.source.MISTPlummerSSP.mag_to_image_amplitude" title="Link to this definition">¶</a></dt>
+<dd><p>Convert total magnitude into amplitude parameter for the smooth model.</p>
+<section id="id1">
+<h3>Parameters<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>m_tot<span class="classifier">float</span></dt><dd><p>Total magnitude in the smooth component of the system.</p>
+</dd>
+<dt>zpt<span class="classifier">float</span></dt><dd><p>Photometric zero point.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>mu_0<span class="classifier">float</span></dt><dd><p>Central surface brightness of the Plummer distribution in
+mags per square arcsec.</p>
+</dd>
+<dt>amplitude<span class="classifier">float</span></dt><dd><p>Amplitude parameter for the smooth model in image flux units.</p>
+</dd>
+<dt>param_name<span class="classifier">str</span></dt><dd><p>Name of amplitude parameter (needed to set its value when
+generating the smooth model).</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.source.MISTPlummerSSP.select_stars">
+<span class="sig-name descname"><span class="pre">select_stars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.source.MISTPlummerSSP.select_stars" title="Link to this definition">¶</a></dt>
+<dd><p>Return boolean mask that is set to True for stars of given label.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">MISTPlummerSSP</a><ul>
+<li><a class="reference internal" href="#artpop.source.MISTPlummerSSP"><code class="docutils literal notranslate"><span class="pre">MISTPlummerSSP</span></code></a><ul>
+<li><a class="reference internal" href="#artpop.source.MISTPlummerSSP.num_stars"><code class="docutils literal notranslate"><span class="pre">MISTPlummerSSP.num_stars</span></code></a></li>
+<li><a class="reference internal" href="#artpop.source.MISTPlummerSSP.x"><code class="docutils literal notranslate"><span class="pre">MISTPlummerSSP.x</span></code></a></li>
+<li><a class="reference internal" href="#artpop.source.MISTPlummerSSP.y"><code class="docutils literal notranslate"><span class="pre">MISTPlummerSSP.y</span></code></a></li>
+<li><a class="reference internal" href="#artpop.source.MISTPlummerSSP.copy"><code class="docutils literal notranslate"><span class="pre">MISTPlummerSSP.copy()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.source.MISTPlummerSSP.mag_to_image_amplitude"><code class="docutils literal notranslate"><span class="pre">MISTPlummerSSP.mag_to_image_amplitude()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.source.MISTPlummerSSP.select_stars"><code class="docutils literal notranslate"><span class="pre">MISTPlummerSSP.select_stars()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/api/artpop.source.MISTPlummerSSP.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

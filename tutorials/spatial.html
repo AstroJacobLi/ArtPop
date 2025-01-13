@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Sampling Spatial Distributions &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Artificial Source Objects" href="source.html" />
+    <link rel="prev" title="Building Stellar Populations" href="pops.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="source.html" title="Artificial Source Objects">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="pops.html" title="Building Stellar Populations">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      
+      <li>Sampling Spatial Distributions</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="Sampling-Spatial-Distributions">
+<h1>Sampling Spatial Distributions<a class="headerlink" href="#Sampling-Spatial-Distributions" title="Link to this heading">¶</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/ArtificialStellarPopulations/ArtPop/blob/main/colab_tutorials/spatial.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p>To make an artificial image of a stellar system, you need the fluxes of the stars <em>and</em> their spatial positions. In the <a class="reference internal" href="pops.html"><span class="doc">Building Stellar Populations</span></a> tutorial, we showed how to use <strong>ArtPop</strong> to generate stellar magnitudes. In this tutorial, we demonstrate how to sample spatial positions. At the moment, <strong>ArtPop</strong> provides functions for sampling the <a class="reference internal" href="../api/artpop.space.plummer_xy.html"><span class="doc">Plummer</span></a>, <a class="reference internal" href="../api/artpop.space.sersic_xy.html"><span class="doc">Sersic</span></a>, and
+<a class="reference internal" href="../api/artpop.space.uniform_xy.html"><span class="doc">uniform</span></a> distributions are implemented in <strong>ArtPop</strong>.</p>
+<p>First, we start with the imports we will need:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Third-party imports</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy</span><span class="w"> </span><span class="kn">import</span> <span class="n">units</span> <span class="k">as</span> <span class="n">u</span>
+
+<span class="c1"># Project import</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">artpop</span>
+
+<span class="c1"># artpop&#39;s matplotlib style</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">artpop</span><span class="o">.</span><span class="n">mpl_style</span><span class="p">)</span>
+
+<span class="c1"># use this random state for reproducibility</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="The-Plummer-Distribution">
+<h2>The Plummer Distribution<a class="headerlink" href="#The-Plummer-Distribution" title="Link to this heading">¶</a></h2>
+<p>The Plummer distribution is sampled using <a class="reference external" href="https://en.wikipedia.org/wiki/Inverse_transform_sampling">inverse transform sampling</a>. To generate <code class="docutils literal notranslate"><span class="pre">xy</span></code> pixel positions that are distributed according to a Plummer distribution, use the <a class="reference internal" href="../api/artpop.space.plummer_xy.html"><span class="doc">plummer_xy</span></a> function:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># keyword arguments for the plummer function</span>
+<span class="n">kws</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">num_stars</span> <span class="o">=</span> <span class="mf">1e4</span><span class="p">,</span>          <span class="c1"># number of stars</span>
+    <span class="n">scale_radius</span> <span class="o">=</span> <span class="mi">50</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">pc</span><span class="p">,</span> <span class="c1"># plummer scale radius</span>
+    <span class="n">distance</span> <span class="o">=</span> <span class="mi">55</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">Mpc</span><span class="p">,</span>    <span class="c1"># distance to system</span>
+    <span class="n">xy_dim</span> <span class="o">=</span> <span class="p">(</span><span class="mi">201</span><span class="p">,</span> <span class="mi">201</span><span class="p">),</span>      <span class="c1"># xy dimensions of image</span>
+    <span class="n">pixel_scale</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>        <span class="c1"># pixel scale in pixel/arcsec</span>
+    <span class="n">random_state</span> <span class="o">=</span> <span class="n">rng</span>        <span class="c1"># random state for reproducibility</span>
+<span class="p">)</span>
+
+<span class="n">xy</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">plummer_xy</span><span class="p">(</span><span class="o">**</span><span class="n">kws</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xy</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">xy</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;equal&#39;</span><span class="p">,</span>
+              <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;$x$ [pixel]&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;$y$ [pixel]&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_spatial_6_0.png" class="no-scaled-link" src="../_images/tutorials_spatial_6_0.png" style="width: 298px; height: 277px;" />
+</div>
+</div>
+<p>The sampled positions are returned as a <a class="reference external" href="https://numpy.org/doc/stable/reference/maskedarray.baseclass.html#numpy.ma.MaskedArray">NumPy Masked Array</a>, <code class="docutils literal notranslate"><span class="pre">xy</span></code>, where positions that are outside the image, based on the <code class="docutils literal notranslate"><span class="pre">xy_dim</span></code> parameter, are masked.</p>
+<p>If there are any stars outside the image, a warning will be printed. Let’s move the system to a much closer distance so that we’ll have some stars outside the image:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kws</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">Mpc</span>
+
+<span class="n">xy</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">plummer_xy</span><span class="p">(</span><span class="o">**</span><span class="n">kws</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xy</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">xy</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;equal&#39;</span><span class="p">,</span>
+              <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;$x$ [pixel]&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;$y$ [pixel]&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+WARNING: 508 stars outside the image
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_spatial_8_1.png" class="no-scaled-link" src="../_images/tutorials_spatial_8_1.png" style="width: 298px; height: 277px;" />
+</div>
+</div>
+</section>
+<section id="The-Sersic-Distribution">
+<h2>The Sersic Distribution<a class="headerlink" href="#The-Sersic-Distribution" title="Link to this heading">¶</a></h2>
+<p>The Sersic distribution is sampled within a discrete grid using <a class="reference external" href="https://docs.scipy.org/doc//numpy-1.10.4/reference/generated/numpy.random.choice.html">NumPy’s choice function</a>. The <code class="docutils literal notranslate"><span class="pre">num_r_eff</span></code> parameter is used to set the number of effective radii within the discrete grid. You want this number to be large enough to ensure that you don’t oversample small radii, but keep in mind that it is using a discrete grid, which requires more and more memory as <code class="docutils literal notranslate"><span class="pre">num_r_eff</span></code> increases.</p>
+<p>Use the <a class="reference internal" href="../api/artpop.space.sersic_xy.html"><span class="doc">sersic_xy</span></a> function to sample positions from a Sersic distribution:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># note that all parameters with units can also be given</span>
+<span class="c1"># as floats, in which case a default unit (see doc string)</span>
+<span class="c1"># is assumed. e.g., r_eff will be assumed to be in kpc</span>
+<span class="n">xy</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">sersic_xy</span><span class="p">(</span>
+    <span class="n">num_stars</span> <span class="o">=</span> <span class="mf">1e5</span><span class="p">,</span>     <span class="c1"># the number of stars</span>
+    <span class="n">r_eff</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>         <span class="c1"># effective radius (kpc)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">,</span>             <span class="c1"># Sersic index</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="mi">45</span><span class="p">,</span>          <span class="c1"># position angle (deg)</span>
+    <span class="n">ellip</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span>         <span class="c1"># ellipticity</span>
+    <span class="n">distance</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span>       <span class="c1"># distance to system (Mpc)</span>
+    <span class="n">xy_dim</span> <span class="o">=</span> <span class="mi">601</span><span class="p">,</span>        <span class="c1"># xy dimensions of image</span>
+    <span class="n">pixel_scale</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>   <span class="c1"># pixel scale in pixel/arcsec</span>
+    <span class="n">num_r_eff</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>      <span class="c1"># number of r_eff in discrete grid</span>
+    <span class="n">random_state</span> <span class="o">=</span> <span class="n">rng</span>   <span class="c1"># random state for reproducibility</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xy</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">xy</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">),</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;equal&#39;</span><span class="p">,</span>
+              <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;$x$ [pixel]&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;$y$ [pixel]&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_spatial_10_0.png" class="no-scaled-link" src="../_images/tutorials_spatial_10_0.png" style="width: 298px; height: 277px;" />
+</div>
+</div>
+</section>
+<section id="Grid-Sampling">
+<h2>Grid Sampling<a class="headerlink" href="#Grid-Sampling" title="Link to this heading">¶</a></h2>
+<p>As noted above, <strong>ArtPop</strong> samples from a Sersic distribution using a discrete grid. Grid sampling for arbitrary two-dimensional functions is accessible to the user through the <a class="reference internal" href="../api/artpop.space.xy_from_grid.html"><span class="doc">xy_from_grid</span></a> function. The input function is expected to be an <a class="reference external" href="https://docs.astropy.org/en/stable/modeling/predef_models2D.html">astropy model</a>. Here’s an example using the
+<a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.modeling.functional_models.Ring2D.html#astropy.modeling.functional_models.Ring2D">Ring2D</a> model:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">astropy.modeling.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Ring2D</span>
+
+<span class="c1"># initialize an astropy 2D ring model</span>
+<span class="n">ring</span> <span class="o">=</span> <span class="n">Ring2D</span><span class="p">(</span><span class="n">x_0</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">y_0</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">r_in</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="n">xy</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">xy_from_grid</span><span class="p">(</span>
+    <span class="n">num_stars</span> <span class="o">=</span> <span class="mf">1e3</span><span class="p">,</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">ring</span><span class="p">,</span>
+    <span class="n">xy_dim</span> <span class="o">=</span> <span class="p">(</span><span class="mi">501</span><span class="p">,</span> <span class="mi">501</span><span class="p">),</span>
+    <span class="n">random_state</span> <span class="o">=</span> <span class="n">rng</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xy</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">xy</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;equal&#39;</span><span class="p">,</span>
+              <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;$x$ [pixel]&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;$y$ [pixel]&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_spatial_13_0.png" class="no-scaled-link" src="../_images/tutorials_spatial_13_0.png" style="width: 298px; height: 277px;" />
+</div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">Sampling Spatial Distributions</a><ul>
+<li><a class="reference internal" href="#The-Plummer-Distribution">The Plummer Distribution</a></li>
+<li><a class="reference internal" href="#The-Sersic-Distribution">The Sersic Distribution</a></li>
+<li><a class="reference internal" href="#Grid-Sampling">Grid Sampling</a></li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/tutorials/spatial.ipynb.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

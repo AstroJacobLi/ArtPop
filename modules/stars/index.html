@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Stellar Populations (artpop.stars) &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+    
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="../../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../../_static/copybutton.js"></script>
+    <link rel="icon" href="../../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="build_galaxy" href="../../api/artpop.stars.build_galaxy.html" />
+    <link rel="prev" title="Injecting into Real Images" href="../../tutorials/inject.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="../../api/artpop.stars.build_galaxy.html" title="build_galaxy">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="../../tutorials/inject.html" title="Injecting into Real Images">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      
+      <li>Stellar Populations (<code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.stars</span></code>)</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="stellar-populations-artpop-stars">
+<h1>Stellar Populations (<a class="reference internal" href="#module-artpop.stars" title="artpop.stars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.stars</span></code></a>)<a class="headerlink" href="#stellar-populations-artpop-stars" title="Link to this heading">¶</a></h1>
+<section id="api">
+<h2>API<a class="headerlink" href="#api" title="Link to this heading">¶</a></h2>
+<section id="module-artpop.stars">
+<span id="artpop-stars-package"></span><h3>artpop.stars Package<a class="headerlink" href="#module-artpop.stars" title="Link to this heading">¶</a></h3>
+<section id="functions">
+<h4>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h4>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../api/artpop.stars.build_galaxy.html#artpop.stars.build_galaxy" title="artpop.stars.build_galaxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build_galaxy</span></code></a>(stellar_mass[, num_stars_iter, ...])</p></td>
+<td><p>Build galaxy of a given stellar mass.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../../api/artpop.stars.constant_sb_stars_per_pix.html#artpop.stars.constant_sb_stars_per_pix" title="artpop.stars.constant_sb_stars_per_pix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">constant_sb_stars_per_pix</span></code></a>(sb, mean_mag[, ...])</p></td>
+<td><p>Calculate the number of stars per pixel for a uniform distribution (i.e., constant surface brightness) of stars.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../api/artpop.stars.fetch_mist_iso_cmd.html#artpop.stars.fetch_mist_iso_cmd" title="artpop.stars.fetch_mist_iso_cmd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fetch_mist_iso_cmd</span></code></a>(log_age, feh, phot_system)</p></td>
+<td><p>Fetch MIST isochrone grid.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../../api/artpop.stars.kroupa.html#artpop.stars.kroupa" title="artpop.stars.kroupa"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kroupa</span></code></a>(m, **kwargs)</p></td>
+<td><p>Wrapper function to calculate weights for the Kroupa stellar initial mass function (<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2001MNRAS.322..231K/abstract">Kroupa 2001</a>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../api/artpop.stars.salpeter.html#artpop.stars.salpeter" title="artpop.stars.salpeter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">salpeter</span></code></a>(m, **kwargs)</p></td>
+<td><p>Wrapper function to calculate weights for the Salpeter IMF (<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1955ApJ...121..161S/abstract">Salpeter 1955</a>).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../../api/artpop.stars.sample_imf.html#artpop.stars.sample_imf" title="artpop.stars.sample_imf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample_imf</span></code></a>(num_stars[, m_min, m_max, imf, ...])</p></td>
+<td><p>Sample stellar IMF via inverse transform sampling.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../api/artpop.stars.scalo.html#artpop.stars.scalo" title="artpop.stars.scalo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scalo</span></code></a>(m, **kwargs)</p></td>
+<td><p>The Scalo stellar initial mass function (<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1998ASPC..142..201S/abstract">Scalo 1998</a>).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h4>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h4>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../api/artpop.stars.IMFIntegrator.html#artpop.stars.IMFIntegrator" title="artpop.stars.IMFIntegrator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IMFIntegrator</span></code></a>(params[, m_min, m_max])</p></td>
+<td><p>A helper class for numerically integrating the IMF.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../../api/artpop.stars.Isochrone.html#artpop.stars.Isochrone" title="artpop.stars.Isochrone"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Isochrone</span></code></a>(mini, mact, mags[, eep, log_L, ...])</p></td>
+<td><p>Class for storing generic isochrones.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../api/artpop.stars.MISTIsochrone.html#artpop.stars.MISTIsochrone" title="artpop.stars.MISTIsochrone"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MISTIsochrone</span></code></a>(log_age, feh, phot_system[, ...])</p></td>
+<td><p>Class for fetching and storing MIST isochrones.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../../api/artpop.stars.MISTSSP.html#artpop.stars.MISTSSP" title="artpop.stars.MISTSSP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MISTSSP</span></code></a>(log_age, feh, phot_system[, ...])</p></td>
+<td><p>MIST Simple Stellar Population.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../api/artpop.stars.SSP.html#artpop.stars.SSP" title="artpop.stars.SSP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SSP</span></code></a>(isochrone[, num_stars, total_mass, ...])</p></td>
+<td><p>Generic Simple Stellar Population (SSP).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">Stellar Populations (<code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.stars</span></code>)</a><ul>
+<li><a class="reference internal" href="#api">API</a><ul>
+<li><a class="reference internal" href="#module-artpop.stars">artpop.stars Package</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../../_sources/modules/stars/index.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

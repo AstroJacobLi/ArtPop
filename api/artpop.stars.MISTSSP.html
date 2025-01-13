@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>MISTSSP &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SSP" href="artpop.stars.SSP.html" />
+    <link rel="prev" title="MISTIsochrone" href="artpop.stars.MISTIsochrone.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="artpop.stars.SSP.html" title="SSP">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="artpop.stars.MISTIsochrone.html" title="MISTIsochrone">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      <li><a href="../modules/stars/index.html" accesskey="U">Stellar Populations (<code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.stars</span></code>)</a> &#187;</li>
+      
+      <li>MISTSSP</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="mistssp">
+<h1>MISTSSP<a class="headerlink" href="#mistssp" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">artpop.stars.</span></span><span class="sig-name descname"><span class="pre">MISTSSP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_age</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phot_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_stars=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_mass=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance=&lt;Quantity</span> <span class="pre">10.</span> <span class="pre">pc&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a_lam=0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mag_limit=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mag_limit_band=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imf='kroupa'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mist_path='/home/runner/.artpop/mist'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imf_kw=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass_tolerance=0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_remnants=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTSSP" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="artpop.stars.SSP.html#artpop.stars.SSP" title="artpop.stars.populations.SSP"><code class="xref py py-class docutils literal notranslate"><span class="pre">SSP</span></code></a></p>
+<p>MIST Simple Stellar Population.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must give <code class="xref py py-obj docutils literal notranslate"><span class="pre">total_mass</span></code> <em>or</em> <a class="reference internal" href="#artpop.stars.MISTSSP.num_stars" title="artpop.stars.MISTSSP.num_stars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_stars</span></code></a>.</p>
+</div>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>log_age<span class="classifier">float</span></dt><dd><p>Log (base 10) of the simple stellar population age in years.</p>
+</dd>
+<dt>feh<span class="classifier">float</span></dt><dd><p>Metallicity [Fe/H] of the simple stellar population.</p>
+</dd>
+<dt>phot_system<span class="classifier">str or list-like</span></dt><dd><p>Name of the photometric system(s).</p>
+</dd>
+<dt>num_stars<span class="classifier">int or <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></dt><dd><p>Number of stars in source. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, then must give <code class="xref py py-obj docutils literal notranslate"><span class="pre">total_mass</span></code>.</p>
+</dd>
+<dt>total_mass<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></dt><dd><p>Stellar mass of the source. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, then must give <a class="reference internal" href="#artpop.stars.MISTSSP.num_stars" title="artpop.stars.MISTSSP.num_stars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_stars</span></code></a>. This
+mass accounts for stellar remnants when <code class="docutils literal notranslate"><span class="pre">add_remnants</span> <span class="pre">=</span> <span class="pre">True</span></code>, which
+means the actual sampled mass will be less than the given value. If
+float is given, the units are assumed to be solar masses.</p>
+</dd>
+<dt>distance<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code>, optional</span></dt><dd><p>Distance to source. If float is given, the units are assumed
+to be <code class="xref py py-obj docutils literal notranslate"><span class="pre">Mpc</span></code>. Default distance is 10 <code class="xref py py-obj docutils literal notranslate"><span class="pre">pc</span></code>.</p>
+</dd>
+<dt>a_lam<span class="classifier">float or dict, optional</span></dt><dd><p>Magnitude(s) of extinction. If float, the same extinction will be applied
+to all bands. If dict, the keys must be the same as the observational filters.</p>
+</dd>
+<dt>mag_limit<span class="classifier">float, optional</span></dt><dd><p>Only sample individual stars that are brighter than this magnitude. All
+fainter stars will be combined into an integrated component. Otherwise,
+all stars in the population will be sampled. You must also give the
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">mag_limit_band</span></code> if you use this parameter.</p>
+</dd>
+<dt>mag_limit_band<span class="classifier">str, optional</span></dt><dd><p>Bandpass of the limiting magnitude. You must give this parameter if
+you use the <code class="xref py py-obj docutils literal notranslate"><span class="pre">mag_limit</span></code> parameter.</p>
+</dd>
+<dt>imf<span class="classifier">str or dict</span></dt><dd><p>Which IMF to use, if str then must be one of pre-defined: ‘kroupa’,
+‘scalo’ or ‘salpeter’. Can also specify custom (broken) power law as dict,
+which must contain either ‘a’ as a Float (describing the slope of a
+single power law) or ‘a’ (a list with 3 elements describing the slopes
+of a broken power law) and ‘b’ (a list  with 2 elements describing the
+locations of the breaks).</p>
+</dd>
+<dt>mist_path<span class="classifier">str, optional</span></dt><dd><p>Path to MIST isochrone grids. Use this if you want to use a different
+path from the <code class="xref py py-obj docutils literal notranslate"><span class="pre">MIST_PATH</span></code> environment variable.</p>
+</dd>
+<dt>imf_kw<span class="classifier">dict, optional</span></dt><dd><p>Optional keyword arguments for sampling the stellar mass function.</p>
+</dd>
+<dt>mass_tolerance<span class="classifier">float, optional</span></dt><dd><p>Tolerance in the fractional difference between the input mass and the
+final mass of the population. The parameter is only used when
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">total_mass</span></code> is given.</p>
+</dd>
+<dt>add_remnants<span class="classifier">bool, optional</span></dt><dd><p>If True (default), apply scaling factor to total mass to account for
+stellar remnants in the form of white dwarfs, neutron stars,
+and black holes.</p>
+</dd>
+<dt>random_state<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, int, list of ints, or <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code></span></dt><dd><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, return the <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code> singleton used by
+<code class="docutils literal notranslate"><span class="pre">numpy.random</span></code>. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>, return a new <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code>
+instance seeded with the <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>.  If <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code>,
+return it. Otherwise raise <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p>
+</dd>
+</dl>
+<p class="rubric">Attributes Summary</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.MISTSSP.a_lam" title="artpop.stars.MISTSSP.a_lam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">a_lam</span></code></a></p></td>
+<td><p>Return extinction dictionary.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.stars.MISTSSP.abs_mag_table" title="artpop.stars.MISTSSP.abs_mag_table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">abs_mag_table</span></code></a></p></td>
+<td><p>Absolute magnitudes in a <code class="xref py py-obj docutils literal notranslate"><span class="pre">Table</span></code> object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.MISTSSP.dist_mod" title="artpop.stars.MISTSSP.dist_mod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dist_mod</span></code></a></p></td>
+<td><p>The distance modulus.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.stars.MISTSSP.mag_table" title="artpop.stars.MISTSSP.mag_table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mag_table</span></code></a></p></td>
+<td><p>Apparent magnitudes in a <code class="xref py py-obj docutils literal notranslate"><span class="pre">Table</span></code> object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.MISTSSP.num_pops" title="artpop.stars.MISTSSP.num_pops"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_pops</span></code></a></p></td>
+<td><p>The number of simple stellar populations that composes this pop.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.stars.MISTSSP.num_stars" title="artpop.stars.MISTSSP.num_stars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_stars</span></code></a></p></td>
+<td><p>Number stars in population.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.MISTSSP.phases" title="artpop.stars.MISTSSP.phases"><code class="xref py py-obj docutils literal notranslate"><span class="pre">phases</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.stars.MISTSSP.total_initial_live_mass" title="artpop.stars.MISTSSP.total_initial_live_mass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">total_initial_live_mass</span></code></a></p></td>
+<td><p>Total initial stellar mass in solar units.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Summary</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.MISTSSP.build_pop" title="artpop.stars.MISTSSP.build_pop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build_pop</span></code></a>([num_stars, total_mass, ...])</p></td>
+<td><p>Build the stellar population.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.stars.MISTSSP.copy" title="artpop.stars.MISTSSP.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.MISTSSP.from_pickle" title="artpop.stars.MISTSSP.from_pickle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_pickle</span></code></a>(file_name)</p></td>
+<td><p>Load pickle of stellar population object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.stars.MISTSSP.get_star_phases" title="artpop.stars.MISTSSP.get_star_phases"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_star_phases</span></code></a>()</p></td>
+<td><p>Returns the stellar phases (as defined by the MIST EEPs).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.MISTSSP.integrated_color" title="artpop.stars.MISTSSP.integrated_color"><code class="xref py py-obj docutils literal notranslate"><span class="pre">integrated_color</span></code></a>(blue, red[, select])</p></td>
+<td><p>Calculate the population's integrated color.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.stars.MISTSSP.mag_integrated_component" title="artpop.stars.MISTSSP.mag_integrated_component"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mag_integrated_component</span></code></a>(bandpass)</p></td>
+<td><p>Get the magnitude of the integrated component of the population if it exists.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.MISTSSP.mean_mag" title="artpop.stars.MISTSSP.mean_mag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mean_mag</span></code></a>(bandpass[, select])</p></td>
+<td><p>Calculate the population's mean magnitude.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.stars.MISTSSP.sample_fraction" title="artpop.stars.MISTSSP.sample_fraction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample_fraction</span></code></a>(mag_limit, mag_limit_band)</p></td>
+<td><p>Calculate the fraction of stars by mass and number that will be sampled with the give limiting magnitude.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.MISTSSP.sbf_mag" title="artpop.stars.MISTSSP.sbf_mag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sbf_mag</span></code></a>(bandpass)</p></td>
+<td><p>Calculate the apparent SBF magnitude of the stellar population.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.stars.MISTSSP.select_phase" title="artpop.stars.MISTSSP.select_phase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_phase</span></code></a>(phase)</p></td>
+<td><p>Generate stellar evolutionary phase mask.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.MISTSSP.set_distance" title="artpop.stars.MISTSSP.set_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_distance</span></code></a>(distance)</p></td>
+<td><p>Change the distance to the stellar population.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.stars.MISTSSP.star_mags" title="artpop.stars.MISTSSP.star_mags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">star_mags</span></code></a>(bandpass[, select])</p></td>
+<td><p>Get the stellar apparent magnitudes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.MISTSSP.to_pickle" title="artpop.stars.MISTSSP.to_pickle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_pickle</span></code></a>(file_name)</p></td>
+<td><p>Pickle stellar population object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.stars.MISTSSP.total_mag" title="artpop.stars.MISTSSP.total_mag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">total_mag</span></code></a>(bandpass[, select])</p></td>
+<td><p>Calculate the population's total magnitude.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes Documentation</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP.a_lam">
+<span class="sig-name descname"><span class="pre">a_lam</span></span><a class="headerlink" href="#artpop.stars.MISTSSP.a_lam" title="Link to this definition">¶</a></dt>
+<dd><p>Return extinction dictionary.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP.abs_mag_table">
+<span class="sig-name descname"><span class="pre">abs_mag_table</span></span><a class="headerlink" href="#artpop.stars.MISTSSP.abs_mag_table" title="Link to this definition">¶</a></dt>
+<dd><p>Absolute magnitudes in a <code class="xref py py-obj docutils literal notranslate"><span class="pre">Table</span></code> object.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP.dist_mod">
+<span class="sig-name descname"><span class="pre">dist_mod</span></span><a class="headerlink" href="#artpop.stars.MISTSSP.dist_mod" title="Link to this definition">¶</a></dt>
+<dd><p>The distance modulus.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP.mag_table">
+<span class="sig-name descname"><span class="pre">mag_table</span></span><a class="headerlink" href="#artpop.stars.MISTSSP.mag_table" title="Link to this definition">¶</a></dt>
+<dd><p>Apparent magnitudes in a <code class="xref py py-obj docutils literal notranslate"><span class="pre">Table</span></code> object.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP.num_pops">
+<span class="sig-name descname"><span class="pre">num_pops</span></span><a class="headerlink" href="#artpop.stars.MISTSSP.num_pops" title="Link to this definition">¶</a></dt>
+<dd><p>The number of simple stellar populations that composes this pop.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP.num_stars">
+<span class="sig-name descname"><span class="pre">num_stars</span></span><a class="headerlink" href="#artpop.stars.MISTSSP.num_stars" title="Link to this definition">¶</a></dt>
+<dd><p>Number stars in population.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP.phases">
+<span class="sig-name descname"><span class="pre">phases</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['PMS',</span> <span class="pre">'MS',</span> <span class="pre">'giants',</span> <span class="pre">'RGB',</span> <span class="pre">'CHeB',</span> <span class="pre">'AGB',</span> <span class="pre">'EAGB',</span> <span class="pre">'TPAGB',</span> <span class="pre">'postAGB',</span> <span class="pre">'WDCS']</span></em><a class="headerlink" href="#artpop.stars.MISTSSP.phases" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP.total_initial_live_mass">
+<span class="sig-name descname"><span class="pre">total_initial_live_mass</span></span><a class="headerlink" href="#artpop.stars.MISTSSP.total_initial_live_mass" title="Link to this definition">¶</a></dt>
+<dd><p>Total initial stellar mass in solar units.</p>
+</dd></dl>
+
+<p class="rubric">Methods Documentation</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP.build_pop">
+<span class="sig-name descname"><span class="pre">build_pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_stars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass_tolerance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_remnants</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTSSP.build_pop" title="Link to this definition">¶</a></dt>
+<dd><p>Build the stellar population. You must give <code class="xref py py-obj docutils literal notranslate"><span class="pre">total_mass</span></code>
+<em>or</em> <a class="reference internal" href="#artpop.stars.MISTSSP.num_stars" title="artpop.stars.MISTSSP.num_stars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_stars</span></code></a> as an argument.</p>
+<section id="id1">
+<h3>Parameters<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>num_stars<span class="classifier">int or <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></dt><dd><p>Number of stars in source. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, then must give <code class="xref py py-obj docutils literal notranslate"><span class="pre">total_mass</span></code>.</p>
+</dd>
+<dt>total_mass<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></dt><dd><p>Stellar mass of the source. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, then must give <a class="reference internal" href="#artpop.stars.MISTSSP.num_stars" title="artpop.stars.MISTSSP.num_stars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_stars</span></code></a>.
+This mass accounts for stellar remnants when <code class="docutils literal notranslate"><span class="pre">add_remnants</span> <span class="pre">=</span> <span class="pre">True</span></code>
+which means the actual sampled mass will be less than the given
+value. If float is given, the units are assumed to be solar masses.</p>
+</dd>
+<dt>mass_tolerance<span class="classifier">float, optional</span></dt><dd><p>Tolerance in the fractional difference between the input mass and
+the final mass of the population. The parameter is only used when
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">total_mass</span></code> is given.</p>
+</dd>
+<dt>add_remnants<span class="classifier">bool, optional</span></dt><dd><p>If True (default), apply scaling factor to total mass to account
+for stellar remnants in the form of white dwarfs, neutron stars,
+and black holes.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTSSP.copy" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP.from_pickle">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_pickle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTSSP.from_pickle" title="Link to this definition">¶</a></dt>
+<dd><p>Load pickle of stellar population object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP.get_star_phases">
+<span class="sig-name descname"><span class="pre">get_star_phases</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTSSP.get_star_phases" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the stellar phases (as defined by the MIST EEPs).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP.integrated_color">
+<span class="sig-name descname"><span class="pre">integrated_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">red</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTSSP.integrated_color" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the population’s integrated color.</p>
+<section id="id2">
+<h3>Parameters<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>blue<span class="classifier">str</span></dt><dd><p>The blue bandpass. Must be a filter in the
+given photometric system(s).</p>
+</dd>
+<dt>red<span class="classifier">str</span></dt><dd><p>The red bandpass. Must be a filter in the
+given photometric system(s).</p>
+</dd>
+<dt>select<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code>, optional</span></dt><dd><p>Boolean mask for selecting stars (True for stars to include).</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>color<span class="classifier">float</span></dt><dd><p>The integrated color.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP.mag_integrated_component">
+<span class="sig-name descname"><span class="pre">mag_integrated_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTSSP.mag_integrated_component" title="Link to this definition">¶</a></dt>
+<dd><p>Get the magnitude of the integrated component of the population if
+it exists.</p>
+<section id="id3">
+<h3>Parameters<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>Filter of observation. Must be a filter in the given
+photometric system(s).</p>
+</dd>
+</dl>
+</section>
+<section id="id4">
+<h3>Returns<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>mag<span class="classifier">float</span></dt><dd><p>The integrated magnitude if it exists. Otherwise None is returned.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP.mean_mag">
+<span class="sig-name descname"><span class="pre">mean_mag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTSSP.mean_mag" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the population’s mean magnitude.</p>
+<section id="id5">
+<h3>Parameters<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>Filter of observation. Must be a filter in the given
+photometric system(s).</p>
+</dd>
+<dt>select<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code>, optional</span></dt><dd><p>Boolean mask for selecting stars (True for stars to include).</p>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h3>Returns<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>mag<span class="classifier">float</span></dt><dd><p>The mean magnitude in the given bandpass.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP.sample_fraction">
+<span class="sig-name descname"><span class="pre">sample_fraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mag_limit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mag_limit_band</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTSSP.sample_fraction" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the fraction of stars by mass and number that will be
+sampled with the give limiting magnitude.</p>
+<section id="id7">
+<h3>Parameters<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>mag_limit<span class="classifier">float, optional</span></dt><dd><p>Only sample individual stars that are brighter than this magnitude.</p>
+</dd>
+<dt>mag_limit_band<span class="classifier">str, optional</span></dt><dd><p>Bandpass of the limiting magnitude.</p>
+</dd>
+</dl>
+</section>
+<section id="id8">
+<h3>Returns<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>m_lim<span class="classifier">float</span></dt><dd><p>Initial stellar mass associated with <code class="xref py py-obj docutils literal notranslate"><span class="pre">mag_limit</span></code>.</p>
+</dd>
+<dt>f_num_sampled<span class="classifier">float</span></dt><dd><p>Fraction of stars that will be sampled by number.</p>
+</dd>
+<dt>f_mass_sampled<span class="classifier">float</span></dt><dd><p>Fraction of stars that will be sampled by mass.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP.sbf_mag">
+<span class="sig-name descname"><span class="pre">sbf_mag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTSSP.sbf_mag" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the apparent SBF magnitude of the stellar population.</p>
+<section id="id9">
+<h3>Parameters<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>Filter of observation. Must be a filter in the given
+photometric system(s).</p>
+</dd>
+</dl>
+</section>
+<section id="id10">
+<h3>Returns<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>mbar<span class="classifier">float</span></dt><dd><p>The apparent SBF magnitude of the stellar population in the given
+bandpass.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP.select_phase">
+<span class="sig-name descname"><span class="pre">select_phase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phase</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTSSP.select_phase" title="Link to this definition">¶</a></dt>
+<dd><p>Generate stellar evolutionary phase mask. The mask will be <code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code> for
+sources that are in the give phase according to the MIST EEPs.</p>
+<section id="id11">
+<h3>Parameters<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>phase<span class="classifier">str</span></dt><dd><p>Evolutionary phase to select. Options are ‘all’, ‘MS’, ‘giants’,
+‘RGB’, ‘CHeB’, ‘AGB’, ‘EAGB’, ‘TPAGB’, ‘postAGB’, or ‘WDCS’.</p>
+</dd>
+</dl>
+</section>
+<section id="id12">
+<h3>Returns<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>mask<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>Mask that is <code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code> for stars in input phase and <code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+</dd>
+</dl>
+</section>
+<section id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link to this heading">¶</a></h3>
+<p>The MIST EEP phases were taken from Table II: Primary Equivalent
+Evolutionary Points (EEPs):
+<a class="reference external" href="http://waps.cfa.harvard.edu/MIST/README_tables.pdf">http://waps.cfa.harvard.edu/MIST/README_tables.pdf</a></p>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP.set_distance">
+<span class="sig-name descname"><span class="pre">set_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTSSP.set_distance" title="Link to this definition">¶</a></dt>
+<dd><p>Change the distance to the stellar population.</p>
+<section id="id13">
+<h3>Parameters<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>distance<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></span></dt><dd><p>Distance to source. If float is given, the units are assumed
+to be <code class="xref py py-obj docutils literal notranslate"><span class="pre">Mpc</span></code>.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP.star_mags">
+<span class="sig-name descname"><span class="pre">star_mags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTSSP.star_mags" title="Link to this definition">¶</a></dt>
+<dd><p>Get the stellar apparent magnitudes.</p>
+<section id="id14">
+<h3>Parameters<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>Filter of observation. Must be a filter in the given
+photometric system(s).</p>
+</dd>
+<dt>select<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code>, optional</span></dt><dd><p>Boolean mask for selecting stars (True for stars to include).</p>
+</dd>
+</dl>
+</section>
+<section id="id15">
+<h3>Returns<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>mags<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>The stellar apparent magnitudes in the given bandpass.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP.to_pickle">
+<span class="sig-name descname"><span class="pre">to_pickle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTSSP.to_pickle" title="Link to this definition">¶</a></dt>
+<dd><p>Pickle stellar population object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTSSP.total_mag">
+<span class="sig-name descname"><span class="pre">total_mag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTSSP.total_mag" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the population’s total magnitude.</p>
+<section id="id16">
+<h3>Parameters<a class="headerlink" href="#id16" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>Filter of observation. Must be a filter in the given
+photometric system(s).</p>
+</dd>
+<dt>select<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code>, optional</span></dt><dd><p>Boolean mask for selecting stars (True for stars to include).</p>
+</dd>
+</dl>
+</section>
+<section id="id17">
+<h3>Returns<a class="headerlink" href="#id17" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>mag<span class="classifier">float</span></dt><dd><p>The total magnitude in the given bandpass.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">MISTSSP</a><ul>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP"><code class="docutils literal notranslate"><span class="pre">MISTSSP</span></code></a><ul>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP.a_lam"><code class="docutils literal notranslate"><span class="pre">MISTSSP.a_lam</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP.abs_mag_table"><code class="docutils literal notranslate"><span class="pre">MISTSSP.abs_mag_table</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP.dist_mod"><code class="docutils literal notranslate"><span class="pre">MISTSSP.dist_mod</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP.mag_table"><code class="docutils literal notranslate"><span class="pre">MISTSSP.mag_table</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP.num_pops"><code class="docutils literal notranslate"><span class="pre">MISTSSP.num_pops</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP.num_stars"><code class="docutils literal notranslate"><span class="pre">MISTSSP.num_stars</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP.phases"><code class="docutils literal notranslate"><span class="pre">MISTSSP.phases</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP.total_initial_live_mass"><code class="docutils literal notranslate"><span class="pre">MISTSSP.total_initial_live_mass</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP.build_pop"><code class="docutils literal notranslate"><span class="pre">MISTSSP.build_pop()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP.copy"><code class="docutils literal notranslate"><span class="pre">MISTSSP.copy()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP.from_pickle"><code class="docutils literal notranslate"><span class="pre">MISTSSP.from_pickle()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP.get_star_phases"><code class="docutils literal notranslate"><span class="pre">MISTSSP.get_star_phases()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP.integrated_color"><code class="docutils literal notranslate"><span class="pre">MISTSSP.integrated_color()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP.mag_integrated_component"><code class="docutils literal notranslate"><span class="pre">MISTSSP.mag_integrated_component()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP.mean_mag"><code class="docutils literal notranslate"><span class="pre">MISTSSP.mean_mag()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP.sample_fraction"><code class="docutils literal notranslate"><span class="pre">MISTSSP.sample_fraction()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP.sbf_mag"><code class="docutils literal notranslate"><span class="pre">MISTSSP.sbf_mag()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP.select_phase"><code class="docutils literal notranslate"><span class="pre">MISTSSP.select_phase()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP.set_distance"><code class="docutils literal notranslate"><span class="pre">MISTSSP.set_distance()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP.star_mags"><code class="docutils literal notranslate"><span class="pre">MISTSSP.star_mags()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP.to_pickle"><code class="docutils literal notranslate"><span class="pre">MISTSSP.to_pickle()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTSSP.total_mag"><code class="docutils literal notranslate"><span class="pre">MISTSSP.total_mag()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/api/artpop.stars.MISTSSP.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

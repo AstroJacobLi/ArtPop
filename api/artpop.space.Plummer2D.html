@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Plummer2D &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Image Simulation (artpop.image)" href="../modules/image/index.html" />
+    <link rel="prev" title="Constant2D" href="artpop.space.Constant2D.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="../modules/image/index.html" title="Image Simulation (artpop.image)">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="artpop.space.Constant2D.html" title="Constant2D">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      <li><a href="../modules/space/index.html" accesskey="U">Spatial Distributions (<code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.space</span></code>)</a> &#187;</li>
+      
+      <li>Plummer2D</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="plummer2d">
+<h1>Plummer2D<a class="headerlink" href="#plummer2d" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">artpop.space.</span></span><span class="sig-name descname"><span class="pre">Plummer2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amplitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.space.Plummer2D" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Fittable2DModel</span></code></p>
+<p>Two-dimensional Plummer surface brightness profile.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>amplitude<span class="classifier">float</span></dt><dd><p>Central surface brightness.</p>
+</dd>
+<dt>scale_radius<span class="classifier">float</span></dt><dd><p>Characteristic scale radius of the mass distribution.</p>
+</dd>
+<dt>x_0<span class="classifier">float, optional</span></dt><dd><p>x position of the center.</p>
+</dd>
+<dt>y_0<span class="classifier">float, optional</span></dt><dd><p>y position of the center.</p>
+</dd>
+</dl>
+<p class="rubric">Attributes Summary</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.amplitude" title="artpop.space.Plummer2D.amplitude"><code class="xref py py-obj docutils literal notranslate"><span class="pre">amplitude</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.bbox_with_units" title="artpop.space.Plummer2D.bbox_with_units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bbox_with_units</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.bounding_box" title="artpop.space.Plummer2D.bounding_box"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bounding_box</span></code></a></p></td>
+<td><p>A <code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code> of length <a class="reference internal" href="#artpop.space.Plummer2D.n_inputs" title="artpop.space.Plummer2D.n_inputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_inputs</span></code></a> defining the bounding box limits, or raise <code class="xref py py-obj docutils literal notranslate"><span class="pre">NotImplementedError</span></code> for no bounding_box.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.bounds" title="artpop.space.Plummer2D.bounds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bounds</span></code></a></p></td>
+<td><p>A <code class="docutils literal notranslate"><span class="pre">dict</span></code> mapping parameter names to their upper and lower bounds as <code class="docutils literal notranslate"><span class="pre">(min,</span> <span class="pre">max)</span></code> tuples or <code class="docutils literal notranslate"><span class="pre">[min,</span> <span class="pre">max]</span></code> lists.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.col_fit_deriv" title="artpop.space.Plummer2D.col_fit_deriv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">col_fit_deriv</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.cov_matrix" title="artpop.space.Plummer2D.cov_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cov_matrix</span></code></a></p></td>
+<td><p>Fitter should set covariance matrix, if available.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.eqcons" title="artpop.space.Plummer2D.eqcons"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eqcons</span></code></a></p></td>
+<td><p>List of parameter equality constraints.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.fit_deriv" title="artpop.space.Plummer2D.fit_deriv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_deriv</span></code></a></p></td>
+<td><p>Function (similar to the model's <code class="xref py py-obj docutils literal notranslate"><span class="pre">evaluate</span></code>) to compute the derivatives of the model with respect to its parameters, for use by fitting algorithms.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.fittable" title="artpop.space.Plummer2D.fittable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fittable</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.fixed" title="artpop.space.Plummer2D.fixed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fixed</span></code></a></p></td>
+<td><p>A <code class="docutils literal notranslate"><span class="pre">dict</span></code> mapping parameter names to their fixed constraint.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.has_user_bounding_box" title="artpop.space.Plummer2D.has_user_bounding_box"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_user_bounding_box</span></code></a></p></td>
+<td><p>A flag indicating whether or not a custom bounding_box has been assigned to this model by a user, via assignment to <code class="docutils literal notranslate"><span class="pre">model.bounding_box</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.has_user_inverse" title="artpop.space.Plummer2D.has_user_inverse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_user_inverse</span></code></a></p></td>
+<td><p>A flag indicating whether or not a custom inverse model has been assigned to this model by a user, via assignment to <code class="docutils literal notranslate"><span class="pre">model.inverse</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.ineqcons" title="artpop.space.Plummer2D.ineqcons"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ineqcons</span></code></a></p></td>
+<td><p>List of parameter inequality constraints.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.input_units" title="artpop.space.Plummer2D.input_units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">input_units</span></code></a></p></td>
+<td><p>This property is used to indicate what units or sets of units the evaluate method expects, and returns a dictionary mapping inputs to units (or <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code> if any units are accepted).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.input_units_allow_dimensionless" title="artpop.space.Plummer2D.input_units_allow_dimensionless"><code class="xref py py-obj docutils literal notranslate"><span class="pre">input_units_allow_dimensionless</span></code></a></p></td>
+<td><p>Allow dimensionless input (and corresponding output).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.input_units_equivalencies" title="artpop.space.Plummer2D.input_units_equivalencies"><code class="xref py py-obj docutils literal notranslate"><span class="pre">input_units_equivalencies</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.input_units_strict" title="artpop.space.Plummer2D.input_units_strict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">input_units_strict</span></code></a></p></td>
+<td><p>Enforce strict units on inputs to evaluate.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.inputs" title="artpop.space.Plummer2D.inputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inputs</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.inverse" title="artpop.space.Plummer2D.inverse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inverse</span></code></a></p></td>
+<td><p>Returns a new <code class="xref py py-obj docutils literal notranslate"><span class="pre">Model</span></code> instance which performs the inverse transform, if an analytic inverse is defined for this model.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.linear" title="artpop.space.Plummer2D.linear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linear</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.meta" title="artpop.space.Plummer2D.meta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">meta</span></code></a></p></td>
+<td><p>A dict-like object to store optional information.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.model_constraints" title="artpop.space.Plummer2D.model_constraints"><code class="xref py py-obj docutils literal notranslate"><span class="pre">model_constraints</span></code></a></p></td>
+<td><p>Primarily for informational purposes, these are the types of constraints that constrain model evaluation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.model_set_axis" title="artpop.space.Plummer2D.model_set_axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">model_set_axis</span></code></a></p></td>
+<td><p>The index of the model set axis--that is the axis of a parameter array that pertains to which model a parameter value pertains to--as specified when the model was initialized.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.n_inputs" title="artpop.space.Plummer2D.n_inputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_inputs</span></code></a></p></td>
+<td><p>The number of inputs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.n_outputs" title="artpop.space.Plummer2D.n_outputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_outputs</span></code></a></p></td>
+<td><p>The number of outputs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.n_submodels" title="artpop.space.Plummer2D.n_submodels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_submodels</span></code></a></p></td>
+<td><p>Return the number of components in a single model, which is obviously 1.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.name" title="artpop.space.Plummer2D.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
+<td><p>User-provided name for this model instance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.outputs" title="artpop.space.Plummer2D.outputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.param_names" title="artpop.space.Plummer2D.param_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">param_names</span></code></a></p></td>
+<td><p>Names of the parameters that describe models of this type.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.param_sets" title="artpop.space.Plummer2D.param_sets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">param_sets</span></code></a></p></td>
+<td><p>Return parameters as a pset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.parameter_constraints" title="artpop.space.Plummer2D.parameter_constraints"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parameter_constraints</span></code></a></p></td>
+<td><p>Primarily for informational purposes, these are the types of constraints that can be set on a model's parameters.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.parameters" title="artpop.space.Plummer2D.parameters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parameters</span></code></a></p></td>
+<td><p>A flattened array of all parameter values in all parameter sets.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.return_units" title="artpop.space.Plummer2D.return_units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">return_units</span></code></a></p></td>
+<td><p>This property is used to indicate what units or sets of units the output of evaluate should be in, and returns a dictionary mapping outputs to units (or <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code> if any units are accepted).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.scale_radius" title="artpop.space.Plummer2D.scale_radius"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scale_radius</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.separable" title="artpop.space.Plummer2D.separable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">separable</span></code></a></p></td>
+<td><p>A flag indicating whether a model is separable.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.standard_broadcasting" title="artpop.space.Plummer2D.standard_broadcasting"><code class="xref py py-obj docutils literal notranslate"><span class="pre">standard_broadcasting</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.stds" title="artpop.space.Plummer2D.stds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stds</span></code></a></p></td>
+<td><p>Standard deviation of parameters, if covariance matrix is available.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.sync_constraints" title="artpop.space.Plummer2D.sync_constraints"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_constraints</span></code></a></p></td>
+<td><p>This is a boolean property that indicates whether or not accessing constraints automatically check the constituent models current values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.tied" title="artpop.space.Plummer2D.tied"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tied</span></code></a></p></td>
+<td><p>A <code class="docutils literal notranslate"><span class="pre">dict</span></code> mapping parameter names to their tied constraint.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.uses_quantity" title="artpop.space.Plummer2D.uses_quantity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">uses_quantity</span></code></a></p></td>
+<td><p>True if this model has been created with <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code> objects or if there are no parameters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.x_0" title="artpop.space.Plummer2D.x_0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">x_0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.y_0" title="artpop.space.Plummer2D.y_0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">y_0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Summary</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.__call__" title="artpop.space.Plummer2D.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code></a>(*inputs[, model_set_axis, ...])</p></td>
+<td><p>Evaluate this model using the given input(s) and the parameter values that were specified when the model was instantiated.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.coerce_units" title="artpop.space.Plummer2D.coerce_units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">coerce_units</span></code></a>([input_units, return_units, ...])</p></td>
+<td><p>Attach units to this (unitless) model.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.copy" title="artpop.space.Plummer2D.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>()</p></td>
+<td><p>Return a copy of this model.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.deepcopy" title="artpop.space.Plummer2D.deepcopy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deepcopy</span></code></a>()</p></td>
+<td><p>Return a deep copy of this model.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.evaluate" title="artpop.space.Plummer2D.evaluate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evaluate</span></code></a>(x, y, amplitude, scale_radius, x_0, y_0)</p></td>
+<td><p>Two-dimensional Plummer profile evaluation function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.get_bounding_box" title="artpop.space.Plummer2D.get_bounding_box"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_bounding_box</span></code></a>([with_bbox])</p></td>
+<td><p>Return the <code class="docutils literal notranslate"><span class="pre">bounding_box</span></code> of a model if it exists or <code class="docutils literal notranslate"><span class="pre">None</span></code> otherwise.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.has_inverse" title="artpop.space.Plummer2D.has_inverse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_inverse</span></code></a>()</p></td>
+<td><p>Returns True if the model has an analytic or user inverse defined.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.input_shape" title="artpop.space.Plummer2D.input_shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">input_shape</span></code></a>(inputs)</p></td>
+<td><p>Get input shape for bounding_box evaluation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.output_units" title="artpop.space.Plummer2D.output_units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">output_units</span></code></a>(**kwargs)</p></td>
+<td><p>Return a dictionary of output units for this model given a dictionary of fitting inputs and outputs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.prepare_inputs" title="artpop.space.Plummer2D.prepare_inputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prepare_inputs</span></code></a>(*inputs[, model_set_axis, ...])</p></td>
+<td><p>This method is used in <code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code> to ensure that all the inputs to the model can be broadcast into compatible shapes (if one or both of them are input as arrays), particularly if there are more than one parameter sets.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.prepare_outputs" title="artpop.space.Plummer2D.prepare_outputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prepare_outputs</span></code></a>(broadcasted_shapes, ...)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.rename" title="artpop.space.Plummer2D.rename"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rename</span></code></a>([name, inputs, outputs])</p></td>
+<td><p>Return a copy of this model with a new name.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.render" title="artpop.space.Plummer2D.render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render</span></code></a>([out, coords])</p></td>
+<td><p>Evaluate a model at fixed positions, respecting the <code class="docutils literal notranslate"><span class="pre">bounding_box</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.set_slice_args" title="artpop.space.Plummer2D.set_slice_args"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_slice_args</span></code></a>(*args)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.strip_units_from_tree" title="artpop.space.Plummer2D.strip_units_from_tree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">strip_units_from_tree</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.sum_of_implicit_terms" title="artpop.space.Plummer2D.sum_of_implicit_terms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sum_of_implicit_terms</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Evaluate the sum of any implicit model terms on some input variables.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.with_units_from_data" title="artpop.space.Plummer2D.with_units_from_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">with_units_from_data</span></code></a>(**kwargs)</p></td>
+<td><p>Return an instance of the model which has units for which the parameter values are compatible with the data units specified.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.space.Plummer2D.without_units_for_data" title="artpop.space.Plummer2D.without_units_for_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">without_units_for_data</span></code></a>(**kwargs)</p></td>
+<td><p>Return an instance of the model for which the parameter values have been converted to the right units for the data, then the units have been stripped away.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes Documentation</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.amplitude">
+<span class="sig-name descname"><span class="pre">amplitude</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">Parameter('amplitude',</span> <span class="pre">value=1.0)</span></em><a class="headerlink" href="#artpop.space.Plummer2D.amplitude" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.bbox_with_units">
+<span class="sig-name descname"><span class="pre">bbox_with_units</span></span><a class="headerlink" href="#artpop.space.Plummer2D.bbox_with_units" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.bounding_box">
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><a class="headerlink" href="#artpop.space.Plummer2D.bounding_box" title="Link to this definition">¶</a></dt>
+<dd><p>A <code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code> of length <a class="reference internal" href="#artpop.space.Plummer2D.n_inputs" title="artpop.space.Plummer2D.n_inputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_inputs</span></code></a> defining the bounding box limits, or
+raise <code class="xref py py-obj docutils literal notranslate"><span class="pre">NotImplementedError</span></code> for no bounding_box.</p>
+<p>The default limits are given by a <code class="docutils literal notranslate"><span class="pre">bounding_box</span></code> property or method
+defined in the class body of a specific model.  If not defined then
+this property just raises <code class="xref py py-obj docutils literal notranslate"><span class="pre">NotImplementedError</span></code> by default (but may be
+assigned a custom value by a user).  <code class="docutils literal notranslate"><span class="pre">bounding_box</span></code> can be set
+manually to an array-like object of shape <code class="docutils literal notranslate"><span class="pre">(model.n_inputs,</span> <span class="pre">2)</span></code>. For
+further usage, see <span class="xref std std-ref">astropy:bounding-boxes</span></p>
+<p>The limits are ordered according to the <code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy</span></code> <code class="docutils literal notranslate"><span class="pre">'C'</span></code> indexing
+convention, and are the reverse of the model input order,
+e.g. for inputs <code class="docutils literal notranslate"><span class="pre">('x',</span> <span class="pre">'y',</span> <span class="pre">'z')</span></code>, <code class="docutils literal notranslate"><span class="pre">bounding_box</span></code> is defined:</p>
+<ul class="simple">
+<li><p>for 1D: <code class="docutils literal notranslate"><span class="pre">(x_low,</span> <span class="pre">x_high)</span></code></p></li>
+<li><p>for 2D: <code class="docutils literal notranslate"><span class="pre">((y_low,</span> <span class="pre">y_high),</span> <span class="pre">(x_low,</span> <span class="pre">x_high))</span></code></p></li>
+<li><p>for 3D: <code class="docutils literal notranslate"><span class="pre">((z_low,</span> <span class="pre">z_high),</span> <span class="pre">(y_low,</span> <span class="pre">y_high),</span> <span class="pre">(x_low,</span> <span class="pre">x_high))</span></code></p></li>
+</ul>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h3>
+<p>Setting the <code class="docutils literal notranslate"><span class="pre">bounding_box</span></code> limits for a 1D and 2D model:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">astropy.modeling.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Gaussian1D</span><span class="p">,</span> <span class="n">Gaussian2D</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model_1d</span> <span class="o">=</span> <span class="n">Gaussian1D</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model_2d</span> <span class="o">=</span> <span class="n">Gaussian2D</span><span class="p">(</span><span class="n">x_stddev</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y_stddev</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model_1d</span><span class="o">.</span><span class="n">bounding_box</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model_2d</span><span class="o">.</span><span class="n">bounding_box</span> <span class="o">=</span> <span class="p">((</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Setting the bounding_box limits for a user-defined 3D <code class="xref py py-obj docutils literal notranslate"><span class="pre">custom_model</span></code>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">astropy.modeling.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">custom_model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">const3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">amp</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="k">return</span> <span class="n">amp</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Const3D</span> <span class="o">=</span> <span class="n">custom_model</span><span class="p">(</span><span class="n">const3d</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model_3d</span> <span class="o">=</span> <span class="n">Const3D</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model_3d</span><span class="o">.</span><span class="n">bounding_box</span> <span class="o">=</span> <span class="p">((</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>To reset <code class="docutils literal notranslate"><span class="pre">bounding_box</span></code> to its default limits just delete the
+user-defined value–this will reset it back to the default defined
+on the class:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">model_1d</span><span class="o">.</span><span class="n">bounding_box</span>
+</pre></div>
+</div>
+<p>To disable the bounding box entirely (including the default),
+set <code class="docutils literal notranslate"><span class="pre">bounding_box</span></code> to <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model_1d</span><span class="o">.</span><span class="n">bounding_box</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model_1d</span><span class="o">.</span><span class="n">bounding_box</span>  
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">NotImplementedError</span>: <span class="n">No bounding box is defined for this model</span>
+<span class="x">(note: the bounding box was explicitly disabled for this model;</span>
+<span class="x">use `del model.bounding_box` to restore the default bounding box,</span>
+<span class="x">if one is defined for this model).</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.bounds">
+<span class="sig-name descname"><span class="pre">bounds</span></span><a class="headerlink" href="#artpop.space.Plummer2D.bounds" title="Link to this definition">¶</a></dt>
+<dd><p>A <code class="docutils literal notranslate"><span class="pre">dict</span></code> mapping parameter names to their upper and lower bounds as
+<code class="docutils literal notranslate"><span class="pre">(min,</span> <span class="pre">max)</span></code> tuples or <code class="docutils literal notranslate"><span class="pre">[min,</span> <span class="pre">max]</span></code> lists.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.col_fit_deriv">
+<span class="sig-name descname"><span class="pre">col_fit_deriv</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#artpop.space.Plummer2D.col_fit_deriv" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.cov_matrix">
+<span class="sig-name descname"><span class="pre">cov_matrix</span></span><a class="headerlink" href="#artpop.space.Plummer2D.cov_matrix" title="Link to this definition">¶</a></dt>
+<dd><p>Fitter should set covariance matrix, if available.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.eqcons">
+<span class="sig-name descname"><span class="pre">eqcons</span></span><a class="headerlink" href="#artpop.space.Plummer2D.eqcons" title="Link to this definition">¶</a></dt>
+<dd><p>List of parameter equality constraints.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.fit_deriv">
+<span class="sig-name descname"><span class="pre">fit_deriv</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#artpop.space.Plummer2D.fit_deriv" title="Link to this definition">¶</a></dt>
+<dd><p>Function (similar to the model’s <code class="xref py py-obj docutils literal notranslate"><span class="pre">evaluate</span></code>) to compute the
+derivatives of the model with respect to its parameters, for use by fitting
+algorithms.  In other words, this computes the Jacobian matrix with respect
+to the model’s parameters.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.fittable">
+<span class="sig-name descname"><span class="pre">fittable</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#artpop.space.Plummer2D.fittable" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.fixed">
+<span class="sig-name descname"><span class="pre">fixed</span></span><a class="headerlink" href="#artpop.space.Plummer2D.fixed" title="Link to this definition">¶</a></dt>
+<dd><p>A <code class="docutils literal notranslate"><span class="pre">dict</span></code> mapping parameter names to their fixed constraint.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.has_user_bounding_box">
+<span class="sig-name descname"><span class="pre">has_user_bounding_box</span></span><a class="headerlink" href="#artpop.space.Plummer2D.has_user_bounding_box" title="Link to this definition">¶</a></dt>
+<dd><p>A flag indicating whether or not a custom bounding_box has been
+assigned to this model by a user, via assignment to
+<code class="docutils literal notranslate"><span class="pre">model.bounding_box</span></code>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.has_user_inverse">
+<span class="sig-name descname"><span class="pre">has_user_inverse</span></span><a class="headerlink" href="#artpop.space.Plummer2D.has_user_inverse" title="Link to this definition">¶</a></dt>
+<dd><p>A flag indicating whether or not a custom inverse model has been
+assigned to this model by a user, via assignment to <code class="docutils literal notranslate"><span class="pre">model.inverse</span></code>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.ineqcons">
+<span class="sig-name descname"><span class="pre">ineqcons</span></span><a class="headerlink" href="#artpop.space.Plummer2D.ineqcons" title="Link to this definition">¶</a></dt>
+<dd><p>List of parameter inequality constraints.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.input_units">
+<span class="sig-name descname"><span class="pre">input_units</span></span><a class="headerlink" href="#artpop.space.Plummer2D.input_units" title="Link to this definition">¶</a></dt>
+<dd><p>This property is used to indicate what units or sets of units the
+evaluate method expects, and returns a dictionary mapping inputs to
+units (or <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code> if any units are accepted).</p>
+<p>Model sub-classes can also use function annotations in evaluate to
+indicate valid input units, in which case this property should
+not be overridden since it will return the input units based on the
+annotations.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.input_units_allow_dimensionless">
+<span class="sig-name descname"><span class="pre">input_units_allow_dimensionless</span></span><a class="headerlink" href="#artpop.space.Plummer2D.input_units_allow_dimensionless" title="Link to this definition">¶</a></dt>
+<dd><p>Allow dimensionless input (and corresponding output). If this is True,
+input values to evaluate will gain the units specified in input_units. If
+this is a dictionary then it should map input name to a bool to allow
+dimensionless numbers for that input.
+Only has an effect if input_units is defined.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.input_units_equivalencies">
+<span class="sig-name descname"><span class="pre">input_units_equivalencies</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#artpop.space.Plummer2D.input_units_equivalencies" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.input_units_strict">
+<span class="sig-name descname"><span class="pre">input_units_strict</span></span><a class="headerlink" href="#artpop.space.Plummer2D.input_units_strict" title="Link to this definition">¶</a></dt>
+<dd><p>Enforce strict units on inputs to evaluate. If this is set to True,
+input values to evaluate will be in the exact units specified by
+input_units. If the input quantities are convertible to input_units,
+they are converted. If this is a dictionary then it should map input
+name to a bool to set strict input units for that parameter.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.inputs">
+<span class="sig-name descname"><span class="pre">inputs</span></span><a class="headerlink" href="#artpop.space.Plummer2D.inputs" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.inverse">
+<span class="sig-name descname"><span class="pre">inverse</span></span><a class="headerlink" href="#artpop.space.Plummer2D.inverse" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a new <code class="xref py py-obj docutils literal notranslate"><span class="pre">Model</span></code> instance which performs the
+inverse transform, if an analytic inverse is defined for this model.</p>
+<p>Even on models that don’t have an inverse defined, this property can be
+set with a manually-defined inverse, such a pre-computed or
+experimentally determined inverse (often given as a
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">PolynomialModel</span></code>, but not by
+requirement).</p>
+<p>A custom inverse can be deleted with <code class="docutils literal notranslate"><span class="pre">del</span> <span class="pre">model.inverse</span></code>.  In this
+case the model’s inverse is reset to its default, if a default exists
+(otherwise the default is to raise <code class="xref py py-obj docutils literal notranslate"><span class="pre">NotImplementedError</span></code>).</p>
+<p>Note to authors of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Model</span></code> subclasses:  To define an
+inverse for a model simply override this property to return the
+appropriate model representing the inverse.  The machinery that will
+make the inverse manually-overridable is added automatically by the
+base class.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.linear">
+<span class="sig-name descname"><span class="pre">linear</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#artpop.space.Plummer2D.linear" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.meta">
+<span class="sig-name descname"><span class="pre">meta</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#artpop.space.Plummer2D.meta" title="Link to this definition">¶</a></dt>
+<dd><p>A dict-like object to store optional information.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.model_constraints">
+<span class="sig-name descname"><span class="pre">model_constraints</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('eqcons',</span> <span class="pre">'ineqcons')</span></em><a class="headerlink" href="#artpop.space.Plummer2D.model_constraints" title="Link to this definition">¶</a></dt>
+<dd><p>Primarily for informational purposes, these are the types of constraints
+that constrain model evaluation.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.model_set_axis">
+<span class="sig-name descname"><span class="pre">model_set_axis</span></span><a class="headerlink" href="#artpop.space.Plummer2D.model_set_axis" title="Link to this definition">¶</a></dt>
+<dd><p>The index of the model set axis–that is the axis of a parameter array
+that pertains to which model a parameter value pertains to–as
+specified when the model was initialized.</p>
+<p>See the documentation on <span class="xref std std-ref">astropy:modeling-model-sets</span>
+for more details.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.n_inputs">
+<span class="sig-name descname"><span class="pre">n_inputs</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#artpop.space.Plummer2D.n_inputs" title="Link to this definition">¶</a></dt>
+<dd><p>The number of inputs.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.n_outputs">
+<span class="sig-name descname"><span class="pre">n_outputs</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#artpop.space.Plummer2D.n_outputs" title="Link to this definition">¶</a></dt>
+<dd><p>The number of outputs.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.n_submodels">
+<span class="sig-name descname"><span class="pre">n_submodels</span></span><a class="headerlink" href="#artpop.space.Plummer2D.n_submodels" title="Link to this definition">¶</a></dt>
+<dd><p>Return the number of components in a single model, which is
+obviously 1.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#artpop.space.Plummer2D.name" title="Link to this definition">¶</a></dt>
+<dd><p>User-provided name for this model instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.outputs">
+<span class="sig-name descname"><span class="pre">outputs</span></span><a class="headerlink" href="#artpop.space.Plummer2D.outputs" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.param_names">
+<span class="sig-name descname"><span class="pre">param_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('amplitude',</span> <span class="pre">'scale_radius',</span> <span class="pre">'x_0',</span> <span class="pre">'y_0')</span></em><a class="headerlink" href="#artpop.space.Plummer2D.param_names" title="Link to this definition">¶</a></dt>
+<dd><p>Names of the parameters that describe models of this type.</p>
+<p>The parameters in this tuple are in the same order they should be passed in
+when initializing a model of a specific type.  Some types of models, such
+as polynomial models, have a different number of parameters depending on
+some other property of the model, such as the degree.</p>
+<p>When defining a custom model class the value of this attribute is
+automatically set by the <code class="xref py py-obj docutils literal notranslate"><span class="pre">Parameter</span></code> attributes defined
+in the class body.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.param_sets">
+<span class="sig-name descname"><span class="pre">param_sets</span></span><a class="headerlink" href="#artpop.space.Plummer2D.param_sets" title="Link to this definition">¶</a></dt>
+<dd><p>Return parameters as a pset.</p>
+<p>This is a list with one item per parameter set, which is an array of
+that parameter’s values across all parameter sets, with the last axis
+associated with the parameter set.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.parameter_constraints">
+<span class="sig-name descname"><span class="pre">parameter_constraints</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('fixed',</span> <span class="pre">'tied',</span> <span class="pre">'bounds')</span></em><a class="headerlink" href="#artpop.space.Plummer2D.parameter_constraints" title="Link to this definition">¶</a></dt>
+<dd><p>Primarily for informational purposes, these are the types of constraints
+that can be set on a model’s parameters.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.parameters">
+<span class="sig-name descname"><span class="pre">parameters</span></span><a class="headerlink" href="#artpop.space.Plummer2D.parameters" title="Link to this definition">¶</a></dt>
+<dd><p>A flattened array of all parameter values in all parameter sets.</p>
+<p>Fittable parameters maintain this list and fitters modify it.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.return_units">
+<span class="sig-name descname"><span class="pre">return_units</span></span><a class="headerlink" href="#artpop.space.Plummer2D.return_units" title="Link to this definition">¶</a></dt>
+<dd><p>This property is used to indicate what units or sets of units the
+output of evaluate should be in, and returns a dictionary mapping
+outputs to units (or <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code> if any units are accepted).</p>
+<p>Model sub-classes can also use function annotations in evaluate to
+indicate valid output units, in which case this property should not be
+overridden since it will return the return units based on the
+annotations.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.scale_radius">
+<span class="sig-name descname"><span class="pre">scale_radius</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">Parameter('scale_radius',</span> <span class="pre">value=1.0)</span></em><a class="headerlink" href="#artpop.space.Plummer2D.scale_radius" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.separable">
+<span class="sig-name descname"><span class="pre">separable</span></span><a class="headerlink" href="#artpop.space.Plummer2D.separable" title="Link to this definition">¶</a></dt>
+<dd><p>A flag indicating whether a model is separable.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.standard_broadcasting">
+<span class="sig-name descname"><span class="pre">standard_broadcasting</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#artpop.space.Plummer2D.standard_broadcasting" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.stds">
+<span class="sig-name descname"><span class="pre">stds</span></span><a class="headerlink" href="#artpop.space.Plummer2D.stds" title="Link to this definition">¶</a></dt>
+<dd><p>Standard deviation of parameters, if covariance matrix is available.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.sync_constraints">
+<span class="sig-name descname"><span class="pre">sync_constraints</span></span><a class="headerlink" href="#artpop.space.Plummer2D.sync_constraints" title="Link to this definition">¶</a></dt>
+<dd><p>This is a boolean property that indicates whether or not accessing constraints
+automatically check the constituent models current values. It defaults to True
+on creation of a model, but for fitting purposes it should be set to False
+for performance reasons.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.tied">
+<span class="sig-name descname"><span class="pre">tied</span></span><a class="headerlink" href="#artpop.space.Plummer2D.tied" title="Link to this definition">¶</a></dt>
+<dd><p>A <code class="docutils literal notranslate"><span class="pre">dict</span></code> mapping parameter names to their tied constraint.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.uses_quantity">
+<span class="sig-name descname"><span class="pre">uses_quantity</span></span><a class="headerlink" href="#artpop.space.Plummer2D.uses_quantity" title="Link to this definition">¶</a></dt>
+<dd><p>True if this model has been created with <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code>
+objects or if there are no parameters.</p>
+<p>This can be used to determine if this model should be evaluated with
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code> or regular floats.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.x_0">
+<span class="sig-name descname"><span class="pre">x_0</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">Parameter('x_0',</span> <span class="pre">value=0.0)</span></em><a class="headerlink" href="#artpop.space.Plummer2D.x_0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.y_0">
+<span class="sig-name descname"><span class="pre">y_0</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">Parameter('y_0',</span> <span class="pre">value=0.0)</span></em><a class="headerlink" href="#artpop.space.Plummer2D.y_0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric">Methods Documentation</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_set_axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_bounding_box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">nan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equivalencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">new_inputs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.space.Plummer2D.__call__" title="Link to this definition">¶</a></dt>
+<dd><p>Evaluate this model using the given input(s) and the parameter values
+that were specified when the model was instantiated.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.coerce_units">
+<span class="sig-name descname"><span class="pre">coerce_units</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_units_equivalencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_units_allow_dimensionless</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.space.Plummer2D.coerce_units" title="Link to this definition">¶</a></dt>
+<dd><p>Attach units to this (unitless) model.</p>
+<section id="id1">
+<h3>Parameters<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>input_units<span class="classifier">dict or tuple, optional</span></dt><dd><p>Input units to attach.  If dict, each key is the name of a model input,
+and the value is the unit to attach.  If tuple, the elements are units
+to attach in order corresponding to <code class="xref py py-obj docutils literal notranslate"><span class="pre">Model.inputs</span></code>.</p>
+</dd>
+<dt>return_units<span class="classifier">dict or tuple, optional</span></dt><dd><p>Output units to attach.  If dict, each key is the name of a model output,
+and the value is the unit to attach.  If tuple, the elements are units
+to attach in order corresponding to <code class="xref py py-obj docutils literal notranslate"><span class="pre">Model.outputs</span></code>.</p>
+</dd>
+<dt>input_units_equivalencies<span class="classifier">dict, optional</span></dt><dd><p>Default equivalencies to apply to input values.  If set, this should be a
+dictionary where each key is a string that corresponds to one of the
+model inputs.</p>
+</dd>
+<dt>input_units_allow_dimensionless<span class="classifier">bool or dict, optional</span></dt><dd><p>Allow dimensionless input. If this is True, input values to evaluate will
+gain the units specified in input_units. If this is a dictionary then it
+should map input name to a bool to allow dimensionless numbers for that
+input.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">CompoundModel</span></code></dt><dd><p>A <code class="xref py py-obj docutils literal notranslate"><span class="pre">CompoundModel</span></code> composed of the current model plus
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">UnitsMapping</span></code> model(s) that attach the units.</p>
+</dd>
+</dl>
+</section>
+<section id="raises">
+<h3>Raises<a class="headerlink" href="#raises" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>ValueError</dt><dd><p>If the current model already has units.</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h3>Examples<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<p>Wrapping a unitless model to require and convert units:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">astropy.modeling.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Polynomial1D</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">astropy</span><span class="w"> </span><span class="kn">import</span> <span class="n">units</span> <span class="k">as</span> <span class="n">u</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">poly</span> <span class="o">=</span> <span class="n">Polynomial1D</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">c0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c1</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">coerce_units</span><span class="p">((</span><span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="p">,),</span> <span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">s</span><span class="p">,))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">Quantity</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="p">))</span>  
+<span class="go">&lt;Quantity 21. s&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">Quantity</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">cm</span><span class="p">))</span>  
+<span class="go">&lt;Quantity 21. s&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">Quantity</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">cm</span><span class="p">))</span>  
+<span class="go">&lt;Quantity 1.2 s&gt;</span>
+</pre></div>
+</div>
+<p>Wrapping a unitless model but still permitting unitless input:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">astropy.modeling.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Polynomial1D</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">astropy</span><span class="w"> </span><span class="kn">import</span> <span class="n">units</span> <span class="k">as</span> <span class="n">u</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">poly</span> <span class="o">=</span> <span class="n">Polynomial1D</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">c0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c1</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">coerce_units</span><span class="p">((</span><span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="p">,),</span> <span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">s</span><span class="p">,),</span> <span class="n">input_units_allow_dimensionless</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">Quantity</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="p">))</span>  
+<span class="go">&lt;Quantity 21. s&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>  
+<span class="go">&lt;Quantity 21. s&gt;</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#artpop.space.Plummer2D.copy" title="Link to this definition">¶</a></dt>
+<dd><p>Return a copy of this model.</p>
+<p>Uses a deep copy so that all model attributes, including parameter
+values, are copied as well.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.deepcopy">
+<span class="sig-name descname"><span class="pre">deepcopy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#artpop.space.Plummer2D.deepcopy" title="Link to this definition">¶</a></dt>
+<dd><p>Return a deep copy of this model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.evaluate">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amplitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.space.Plummer2D.evaluate" title="Link to this definition">¶</a></dt>
+<dd><p>Two-dimensional Plummer profile evaluation function.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.get_bounding_box">
+<span class="sig-name descname"><span class="pre">get_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">with_bbox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.space.Plummer2D.get_bounding_box" title="Link to this definition">¶</a></dt>
+<dd><p>Return the <code class="docutils literal notranslate"><span class="pre">bounding_box</span></code> of a model if it exists or <code class="docutils literal notranslate"><span class="pre">None</span></code>
+otherwise.</p>
+<section id="id3">
+<h3>Parameters<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>with_bbox :</dt><dd><p>The value of the <code class="docutils literal notranslate"><span class="pre">with_bounding_box</span></code> keyword argument
+when calling the model. Default is <code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code> for usage when
+looking up the model’s <code class="docutils literal notranslate"><span class="pre">bounding_box</span></code> without risk of error.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.has_inverse">
+<span class="sig-name descname"><span class="pre">has_inverse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#artpop.space.Plummer2D.has_inverse" title="Link to this definition">¶</a></dt>
+<dd><p>Returns True if the model has an analytic or user
+inverse defined.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.input_shape">
+<span class="sig-name descname"><span class="pre">input_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.space.Plummer2D.input_shape" title="Link to this definition">¶</a></dt>
+<dd><p>Get input shape for bounding_box evaluation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.output_units">
+<span class="sig-name descname"><span class="pre">output_units</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.space.Plummer2D.output_units" title="Link to this definition">¶</a></dt>
+<dd><p>Return a dictionary of output units for this model given a dictionary
+of fitting inputs and outputs.</p>
+<p>The input and output Quantity objects should be given as keyword
+arguments.</p>
+<section id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link to this heading">¶</a></h3>
+<p>This method is needed in order to be able to fit models with units in
+the parameters, since we need to temporarily strip away the units from
+the model during the fitting (which might be done by e.g. scipy
+functions).</p>
+<p>This method will force extra model evaluations, which maybe computationally
+expensive. To avoid this, one can add a return_units property to the model,
+see <span class="xref std std-ref">astropy:models_return_units</span>.</p>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.prepare_inputs">
+<span class="sig-name descname"><span class="pre">prepare_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_set_axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equivalencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.space.Plummer2D.prepare_inputs" title="Link to this definition">¶</a></dt>
+<dd><p>This method is used in <code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code> to ensure
+that all the inputs to the model can be broadcast into compatible
+shapes (if one or both of them are input as arrays), particularly if
+there are more than one parameter sets. This also makes sure that (if
+applicable) the units of the input will be compatible with the evaluate
+method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.prepare_outputs">
+<span class="sig-name descname"><span class="pre">prepare_outputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">broadcasted_shapes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">outputs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.space.Plummer2D.prepare_outputs" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.rename">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.space.Plummer2D.rename" title="Link to this definition">¶</a></dt>
+<dd><p>Return a copy of this model with a new name.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.space.Plummer2D.render" title="Link to this definition">¶</a></dt>
+<dd><p>Evaluate a model at fixed positions, respecting the <code class="docutils literal notranslate"><span class="pre">bounding_box</span></code>.</p>
+<p>The key difference relative to evaluating the model directly is that
+this method is limited to a bounding box if the <code class="xref py py-obj docutils literal notranslate"><span class="pre">Model.bounding_box</span></code>
+attribute is set.</p>
+<section id="id4">
+<h3>Parameters<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>out<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>, optional</span></dt><dd><p>An array that the evaluated model will be added to.  If this is not
+given (or given as <code class="docutils literal notranslate"><span class="pre">None</span></code>), a new array will be created.</p>
+</dd>
+<dt>coords<span class="classifier">array-like, optional</span></dt><dd><p>An array to be used to translate from the model’s input coordinates
+to the <code class="docutils literal notranslate"><span class="pre">out</span></code> array. It should have the property that
+<code class="docutils literal notranslate"><span class="pre">self(coords)</span></code> yields the same shape as <code class="docutils literal notranslate"><span class="pre">out</span></code>.  If <code class="docutils literal notranslate"><span class="pre">out</span></code> is
+not specified, <code class="docutils literal notranslate"><span class="pre">coords</span></code> will be used to determine the shape of
+the returned array. If this is not provided (or None), the model
+will be evaluated on a grid determined by <code class="xref py py-obj docutils literal notranslate"><span class="pre">Model.bounding_box</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="id5">
+<h3>Returns<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>out<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></span></dt><dd><p>The model added to <code class="docutils literal notranslate"><span class="pre">out</span></code> if  <code class="docutils literal notranslate"><span class="pre">out</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span></code>, or else a
+new array from evaluating the model over <code class="docutils literal notranslate"><span class="pre">coords</span></code>.
+If <code class="docutils literal notranslate"><span class="pre">out</span></code> and <code class="docutils literal notranslate"><span class="pre">coords</span></code> are both <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, the returned array is
+limited to the <code class="xref py py-obj docutils literal notranslate"><span class="pre">Model.bounding_box</span></code> limits. If
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">Model.bounding_box</span></code> is <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">arr</span></code> or <code class="docutils literal notranslate"><span class="pre">coords</span></code> must be
+passed.</p>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h3>Raises<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>ValueError</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">coords</span></code> are not given and the <code class="xref py py-obj docutils literal notranslate"><span class="pre">Model.bounding_box</span></code> of
+this model is not set.</p>
+</dd>
+</dl>
+</section>
+<section id="id7">
+<h3>Examples<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<p><span class="xref std std-ref">astropy:bounding-boxes</span></p>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.set_slice_args">
+<span class="sig-name descname"><span class="pre">set_slice_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.space.Plummer2D.set_slice_args" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.strip_units_from_tree">
+<span class="sig-name descname"><span class="pre">strip_units_from_tree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#artpop.space.Plummer2D.strip_units_from_tree" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.sum_of_implicit_terms">
+<span class="sig-name descname"><span class="pre">sum_of_implicit_terms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.space.Plummer2D.sum_of_implicit_terms" title="Link to this definition">¶</a></dt>
+<dd><p>Evaluate the sum of any implicit model terms on some input variables.
+This includes any fixed terms used in evaluating a linear model that
+do not have corresponding parameters exposed to the user. The
+prototypical case is <code class="xref py py-obj docutils literal notranslate"><span class="pre">astropy.modeling.functional_models.Shift</span></code>, which
+corresponds to a function y = a + bx, where b=1 is intrinsically fixed
+by the type of model, such that sum_of_implicit_terms(x) == x. This
+method is needed by linear fitters to correct the dependent variable
+for the implicit term(s) when solving for the remaining terms
+(ie. a = y - bx).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.with_units_from_data">
+<span class="sig-name descname"><span class="pre">with_units_from_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.space.Plummer2D.with_units_from_data" title="Link to this definition">¶</a></dt>
+<dd><p>Return an instance of the model which has units for which the parameter
+values are compatible with the data units specified.</p>
+<p>The input and output Quantity objects should be given as keyword
+arguments.</p>
+<section id="id8">
+<h3>Notes<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<p>This method is needed in order to be able to fit models with units in
+the parameters, since we need to temporarily strip away the units from
+the model during the fitting (which might be done by e.g. scipy
+functions).</p>
+<p>The units that the parameters will gain are not necessarily the units
+of the input data, but are derived from them. Model subclasses that
+want fitting to work in the presence of quantities need to define a
+<code class="docutils literal notranslate"><span class="pre">_parameter_units_for_data_units</span></code> method that takes the input and output
+units (as two dictionaries) and returns a dictionary giving the target
+units for each parameter.</p>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.space.Plummer2D.without_units_for_data">
+<span class="sig-name descname"><span class="pre">without_units_for_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.space.Plummer2D.without_units_for_data" title="Link to this definition">¶</a></dt>
+<dd><p>Return an instance of the model for which the parameter values have
+been converted to the right units for the data, then the units have
+been stripped away.</p>
+<p>The input and output Quantity objects should be given as keyword
+arguments.</p>
+<section id="id9">
+<h3>Notes<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
+<p>This method is needed in order to be able to fit models with units in
+the parameters, since we need to temporarily strip away the units from
+the model during the fitting (which might be done by e.g. scipy
+functions).</p>
+<p>The units that the parameters should be converted to are not
+necessarily the units of the input data, but are derived from them.
+Model subclasses that want fitting to work in the presence of
+quantities need to define a <code class="docutils literal notranslate"><span class="pre">_parameter_units_for_data_units</span></code> method
+that takes the input and output units (as two dictionaries) and
+returns a dictionary giving the target units for each parameter.</p>
+</section>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">Plummer2D</a><ul>
+<li><a class="reference internal" href="#artpop.space.Plummer2D"><code class="docutils literal notranslate"><span class="pre">Plummer2D</span></code></a><ul>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.amplitude"><code class="docutils literal notranslate"><span class="pre">Plummer2D.amplitude</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.bbox_with_units"><code class="docutils literal notranslate"><span class="pre">Plummer2D.bbox_with_units</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.bounding_box"><code class="docutils literal notranslate"><span class="pre">Plummer2D.bounding_box</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.bounds"><code class="docutils literal notranslate"><span class="pre">Plummer2D.bounds</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.col_fit_deriv"><code class="docutils literal notranslate"><span class="pre">Plummer2D.col_fit_deriv</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.cov_matrix"><code class="docutils literal notranslate"><span class="pre">Plummer2D.cov_matrix</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.eqcons"><code class="docutils literal notranslate"><span class="pre">Plummer2D.eqcons</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.fit_deriv"><code class="docutils literal notranslate"><span class="pre">Plummer2D.fit_deriv</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.fittable"><code class="docutils literal notranslate"><span class="pre">Plummer2D.fittable</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.fixed"><code class="docutils literal notranslate"><span class="pre">Plummer2D.fixed</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.has_user_bounding_box"><code class="docutils literal notranslate"><span class="pre">Plummer2D.has_user_bounding_box</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.has_user_inverse"><code class="docutils literal notranslate"><span class="pre">Plummer2D.has_user_inverse</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.ineqcons"><code class="docutils literal notranslate"><span class="pre">Plummer2D.ineqcons</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.input_units"><code class="docutils literal notranslate"><span class="pre">Plummer2D.input_units</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.input_units_allow_dimensionless"><code class="docutils literal notranslate"><span class="pre">Plummer2D.input_units_allow_dimensionless</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.input_units_equivalencies"><code class="docutils literal notranslate"><span class="pre">Plummer2D.input_units_equivalencies</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.input_units_strict"><code class="docutils literal notranslate"><span class="pre">Plummer2D.input_units_strict</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.inputs"><code class="docutils literal notranslate"><span class="pre">Plummer2D.inputs</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.inverse"><code class="docutils literal notranslate"><span class="pre">Plummer2D.inverse</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.linear"><code class="docutils literal notranslate"><span class="pre">Plummer2D.linear</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.meta"><code class="docutils literal notranslate"><span class="pre">Plummer2D.meta</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.model_constraints"><code class="docutils literal notranslate"><span class="pre">Plummer2D.model_constraints</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.model_set_axis"><code class="docutils literal notranslate"><span class="pre">Plummer2D.model_set_axis</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.n_inputs"><code class="docutils literal notranslate"><span class="pre">Plummer2D.n_inputs</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.n_outputs"><code class="docutils literal notranslate"><span class="pre">Plummer2D.n_outputs</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.n_submodels"><code class="docutils literal notranslate"><span class="pre">Plummer2D.n_submodels</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.name"><code class="docutils literal notranslate"><span class="pre">Plummer2D.name</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.outputs"><code class="docutils literal notranslate"><span class="pre">Plummer2D.outputs</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.param_names"><code class="docutils literal notranslate"><span class="pre">Plummer2D.param_names</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.param_sets"><code class="docutils literal notranslate"><span class="pre">Plummer2D.param_sets</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.parameter_constraints"><code class="docutils literal notranslate"><span class="pre">Plummer2D.parameter_constraints</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.parameters"><code class="docutils literal notranslate"><span class="pre">Plummer2D.parameters</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.return_units"><code class="docutils literal notranslate"><span class="pre">Plummer2D.return_units</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.scale_radius"><code class="docutils literal notranslate"><span class="pre">Plummer2D.scale_radius</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.separable"><code class="docutils literal notranslate"><span class="pre">Plummer2D.separable</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.standard_broadcasting"><code class="docutils literal notranslate"><span class="pre">Plummer2D.standard_broadcasting</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.stds"><code class="docutils literal notranslate"><span class="pre">Plummer2D.stds</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.sync_constraints"><code class="docutils literal notranslate"><span class="pre">Plummer2D.sync_constraints</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.tied"><code class="docutils literal notranslate"><span class="pre">Plummer2D.tied</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.uses_quantity"><code class="docutils literal notranslate"><span class="pre">Plummer2D.uses_quantity</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.x_0"><code class="docutils literal notranslate"><span class="pre">Plummer2D.x_0</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.y_0"><code class="docutils literal notranslate"><span class="pre">Plummer2D.y_0</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.__call__"><code class="docutils literal notranslate"><span class="pre">Plummer2D.__call__()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.coerce_units"><code class="docutils literal notranslate"><span class="pre">Plummer2D.coerce_units()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.copy"><code class="docutils literal notranslate"><span class="pre">Plummer2D.copy()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.deepcopy"><code class="docutils literal notranslate"><span class="pre">Plummer2D.deepcopy()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.evaluate"><code class="docutils literal notranslate"><span class="pre">Plummer2D.evaluate()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.get_bounding_box"><code class="docutils literal notranslate"><span class="pre">Plummer2D.get_bounding_box()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.has_inverse"><code class="docutils literal notranslate"><span class="pre">Plummer2D.has_inverse()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.input_shape"><code class="docutils literal notranslate"><span class="pre">Plummer2D.input_shape()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.output_units"><code class="docutils literal notranslate"><span class="pre">Plummer2D.output_units()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.prepare_inputs"><code class="docutils literal notranslate"><span class="pre">Plummer2D.prepare_inputs()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.prepare_outputs"><code class="docutils literal notranslate"><span class="pre">Plummer2D.prepare_outputs()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.rename"><code class="docutils literal notranslate"><span class="pre">Plummer2D.rename()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.render"><code class="docutils literal notranslate"><span class="pre">Plummer2D.render()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.set_slice_args"><code class="docutils literal notranslate"><span class="pre">Plummer2D.set_slice_args()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.strip_units_from_tree"><code class="docutils literal notranslate"><span class="pre">Plummer2D.strip_units_from_tree()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.sum_of_implicit_terms"><code class="docutils literal notranslate"><span class="pre">Plummer2D.sum_of_implicit_terms()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.with_units_from_data"><code class="docutils literal notranslate"><span class="pre">Plummer2D.with_units_from_data()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.space.Plummer2D.without_units_for_data"><code class="docutils literal notranslate"><span class="pre">Plummer2D.without_units_for_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/api/artpop.space.Plummer2D.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

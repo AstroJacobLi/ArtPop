@@ -1,0 +1,35 @@
+PlummerSP
+=========
+
+.. currentmodule:: artpop.source
+
+.. autoclass:: PlummerSP
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~PlummerSP.num_stars
+      ~PlummerSP.x
+      ~PlummerSP.y
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~PlummerSP.copy
+      ~PlummerSP.mag_to_image_amplitude
+      ~PlummerSP.select_stars
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: num_stars
+   .. autoattribute:: x
+   .. autoattribute:: y
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: copy
+   .. automethod:: mag_to_image_amplitude
+   .. automethod:: select_stars

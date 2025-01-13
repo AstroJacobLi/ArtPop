@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Photometric Filters (artpop.filters) &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="get_filter_names" href="../api/artpop.filters.get_filter_names.html" />
+    <link rel="prev" title="MISTUniformSSP" href="../api/artpop.source.MISTUniformSSP.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="../api/artpop.filters.get_filter_names.html" title="get_filter_names">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="../api/artpop.source.MISTUniformSSP.html" title="MISTUniformSSP">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      
+      <li>Photometric Filters (<code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.filters</span></code>)</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="photometric-filters-artpop-filters">
+<span id="filters"></span><h1>Photometric Filters (<a class="reference internal" href="#module-artpop.filters" title="artpop.filters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.filters</span></code></a>)<a class="headerlink" href="#photometric-filters-artpop-filters" title="Link to this heading">¶</a></h1>
+<section id="api">
+<h2>API<a class="headerlink" href="#api" title="Link to this heading">¶</a></h2>
+<section id="module-artpop.filters">
+<span id="artpop-filters-module"></span><h3>artpop.filters Module<a class="headerlink" href="#module-artpop.filters" title="Link to this heading">¶</a></h3>
+<section id="functions">
+<h4>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h4>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/artpop.filters.get_filter_names.html#artpop.filters.get_filter_names" title="artpop.filters.get_filter_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_filter_names</span></code></a>([phot_system])</p></td>
+<td><p>Get MIST photometric systems and filter names.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/artpop.filters.get_filter_properties.html#artpop.filters.get_filter_properties" title="artpop.filters.get_filter_properties"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_filter_properties</span></code></a>()</p></td>
+<td><p>Return astropy Table with the filter lam_eff and dlam values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/artpop.filters.phot_system_lookup.html#artpop.filters.phot_system_lookup" title="artpop.filters.phot_system_lookup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">phot_system_lookup</span></code></a>([filter_name])</p></td>
+<td><p>Lookup the photometric system name associated with a given filter name.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/artpop.filters.load_zero_point_converter.html#artpop.filters.load_zero_point_converter" title="artpop.filters.load_zero_point_converter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_zero_point_converter</span></code></a>()</p></td>
+<td><p>Create and return a <code class="xref py py-obj docutils literal notranslate"><span class="pre">ZeroPointConverter</span></code> object.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h4>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h4>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/artpop.filters.FilterSystem.html#artpop.filters.FilterSystem" title="artpop.filters.FilterSystem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FilterSystem</span></code></a>(filter_curve_files, ...)</p></td>
+<td><p>Class for calculating filter parameters from throughput curves.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">Photometric Filters (<code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.filters</span></code>)</a><ul>
+<li><a class="reference internal" href="#api">API</a><ul>
+<li><a class="reference internal" href="#module-artpop.filters">artpop.filters Module</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/modules/filters.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

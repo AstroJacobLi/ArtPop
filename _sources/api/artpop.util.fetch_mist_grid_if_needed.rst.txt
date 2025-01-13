@@ -1,0 +1,6 @@
+fetch_mist_grid_if_needed
+=========================
+
+.. currentmodule:: artpop.util
+
+.. autofunction:: fetch_mist_grid_if_needed

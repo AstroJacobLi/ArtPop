@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>xy_from_grid &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Constant2D" href="artpop.space.Constant2D.html" />
+    <link rel="prev" title="uniform_xy" href="artpop.space.uniform_xy.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="artpop.space.Constant2D.html" title="Constant2D">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="artpop.space.uniform_xy.html" title="uniform_xy">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      <li><a href="../modules/space/index.html" accesskey="U">Spatial Distributions (<code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.space</span></code>)</a> &#187;</li>
+      
+      <li>xy_from_grid</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="xy-from-grid">
+<h1>xy_from_grid<a class="headerlink" href="#xy-from-grid" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="artpop.space.xy_from_grid">
+<span class="sig-prename descclassname"><span class="pre">artpop.space.</span></span><span class="sig-name descname"><span class="pre">xy_from_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_stars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xy_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_outside</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.space.xy_from_grid" title="Link to this definition">¶</a></dt>
+<dd><p>Sample xy positions from a discrete grid weighted by an arbitrary model.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>num_stars<span class="classifier">int</span></dt><dd><p>Number of stars (i.e., positions) to sample.</p>
+</dd>
+<dt>model<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Fittable2DModel</span></code></span></dt><dd><p>A two-dimensional <code class="docutils literal notranslate"><span class="pre">astropy</span></code> model or a callable object that takes
+x and y grid positions arguments: <code class="xref py py-obj docutils literal notranslate"><span class="pre">model(xx,</span> <span class="pre">yy)</span></code>.</p>
+</dd>
+<dt>xy_dim<span class="classifier">int or list-like</span></dt><dd><p>Dimensions of the mock image in xy coordinates. If int is given,
+will make the x and y dimensions the same.</p>
+</dd>
+<dt>sample_dim<span class="classifier">int or None, optional</span></dt><dd><p>Square dimension to sample within. This is useful if the mock image
+size is small compared to the scale of the model. To be useful,
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">sample_dim</span></code> should be larger than <code class="xref py py-obj docutils literal notranslate"><span class="pre">xy_dim</span></code>.</p>
+</dd>
+<dt>dx<span class="classifier">float, optional</span></dt><dd><p>Shift from center of image in pixels in the x direction.</p>
+</dd>
+<dt>dy<span class="classifier">float, optional</span></dt><dd><p>Shift from center of image in pixels in the y direction.</p>
+</dd>
+<dt>drop_outside<span class="classifier">bool, optional</span></dt><dd><p>If True, drop all stars that fall outside of the image. In this case,
+the returned <code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code> will not be masked.</p>
+</dd>
+<dt>random_state<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, int, list of ints, or <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code></span></dt><dd><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, return the <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code> singleton used by
+<code class="docutils literal notranslate"><span class="pre">numpy.random</span></code>. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>, return a new <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code>
+instance seeded with the <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>.  If <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code>,
+return it. Otherwise raise <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>xy<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MaskedArray</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>Masked numpy array of xy positions. Positions that fall outside the
+mock image are masked. If <code class="docutils literal notranslate"><span class="pre">drop_outside</span> <span class="pre">==</span> <span class="pre">True</span></code>, then the stars
+that fall outside of the image will be dropped and the returned array
+will not be masked.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">xy_from_grid</a><ul>
+<li><a class="reference internal" href="#artpop.space.xy_from_grid"><code class="docutils literal notranslate"><span class="pre">xy_from_grid()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/api/artpop.space.xy_from_grid.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

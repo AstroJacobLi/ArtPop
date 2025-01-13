@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>MISTIsochrone &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="MISTSSP" href="artpop.stars.MISTSSP.html" />
+    <link rel="prev" title="Isochrone" href="artpop.stars.Isochrone.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="artpop.stars.MISTSSP.html" title="MISTSSP">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="artpop.stars.Isochrone.html" title="Isochrone">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      <li><a href="../modules/stars/index.html" accesskey="U">Stellar Populations (<code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.stars</span></code>)</a> &#187;</li>
+      
+      <li>MISTIsochrone</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="mistisochrone">
+<h1>MISTIsochrone<a class="headerlink" href="#mistisochrone" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="artpop.stars.MISTIsochrone">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">artpop.stars.</span></span><span class="sig-name descname"><span class="pre">MISTIsochrone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_age</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phot_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mist_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/home/runner/.artpop/mist'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ab_or_vega</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ab'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_over_vcrit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTIsochrone" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="artpop.stars.Isochrone.html#artpop.stars.Isochrone" title="artpop.stars.isochrones.Isochrone"><code class="xref py py-class docutils literal notranslate"><span class="pre">Isochrone</span></code></a></p>
+<p>Class for fetching and storing MIST isochrones. It also has several methods
+for calculating IMF-weighted photometric properties of a stellar population
+with the given age an metallicity.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently, the models are interpolated in metallicity but not in age.
+Ages are therefore limited to the age grid of the MIST models. The
+[Fe/H] and log(Age/yr) grids are stored as the private class attributes
+<code class="docutils literal notranslate"><span class="pre">_feh_grid</span></code> and <code class="docutils literal notranslate"><span class="pre">_log_age_grid</span></code>.</p>
+</div>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>log_age<span class="classifier">float</span></dt><dd><p>Logarithm base 10 of the simple stellar population age in years.</p>
+</dd>
+<dt>feh<span class="classifier">float</span></dt><dd><p>Metallicity [Fe/H] of the simple stellar population.</p>
+</dd>
+<dt>phot_system<span class="classifier">str or list-like</span></dt><dd><p>Name of the photometric system(s).</p>
+</dd>
+<dt>mist_path<span class="classifier">str, optional</span></dt><dd><p>Path to MIST isochrone grids. Use this if you want to use a different
+path from the <code class="docutils literal notranslate"><span class="pre">MIST_PATH</span></code> environment variable.</p>
+</dd>
+<dt>ab_or_vega<span class="classifier">str, optional</span></dt><dd><p>Magnitudes will be in the AB (default) or Vega magnitude system.</p>
+</dd>
+<dt>v_over_vcrit<span class="classifier">float, optional</span></dt><dd><p>Rotation rate divided by the critical surface linear velocity. Current
+options are 0.4 (default) and 0.0.</p>
+</dd>
+</dl>
+<p class="rubric">Attributes Summary</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.MISTIsochrone.filters" title="artpop.stars.MISTIsochrone.filters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">filters</span></code></a></p></td>
+<td><p>List of filters in the given photometric system(s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.stars.MISTIsochrone.isochrone_full" title="artpop.stars.MISTIsochrone.isochrone_full"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isochrone_full</span></code></a></p></td>
+<td><p>MIST entire isochrone in a structured <code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.MISTIsochrone.m_max" title="artpop.stars.MISTIsochrone.m_max"><code class="xref py py-obj docutils literal notranslate"><span class="pre">m_max</span></code></a></p></td>
+<td><p>The maximum mass of the isochrone.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.stars.MISTIsochrone.m_min" title="artpop.stars.MISTIsochrone.m_min"><code class="xref py py-obj docutils literal notranslate"><span class="pre">m_min</span></code></a></p></td>
+<td><p>The minimum mass of the isochrone.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Summary</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.MISTIsochrone.calculate_mag_limit" title="artpop.stars.MISTIsochrone.calculate_mag_limit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_mag_limit</span></code></a>(imf, bandpass[, ...])</p></td>
+<td><p>Calculate the limiting faint magnitude to sample a given fraction of mass or number of a stellar population.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.stars.MISTIsochrone.from_parsec" title="artpop.stars.MISTIsochrone.from_parsec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_parsec</span></code></a>(fn, **kwargs)</p></td>
+<td><p>Read isochrone generated from the <a class="reference external" href="http://stev.oapd.inaf.it/cgi-bin/cmd">PARSEC website</a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.MISTIsochrone.get_star_phases" title="artpop.stars.MISTIsochrone.get_star_phases"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_star_phases</span></code></a>()</p></td>
+<td><p>Returns the stellar phases (as defined by the MIST EEPs).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.stars.MISTIsochrone.imf_weights" title="artpop.stars.MISTIsochrone.imf_weights"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imf_weights</span></code></a>(imf[, m_min_norm, m_max_norm, ...])</p></td>
+<td><p>Calculate IMF weights.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.MISTIsochrone.interpolate" title="artpop.stars.MISTIsochrone.interpolate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interpolate</span></code></a>(y_name, x_interp[, x_name, ...])</p></td>
+<td><p>Interpolate isochrone.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.stars.MISTIsochrone.mag_to_mass" title="artpop.stars.MISTIsochrone.mag_to_mass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mag_to_mass</span></code></a>(mag, bandpass)</p></td>
+<td><p>Interpolate isochrone to calculate initial stellar masses that have the given magnitude.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.MISTIsochrone.nearest_mini" title="artpop.stars.MISTIsochrone.nearest_mini"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nearest_mini</span></code></a>(m)</p></td>
+<td><p>Find the nearest mass to <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> in the initial mass array.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.stars.MISTIsochrone.select_phase" title="artpop.stars.MISTIsochrone.select_phase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_phase</span></code></a>(phase)</p></td>
+<td><p>Generate stellar evolutionary phase mask.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.MISTIsochrone.ssp_color" title="artpop.stars.MISTIsochrone.ssp_color"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ssp_color</span></code></a>(blue, red[, imf])</p></td>
+<td><p>Calculate IMF-weighted integrated color.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.stars.MISTIsochrone.ssp_mag" title="artpop.stars.MISTIsochrone.ssp_mag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ssp_mag</span></code></a>(bandpass[, imf, norm_type])</p></td>
+<td><p>Calculate IMF-weighted magnitude.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.MISTIsochrone.ssp_mean_star_mass" title="artpop.stars.MISTIsochrone.ssp_mean_star_mass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ssp_mean_star_mass</span></code></a>(imf)</p></td>
+<td><p>Calculate IMF-weighted mean stellar mass, where the IMF is normalized by number to one star formed.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.stars.MISTIsochrone.ssp_sbf_mag" title="artpop.stars.MISTIsochrone.ssp_sbf_mag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ssp_sbf_mag</span></code></a>(bandpass[, imf])</p></td>
+<td><p>Calculate IMF-weighted SBF magnitude.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.stars.MISTIsochrone.ssp_sbf_mag_phase" title="artpop.stars.MISTIsochrone.ssp_sbf_mag_phase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ssp_sbf_mag_phase</span></code></a>(bandpass, phase[, imf])</p></td>
+<td><p>Calculate IMF-weighted SBF magnitude for a given phase.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.stars.MISTIsochrone.ssp_surviving_mass" title="artpop.stars.MISTIsochrone.ssp_surviving_mass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ssp_surviving_mass</span></code></a>(imf[, m_min, m_max, ...])</p></td>
+<td><p>Calculate IMF-weighted mass normalized such that 1 solar mass is formed by the age of the population.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes Documentation</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.stars.MISTIsochrone.filters">
+<span class="sig-name descname"><span class="pre">filters</span></span><a class="headerlink" href="#artpop.stars.MISTIsochrone.filters" title="Link to this definition">¶</a></dt>
+<dd><p>List of filters in the given photometric system(s).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.stars.MISTIsochrone.isochrone_full">
+<span class="sig-name descname"><span class="pre">isochrone_full</span></span><a class="headerlink" href="#artpop.stars.MISTIsochrone.isochrone_full" title="Link to this definition">¶</a></dt>
+<dd><p>MIST entire isochrone in a structured <code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.stars.MISTIsochrone.m_max">
+<span class="sig-name descname"><span class="pre">m_max</span></span><a class="headerlink" href="#artpop.stars.MISTIsochrone.m_max" title="Link to this definition">¶</a></dt>
+<dd><p>The maximum mass of the isochrone.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.stars.MISTIsochrone.m_min">
+<span class="sig-name descname"><span class="pre">m_min</span></span><a class="headerlink" href="#artpop.stars.MISTIsochrone.m_min" title="Link to this definition">¶</a></dt>
+<dd><p>The minimum mass of the isochrone.</p>
+</dd></dl>
+
+<p class="rubric">Methods Documentation</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTIsochrone.calculate_mag_limit">
+<span class="sig-name descname"><span class="pre">calculate_mag_limit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frac_mass_sampled=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frac_num_sampled=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance=&lt;Quantity</span> <span class="pre">10.</span> <span class="pre">pc&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTIsochrone.calculate_mag_limit" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the limiting faint magnitude to sample a given fraction
+of mass or number of a stellar population. This is used for when you
+only what to sample stars that are brighter than a magnitude limit.
+You must specify either <code class="xref py py-obj docutils literal notranslate"><span class="pre">frac_mass_sampled</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">frac_num_sampled</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must give <code class="xref py py-obj docutils literal notranslate"><span class="pre">frac_mass_sampled</span></code> <em>or</em> <code class="xref py py-obj docutils literal notranslate"><span class="pre">frac_num_sampled</span></code>.</p>
+</div>
+<section id="id1">
+<h3>Parameters<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>imf<span class="classifier">str or dict</span></dt><dd><p>Which IMF to use, if str then must be one of pre-defined: ‘kroupa’,
+‘scalo’ or ‘salpeter’. Can also specify custom (broken) power law as dict,
+which must contain either ‘a’ as a Float (describing the slope of a
+single power law) or ‘a’ (a list with 3 elements describing the slopes
+of a broken power law) and ‘b’ (a list  with 2 elements describing the
+locations of the breaks).</p>
+</dd>
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>Observation bandpass of the limiting magnitude.</p>
+</dd>
+<dt>frac_mass_sampled: float, optional</dt><dd><p>Fraction of mass that will be sampled if only stars that are
+brighter than the magnitude limit are sampled.</p>
+</dd>
+<dt>frac_num_sampled: float, optional</dt><dd><p>Fraction of stars by number that will be sampled if only stars that
+are brighter than the magnitude limit are sampled.</p>
+</dd>
+<dt>distance<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code>, optional</span></dt><dd><p>Distance to source. If float is given, the units are assumed
+to be <code class="xref py py-obj docutils literal notranslate"><span class="pre">Mpc</span></code>. Default distance is 10
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">pc</span></code> (i.e., the mags are in absolute units).</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>mag_limit<span class="classifier">float</span></dt><dd><p>The desired limiting magnitude.</p>
+</dd>
+<dt>mass_limit<span class="classifier">float</span></dt><dd><p>Mass of stars (in solar masses) that have the limiting magnitude.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTIsochrone.from_parsec">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_parsec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTIsochrone.from_parsec" title="Link to this definition">¶</a></dt>
+<dd><p>Read isochrone generated from the <a class="reference external" href="http://stev.oapd.inaf.it/cgi-bin/cmd">PARSEC website</a>. If more than one age and/or
+metallicity is included in the file, you must provide the log_age
+and/or zini parameters.</p>
+<section id="id3">
+<h3>Parameters<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>file_name<span class="classifier">str</span></dt><dd><p>Isochrone file name.</p>
+</dd>
+<dt>log_age<span class="classifier">float, optional</span></dt><dd><p>Log of age in years. You must provided this parameter if there is
+more than one age in the isochrone file. Note this function does
+not interpolate ages, so it must be included in the file.</p>
+</dd>
+<dt>zini<span class="classifier">float, optional</span></dt><dd><p>Initial metal fraction. You must provided this parameter if there
+is more than one metallicity in the isochrone file. Note this
+function does not interpolate metallicity, so it must be included
+in the file.</p>
+</dd>
+<dt>num_filters<span class="classifier">int, optional</span></dt><dd><p>Number of filters included in the isochrone file. If None, will
+assume the last non-filter parameter is <code class="xref py py-obj docutils literal notranslate"><span class="pre">mbolmag</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="id4">
+<h3>Returns<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>iso<span class="classifier"><a class="reference internal" href="artpop.stars.Isochrone.html#artpop.stars.Isochrone" title="artpop.stars.Isochrone"><code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.stars.Isochrone</span></code></a></span></dt><dd><p>PARSEC Isochrone object.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTIsochrone.get_star_phases">
+<span class="sig-name descname"><span class="pre">get_star_phases</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTIsochrone.get_star_phases" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the stellar phases (as defined by the MIST EEPs).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTIsochrone.imf_weights">
+<span class="sig-name descname"><span class="pre">imf_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m_min_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m_max_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mass'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTIsochrone.imf_weights" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate IMF weights.</p>
+<section id="id5">
+<h3>Parameters<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>imf<span class="classifier">str or dict</span></dt><dd><p>Which IMF to use, if str then must be one of pre-defined: ‘kroupa’,
+‘scalo’ or ‘salpeter’. Can also specify custom (broken) power law as dict,
+which must contain either ‘a’ as a Float (describing the slope of a
+single power law) or ‘a’ (a list with 3 elements describing the slopes
+of a broken power law) and ‘b’ (a list  with 2 elements describing the
+locations of the breaks).
+of the breaks.</p>
+</dd>
+<dt>m_min_norm<span class="classifier">None or float, optional</span></dt><dd><p>Minimum mass for the normalization. Must be less than or equal to
+the mini mass of isochrone, which will be used if None is given.</p>
+</dd>
+<dt>m_max_norm<span class="classifier">float, optional</span></dt><dd><p>Maximum mass for normalization.</p>
+</dd>
+<dt>norm_type<span class="classifier">str, optional</span></dt><dd><p>Type of IMF normalization (mass or number).</p>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h3>Returns<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>wght<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>IMF weights calculated such that an integral over mass is simply
+given by SUM(m * wght).</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTIsochrone.interpolate">
+<span class="sig-name descname"><span class="pre">interpolate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_interp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mini'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slice_interp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">slice(None,</span> <span class="pre">None,</span> <span class="pre">None)</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTIsochrone.interpolate" title="Link to this definition">¶</a></dt>
+<dd><p>Interpolate isochrone.</p>
+<section id="id7">
+<h3>Parameters<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>y_name<span class="classifier">str</span></dt><dd><p>Parameter name of interpolated variable.</p>
+</dd>
+<dt>x_interp<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>New x values to interpolate over.</p>
+</dd>
+<dt>x_name<span class="classifier">str</span></dt><dd><p>Parameter name of x values. Usually want this to be initial mass.</p>
+</dd>
+</dl>
+</section>
+<section id="id8">
+<h3>Returns<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>y_interp<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>Interpolated y values.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTIsochrone.mag_to_mass">
+<span class="sig-name descname"><span class="pre">mag_to_mass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTIsochrone.mag_to_mass" title="Link to this definition">¶</a></dt>
+<dd><p>Interpolate isochrone to calculate initial stellar masses that have
+the given magnitude. Since more than one mass can have the same
+magnitude (from stars being in different phases of stellar evolution),
+we step through each isochrone and check if the given magnitude falls
+between two bins, in which case we interpolate the associated mass.</p>
+<section id="id9">
+<h3>Parameters<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>mag<span class="classifier">float</span></dt><dd><p>Magnitude to be converted in to stellar mass(es).</p>
+</dd>
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>Photometric bandpass of the <code class="xref py py-obj docutils literal notranslate"><span class="pre">mag</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="id10">
+<h3>Returns<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>mass_interp<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>Interpolated mass(es) associated with <code class="xref py py-obj docutils literal notranslate"><span class="pre">mag</span></code>.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTIsochrone.nearest_mini">
+<span class="sig-name descname"><span class="pre">nearest_mini</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTIsochrone.nearest_mini" title="Link to this definition">¶</a></dt>
+<dd><p>Find the nearest mass to <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> in the initial mass array.</p>
+<section id="id11">
+<h3>Parameters<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>m<span class="classifier">float:</span></dt><dd><p>The mass for which we want the nearest initial mass.</p>
+</dd>
+</dl>
+</section>
+<section id="id12">
+<h3>Returns<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>m_nearest<span class="classifier">float</span></dt><dd><p>Value of the nearest mass.</p>
+</dd>
+<dt>arg_nearest<span class="classifier">int</span></dt><dd><p>Argument of the nearest mass.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTIsochrone.select_phase">
+<span class="sig-name descname"><span class="pre">select_phase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phase</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTIsochrone.select_phase" title="Link to this definition">¶</a></dt>
+<dd><p>Generate stellar evolutionary phase mask. The mask will be <code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code> for
+sources that are in the give phase according to the MIST EEPs.</p>
+<section id="id13">
+<h3>Parameters<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>phase<span class="classifier">str</span></dt><dd><p>Evolutionary phase to select. Options are ‘all’, ‘MS’, ‘giants’,
+‘RGB’, ‘CHeB’, ‘AGB’, ‘EAGB’, ‘TPAGB’, ‘postAGB’, or ‘WDCS’.</p>
+</dd>
+</dl>
+</section>
+<section id="id14">
+<h3>Returns<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>mask<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>Mask that is <code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code> for stars in input phase and <code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+</dd>
+</dl>
+</section>
+<section id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link to this heading">¶</a></h3>
+<p>The MIST EEP phases were taken from Table II: Primary Equivalent
+Evolutionary Points (EEPs):
+<a class="reference external" href="http://waps.cfa.harvard.edu/MIST/README_tables.pdf">http://waps.cfa.harvard.edu/MIST/README_tables.pdf</a></p>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTIsochrone.ssp_color">
+<span class="sig-name descname"><span class="pre">ssp_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">red</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'kroupa'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTIsochrone.ssp_color" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate IMF-weighted integrated color.</p>
+<section id="id15">
+<h3>Parameters<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>blue<span class="classifier">str</span></dt><dd><p>Blue bandpass.</p>
+</dd>
+<dt>red<span class="classifier">str</span></dt><dd><p>Red bandpass.</p>
+</dd>
+<dt>imf<span class="classifier">str or dict</span></dt><dd><p>Which IMF to use, if str then must be one of pre-defined: ‘kroupa’,
+‘scalo’ or ‘salpeter’. Can also specify custom (broken) power law as dict,
+which must contain either ‘a’ as a Float (describing the slope of a
+single power law) or ‘a’ (a list with 3 elements describing the slopes
+of a broken power law) and ‘b’ (a list  with 2 elements describing the
+locations of the breaks).</p>
+</dd>
+</dl>
+</section>
+<section id="id16">
+<h3>Returns<a class="headerlink" href="#id16" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>color<span class="classifier">float</span></dt><dd><p>Integrated color of stellar population.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTIsochrone.ssp_mag">
+<span class="sig-name descname"><span class="pre">ssp_mag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'kroupa'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mass'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTIsochrone.ssp_mag" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate IMF-weighted magnitude.</p>
+<section id="id17">
+<h3>Parameters<a class="headerlink" href="#id17" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>Bandpass to of mean mag.</p>
+</dd>
+<dt>imf<span class="classifier">str or dict</span></dt><dd><p>Which IMF to use, if str then must be one of pre-defined: ‘kroupa’,
+‘scalo’ or ‘salpeter’. Can also specify custom (broken) power law as dict,
+which must contain either ‘a’ as a Float (describing the slope of a
+single power law) or ‘a’ (a list with 3 elements describing the slopes
+of a broken power law) and ‘b’ (a list  with 2 elements describing the
+locations of the breaks).</p>
+</dd>
+<dt>norm_type<span class="classifier">str, optional</span></dt><dd><p>Normalization type (mass or number)</p>
+</dd>
+</dl>
+</section>
+<section id="id18">
+<h3>Returns<a class="headerlink" href="#id18" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>m<span class="classifier">float</span></dt><dd><p>Integrated magnitude of stellar population.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTIsochrone.ssp_mean_star_mass">
+<span class="sig-name descname"><span class="pre">ssp_mean_star_mass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTIsochrone.ssp_mean_star_mass" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate IMF-weighted mean stellar mass, where the IMF is normalized
+by number to one star formed. The mean stellar mass is equivalent to
+dividing a large of samples (distributed according to the IMF) by the
+number of stars.</p>
+<section id="id19">
+<h3>Parameters<a class="headerlink" href="#id19" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>imf<span class="classifier">str or dict</span></dt><dd><p>Which IMF to use, if str then must be one of pre-defined: ‘kroupa’,
+‘scalo’ or ‘salpeter’. Can also specify custom (broken) power law as dict,
+which must contain either ‘a’ as a Float (describing the slope of a
+single power law) or ‘a’ (a list with 3 elements describing the slopes
+of a broken power law) and ‘b’ (a list  with 2 elements describing the
+locations of the breaks).</p>
+</dd>
+</dl>
+</section>
+<section id="id20">
+<h3>Returns<a class="headerlink" href="#id20" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>mean_mass<span class="classifier">float</span></dt><dd><p>The mean stellar mass.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTIsochrone.ssp_sbf_mag">
+<span class="sig-name descname"><span class="pre">ssp_sbf_mag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'kroupa'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTIsochrone.ssp_sbf_mag" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate IMF-weighted SBF magnitude.</p>
+<section id="id21">
+<h3>Parameters<a class="headerlink" href="#id21" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>Bandpass to of SBF mag.</p>
+</dd>
+<dt>imf<span class="classifier">str or dict</span></dt><dd><p>Which IMF to use, if str then must be one of pre-defined: ‘kroupa’,
+‘scalo’ or ‘salpeter’. Can also specify custom (broken) power law as dict,
+which must contain either ‘a’ as a Float (describing the slope of a
+single power law) or ‘a’ (a list with 3 elements describing the slopes
+of a broken power law) and ‘b’ (a list  with 2 elements describing the
+locations of the breaks).</p>
+</dd>
+</dl>
+</section>
+<section id="id22">
+<h3>Returns<a class="headerlink" href="#id22" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>sbf<span class="classifier">float</span></dt><dd><p>SBF magnitude of stellar population.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTIsochrone.ssp_sbf_mag_phase">
+<span class="sig-name descname"><span class="pre">ssp_sbf_mag_phase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'kroupa'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTIsochrone.ssp_sbf_mag_phase" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate IMF-weighted SBF magnitude for a given phase.</p>
+<section id="id23">
+<h3>Parameters<a class="headerlink" href="#id23" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>Bandpass to of SBF mag.</p>
+</dd>
+<dt>imf<span class="classifier">str or dict</span></dt><dd><p>Which IMF to use, if str then must be one of pre-defined: ‘kroupa’,
+‘scalo’ or ‘salpeter’. Can also specify custom (broken) power law as dict,
+which must contain either ‘a’ as a Float (describing the slope of a
+single power law) or ‘a’ (a list with 3 elements describing the slopes
+of a broken power law) and ‘b’ (a list  with 2 elements describing the
+locations of the breaks).</p>
+</dd>
+<dt>phase<span class="classifier">str</span></dt><dd><p>Phase to calculate SBF magnitude for.</p>
+</dd>
+</dl>
+</section>
+<section id="id24">
+<h3>Returns<a class="headerlink" href="#id24" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>sbf<span class="classifier">float</span></dt><dd><p>SBF magnitude of stellar population.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.stars.MISTIsochrone.ssp_surviving_mass">
+<span class="sig-name descname"><span class="pre">ssp_surviving_mass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">120</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_remnants</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mlim_bh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mlim_ns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.MISTIsochrone.ssp_surviving_mass" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate IMF-weighted mass normalized such that 1 solar mass is
+formed by the age of the population.</p>
+<p>The initial-mass-dependent remnant formulae are taken
+from <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1993ApJ...416L..49R/abstract">Renzini &amp; Ciotti 1993</a>.</p>
+<section id="id25">
+<h3>Parameters<a class="headerlink" href="#id25" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>imf<span class="classifier">str or dict</span></dt><dd><p>Which IMF to use, if str then must be one of pre-defined: ‘kroupa’,
+‘scalo’ or ‘salpeter’. Can also specify custom (broken) power law as dict,
+which must contain either ‘a’ as a Float (describing the slope of a
+single power law) or ‘a’ (a list with 3 elements describing the slopes
+of a broken power law) and ‘b’ (a list  with 2 elements describing the
+locations of the breaks).</p>
+</dd>
+<dt>add_remnants<span class="classifier">bool</span></dt><dd><p>If True, add stellar remnants to surviving mass.</p>
+</dd>
+</dl>
+</section>
+<section id="id26">
+<h3>Returns<a class="headerlink" href="#id26" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>mass<span class="classifier">float</span></dt><dd><p>Total surviving mass.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">MISTIsochrone</a><ul>
+<li><a class="reference internal" href="#artpop.stars.MISTIsochrone"><code class="docutils literal notranslate"><span class="pre">MISTIsochrone</span></code></a><ul>
+<li><a class="reference internal" href="#artpop.stars.MISTIsochrone.filters"><code class="docutils literal notranslate"><span class="pre">MISTIsochrone.filters</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTIsochrone.isochrone_full"><code class="docutils literal notranslate"><span class="pre">MISTIsochrone.isochrone_full</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTIsochrone.m_max"><code class="docutils literal notranslate"><span class="pre">MISTIsochrone.m_max</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTIsochrone.m_min"><code class="docutils literal notranslate"><span class="pre">MISTIsochrone.m_min</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTIsochrone.calculate_mag_limit"><code class="docutils literal notranslate"><span class="pre">MISTIsochrone.calculate_mag_limit()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTIsochrone.from_parsec"><code class="docutils literal notranslate"><span class="pre">MISTIsochrone.from_parsec()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTIsochrone.get_star_phases"><code class="docutils literal notranslate"><span class="pre">MISTIsochrone.get_star_phases()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTIsochrone.imf_weights"><code class="docutils literal notranslate"><span class="pre">MISTIsochrone.imf_weights()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTIsochrone.interpolate"><code class="docutils literal notranslate"><span class="pre">MISTIsochrone.interpolate()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTIsochrone.mag_to_mass"><code class="docutils literal notranslate"><span class="pre">MISTIsochrone.mag_to_mass()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTIsochrone.nearest_mini"><code class="docutils literal notranslate"><span class="pre">MISTIsochrone.nearest_mini()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTIsochrone.select_phase"><code class="docutils literal notranslate"><span class="pre">MISTIsochrone.select_phase()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTIsochrone.ssp_color"><code class="docutils literal notranslate"><span class="pre">MISTIsochrone.ssp_color()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTIsochrone.ssp_mag"><code class="docutils literal notranslate"><span class="pre">MISTIsochrone.ssp_mag()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTIsochrone.ssp_mean_star_mass"><code class="docutils literal notranslate"><span class="pre">MISTIsochrone.ssp_mean_star_mass()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTIsochrone.ssp_sbf_mag"><code class="docutils literal notranslate"><span class="pre">MISTIsochrone.ssp_sbf_mag()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTIsochrone.ssp_sbf_mag_phase"><code class="docutils literal notranslate"><span class="pre">MISTIsochrone.ssp_sbf_mag_phase()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.stars.MISTIsochrone.ssp_surviving_mass"><code class="docutils literal notranslate"><span class="pre">MISTIsochrone.ssp_surviving_mass()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/api/artpop.stars.MISTIsochrone.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

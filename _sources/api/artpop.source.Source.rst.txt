@@ -1,0 +1,33 @@
+Source
+======
+
+.. currentmodule:: artpop.source
+
+.. autoclass:: Source
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~Source.num_stars
+      ~Source.x
+      ~Source.y
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~Source.copy
+      ~Source.select_stars
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: num_stars
+   .. autoattribute:: x
+   .. autoattribute:: y
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: copy
+   .. automethod:: select_stars

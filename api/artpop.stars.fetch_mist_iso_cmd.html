@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>fetch_mist_iso_cmd &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="kroupa" href="artpop.stars.kroupa.html" />
+    <link rel="prev" title="constant_sb_stars_per_pix" href="artpop.stars.constant_sb_stars_per_pix.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="artpop.stars.kroupa.html" title="kroupa">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="artpop.stars.constant_sb_stars_per_pix.html" title="constant_sb_stars_per_pix">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      <li><a href="../modules/stars/index.html" accesskey="U">Stellar Populations (<code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.stars</span></code>)</a> &#187;</li>
+      
+      <li>fetch_mist_iso_cmd</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="fetch-mist-iso-cmd">
+<h1>fetch_mist_iso_cmd<a class="headerlink" href="#fetch-mist-iso-cmd" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="artpop.stars.fetch_mist_iso_cmd">
+<span class="sig-prename descclassname"><span class="pre">artpop.stars.</span></span><span class="sig-name descname"><span class="pre">fetch_mist_iso_cmd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_age</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phot_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mist_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/home/runner/.artpop/mist'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_over_vcrit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.stars.fetch_mist_iso_cmd" title="Link to this definition">¶</a></dt>
+<dd><p>Fetch MIST isochrone grid.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>log_age<span class="classifier">float</span></dt><dd><p>Logarithm base 10 of the simple stellar population age in years.</p>
+</dd>
+<dt>feh<span class="classifier">float</span></dt><dd><p>Metallicity [Fe/H] of the simple stellar population.</p>
+</dd>
+<dt>phot_system<span class="classifier">str</span></dt><dd><p>Name of the photometric system.</p>
+</dd>
+<dt>mist_path<span class="classifier">str, optional</span></dt><dd><p>Path to MIST isochrone grids. Use this if you want to use a different
+path from the <code class="xref py py-obj docutils literal notranslate"><span class="pre">MIST_PATH</span></code> environment variable.</p>
+</dd>
+<dt>v_over_vcrit<span class="classifier">float, optional</span></dt><dd><p>Rotation rate divided by the critical surface linear velocity. Current
+options are 0.4 (default) and 0.0.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>iso_cmd<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>Structured <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array with isochrones and stellar magnitudes.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">fetch_mist_iso_cmd</a><ul>
+<li><a class="reference internal" href="#artpop.stars.fetch_mist_iso_cmd"><code class="docutils literal notranslate"><span class="pre">fetch_mist_iso_cmd()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/api/artpop.stars.fetch_mist_iso_cmd.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

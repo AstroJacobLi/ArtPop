@@ -1,0 +1,6 @@
+show_image
+==========
+
+.. currentmodule:: artpop.visualization
+
+.. autofunction:: show_image

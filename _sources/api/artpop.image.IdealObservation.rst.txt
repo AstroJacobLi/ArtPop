@@ -1,0 +1,23 @@
+IdealObservation
+================
+
+.. currentmodule:: artpop.image
+
+.. autoclass:: IdealObservation
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~IdealObservation.copy
+      ~IdealObservation.from_pickle
+      ~IdealObservation.to_fits
+      ~IdealObservation.to_pickle
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: copy
+   .. automethod:: from_pickle
+   .. automethod:: to_fits
+   .. automethod:: to_pickle

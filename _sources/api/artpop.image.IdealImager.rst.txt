@@ -1,0 +1,23 @@
+IdealImager
+===========
+
+.. currentmodule:: artpop.image
+
+.. autoclass:: IdealImager
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~IdealImager.apply_seeing
+      ~IdealImager.inject_smooth_model
+      ~IdealImager.inject_stars
+      ~IdealImager.observe
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: apply_seeing
+   .. automethod:: inject_smooth_model
+   .. automethod:: inject_stars
+   .. automethod:: observe

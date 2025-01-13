@@ -1,0 +1,37 @@
+MISTSersicSSP
+=============
+
+.. currentmodule:: artpop.source
+
+.. autoclass:: MISTSersicSSP
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~MISTSersicSSP.num_stars
+      ~MISTSersicSSP.x
+      ~MISTSersicSSP.y
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~MISTSersicSSP.copy
+      ~MISTSersicSSP.mag_to_image_amplitude
+      ~MISTSersicSSP.mag_to_stips_SB
+      ~MISTSersicSSP.select_stars
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: num_stars
+   .. autoattribute:: x
+   .. autoattribute:: y
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: copy
+   .. automethod:: mag_to_image_amplitude
+   .. automethod:: mag_to_stips_SB
+   .. automethod:: select_stars

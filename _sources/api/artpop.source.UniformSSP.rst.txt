@@ -1,0 +1,35 @@
+UniformSSP
+==========
+
+.. currentmodule:: artpop.source
+
+.. autoclass:: UniformSSP
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~UniformSSP.num_stars
+      ~UniformSSP.x
+      ~UniformSSP.y
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~UniformSSP.copy
+      ~UniformSSP.mag_to_image_amplitude
+      ~UniformSSP.select_stars
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: num_stars
+   .. autoattribute:: x
+   .. autoattribute:: y
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: copy
+   .. automethod:: mag_to_image_amplitude
+   .. automethod:: select_stars

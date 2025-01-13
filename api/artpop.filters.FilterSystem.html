@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>FilterSystem &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Misc. Utilities (artpop.util)" href="../modules/util.html" />
+    <link rel="prev" title="load_zero_point_converter" href="artpop.filters.load_zero_point_converter.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="../modules/util.html" title="Misc. Utilities (artpop.util)">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="artpop.filters.load_zero_point_converter.html" title="load_zero_point_converter">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      <li><a href="../modules/filters.html" accesskey="U">Photometric Filters (<code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.filters</span></code>)</a> &#187;</li>
+      
+      <li>FilterSystem</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="filtersystem">
+<h1>FilterSystem<a class="headerlink" href="#filtersystem" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="artpop.filters.FilterSystem">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">artpop.filters.</span></span><span class="sig-name descname"><span class="pre">FilterSystem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter_curve_files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_names</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.filters.FilterSystem" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class for calculating filter parameters from throughput curves.
+The parameter definitions are taken from
+<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1996AJ....111.1748F/abstract">Fukugita et al. (1996) AJ 111, 1748.</a></p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>filter_curve_files<span class="classifier">list</span></dt><dd><p>List of the file names of the filter curves.</p>
+</dd>
+<dt>filter_names<span class="classifier">str</span></dt><dd><p>Names of filters. Must be the same length as <code class="docutils literal notranslate"><span class="pre">filter_curve_files</span></code>.</p>
+</dd>
+<dt><a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs</dt><dd><p>Optional argumnets for <code class="xref py py-obj docutils literal notranslate"><span class="pre">loadtxt</span></code>, which is used to load the
+filter curve files.</p>
+</dd>
+</dl>
+<p class="rubric">Methods Summary</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.filters.FilterSystem.dlam" title="artpop.filters.FilterSystem.dlam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dlam</span></code></a>(bandpass)</p></td>
+<td><p>Calculate the bandpass width.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.filters.FilterSystem.effective_throughput" title="artpop.filters.FilterSystem.effective_throughput"><code class="xref py py-obj docutils literal notranslate"><span class="pre">effective_throughput</span></code></a>(bandpass)</p></td>
+<td><p>Calculate the effective throughput for the given bandpass.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.filters.FilterSystem.lam_eff" title="artpop.filters.FilterSystem.lam_eff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lam_eff</span></code></a>(bandpass)</p></td>
+<td><p>Calculate effective wavelength for the given bandpass.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.filters.FilterSystem.lam_pivot" title="artpop.filters.FilterSystem.lam_pivot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lam_pivot</span></code></a>(bandpass)</p></td>
+<td><p>Calculate pivot wavelength for the given bandpass.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Documentation</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.filters.FilterSystem.dlam">
+<span class="sig-name descname"><span class="pre">dlam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.filters.FilterSystem.dlam" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the bandpass width.</p>
+<section id="id3">
+<h3>Parameters<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>The name of the filter.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h3>
+<blockquote>
+<div><dl class="simple">
+<dt>width<span class="classifier">float</span></dt><dd><p>The bandpass width.</p>
+</dd>
+</dl>
+</div></blockquote>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.filters.FilterSystem.effective_throughput">
+<span class="sig-name descname"><span class="pre">effective_throughput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.filters.FilterSystem.effective_throughput" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the effective throughput for the given bandpass.</p>
+<section id="id4">
+<h3>Parameters<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>The name of the filter.</p>
+</dd>
+</dl>
+</section>
+<section id="id5">
+<h3>Returns<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>theff<span class="classifier">float</span></dt><dd><p>Effective effective throughput.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.filters.FilterSystem.lam_eff">
+<span class="sig-name descname"><span class="pre">lam_eff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.filters.FilterSystem.lam_eff" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate effective wavelength for the given bandpass.</p>
+<section id="id6">
+<h3>Parameters<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>The name of the filter.</p>
+</dd>
+</dl>
+</section>
+<section id="id7">
+<h3>Returns<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<blockquote>
+<div><dl class="simple">
+<dt>leff<span class="classifier">float</span></dt><dd><p>The effective wavelength.</p>
+</dd>
+</dl>
+</div></blockquote>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.filters.FilterSystem.lam_pivot">
+<span class="sig-name descname"><span class="pre">lam_pivot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bandpass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.filters.FilterSystem.lam_pivot" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate pivot wavelength for the given bandpass.</p>
+<section id="id8">
+<h3>Parameters<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>bandpass<span class="classifier">str</span></dt><dd><p>The name of the filter.</p>
+</dd>
+</dl>
+</section>
+<section id="id9">
+<h3>Returns<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
+<blockquote>
+<div><dl class="simple">
+<dt>lpivot<span class="classifier">float</span></dt><dd><p>The pivot wavelength.</p>
+</dd>
+</dl>
+</div></blockquote>
+</section>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">FilterSystem</a><ul>
+<li><a class="reference internal" href="#artpop.filters.FilterSystem"><code class="docutils literal notranslate"><span class="pre">FilterSystem</span></code></a><ul>
+<li><a class="reference internal" href="#artpop.filters.FilterSystem.dlam"><code class="docutils literal notranslate"><span class="pre">FilterSystem.dlam()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.filters.FilterSystem.effective_throughput"><code class="docutils literal notranslate"><span class="pre">FilterSystem.effective_throughput()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.filters.FilterSystem.lam_eff"><code class="docutils literal notranslate"><span class="pre">FilterSystem.lam_eff()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.filters.FilterSystem.lam_pivot"><code class="docutils literal notranslate"><span class="pre">FilterSystem.lam_pivot()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/api/artpop.filters.FilterSystem.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

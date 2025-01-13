@@ -1,0 +1,67 @@
+MISTSSP
+=======
+
+.. currentmodule:: artpop.stars
+
+.. autoclass:: MISTSSP
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~MISTSSP.a_lam
+      ~MISTSSP.abs_mag_table
+      ~MISTSSP.dist_mod
+      ~MISTSSP.mag_table
+      ~MISTSSP.num_pops
+      ~MISTSSP.num_stars
+      ~MISTSSP.phases
+      ~MISTSSP.total_initial_live_mass
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~MISTSSP.build_pop
+      ~MISTSSP.copy
+      ~MISTSSP.from_pickle
+      ~MISTSSP.get_star_phases
+      ~MISTSSP.integrated_color
+      ~MISTSSP.mag_integrated_component
+      ~MISTSSP.mean_mag
+      ~MISTSSP.sample_fraction
+      ~MISTSSP.sbf_mag
+      ~MISTSSP.select_phase
+      ~MISTSSP.set_distance
+      ~MISTSSP.star_mags
+      ~MISTSSP.to_pickle
+      ~MISTSSP.total_mag
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: a_lam
+   .. autoattribute:: abs_mag_table
+   .. autoattribute:: dist_mod
+   .. autoattribute:: mag_table
+   .. autoattribute:: num_pops
+   .. autoattribute:: num_stars
+   .. autoattribute:: phases
+   .. autoattribute:: total_initial_live_mass
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: build_pop
+   .. automethod:: copy
+   .. automethod:: from_pickle
+   .. automethod:: get_star_phases
+   .. automethod:: integrated_color
+   .. automethod:: mag_integrated_component
+   .. automethod:: mean_mag
+   .. automethod:: sample_fraction
+   .. automethod:: sbf_mag
+   .. automethod:: select_phase
+   .. automethod:: set_distance
+   .. automethod:: star_mags
+   .. automethod:: to_pickle
+   .. automethod:: total_mag

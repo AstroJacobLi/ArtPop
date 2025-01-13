@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>plummer_xy &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="sersic_xy" href="artpop.space.sersic_xy.html" />
+    <link rel="prev" title="Spatial Distributions (artpop.space)" href="../modules/space/index.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="artpop.space.sersic_xy.html" title="sersic_xy">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="../modules/space/index.html" title="Spatial Distributions (artpop.space)">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      <li><a href="../modules/space/index.html" accesskey="U">Spatial Distributions (<code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.space</span></code>)</a> &#187;</li>
+      
+      <li>plummer_xy</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="plummer-xy">
+<h1>plummer_xy<a class="headerlink" href="#plummer-xy" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="artpop.space.plummer_xy">
+<span class="sig-prename descclassname"><span class="pre">artpop.space.</span></span><span class="sig-name descname"><span class="pre">plummer_xy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_stars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xy_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_radius=&lt;Quantity</span> <span class="pre">10.</span> <span class="pre">pc&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_outside=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state=None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.space.plummer_xy" title="Link to this definition">¶</a></dt>
+<dd><p>Sample xy positions from a two-dimensional Plummer distributions using
+inverse transform sampling.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>num_stars<span class="classifier">int</span></dt><dd><p>Number of stars (i.e., positions) to sample.</p>
+</dd>
+<dt>distance<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></span></dt><dd><p>Distance to source. If float is given, the units are assumed
+to be <code class="xref py py-obj docutils literal notranslate"><span class="pre">Mpc</span></code>.</p>
+</dd>
+<dt>xy_dim<span class="classifier">int or list-like</span></dt><dd><p>Dimensions of the mock image in xy coordinates. If int is given,
+will make the x and y dimensions the same.</p>
+</dd>
+<dt>pixel_scale<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></span></dt><dd><p>The pixel scale of the mock image. If a float is given, the units will
+be assumed to be <code class="xref py py-obj docutils literal notranslate"><span class="pre">arcsec</span></code> per <code class="xref py py-obj docutils literal notranslate"><span class="pre">pixels</span></code>.</p>
+</dd>
+<dt>scale_radius<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code>, optional</span></dt><dd><p>Scale radius of the source. If a float is given, the units are
+assumed to be <code class="xref py py-obj docutils literal notranslate"><span class="pre">kpc</span></code>. Must be greater than zero.</p>
+</dd>
+<dt>dx<span class="classifier">float, optional</span></dt><dd><p>Shift from center of image in pixels in the x direction.</p>
+</dd>
+<dt>dy<span class="classifier">float, optional</span></dt><dd><p>Shift from center of image in pixels in the y direction.</p>
+</dd>
+<dt>drop_outside<span class="classifier">bool, optional</span></dt><dd><p>If True, drop all stars that fall outside of the image. In this case,
+the returned <code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code> will not be masked.</p>
+</dd>
+<dt>random_state<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, int, list of ints, or <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code></span></dt><dd><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, return the <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code> singleton used by
+<code class="docutils literal notranslate"><span class="pre">numpy.random</span></code>. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>, return a new <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code>
+instance seeded with the <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>.  If <code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code>,
+return it. Otherwise raise <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>xy<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MaskedArray</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></span></dt><dd><p>Masked numpy array of xy positions. Positions that fall outside the
+mock image are masked. If <code class="docutils literal notranslate"><span class="pre">drop_outside</span> <span class="pre">==</span> <span class="pre">True</span></code>, then the stars
+that fall outside of the image will be dropped and the returned array
+will not be masked.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">plummer_xy</a><ul>
+<li><a class="reference internal" href="#artpop.space.plummer_xy"><code class="docutils literal notranslate"><span class="pre">plummer_xy()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/api/artpop.space.plummer_xy.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

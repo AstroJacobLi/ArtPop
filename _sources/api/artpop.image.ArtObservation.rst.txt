@@ -1,0 +1,23 @@
+ArtObservation
+==============
+
+.. currentmodule:: artpop.image
+
+.. autoclass:: ArtObservation
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~ArtObservation.copy
+      ~ArtObservation.from_pickle
+      ~ArtObservation.to_fits
+      ~ArtObservation.to_pickle
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: copy
+   .. automethod:: from_pickle
+   .. automethod:: to_fits
+   .. automethod:: to_pickle

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Artificial Source Objects &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Making Artificial Images" href="artimages.html" />
+    <link rel="prev" title="Sampling Spatial Distributions" href="spatial.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="artimages.html" title="Making Artificial Images">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="spatial.html" title="Sampling Spatial Distributions">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      
+      <li>Artificial Source Objects</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="Artificial-Source-Objects">
+<h1>Artificial Source Objects<a class="headerlink" href="#Artificial-Source-Objects" title="Link to this heading">¶</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/ArtificialStellarPopulations/ArtPop/blob/main/colab_tutorials/source.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p>To generate synthetic images, <strong>ArtPop</strong> “observes” <a class="reference internal" href="../api/artpop.source.Source.html"><span class="doc">Source</span></a> objects. In essence, <code class="docutils literal notranslate"><span class="pre">Source</span></code> objects are containers that hold the <code class="docutils literal notranslate"><span class="pre">xy</span></code> pixel positions and stellar <code class="docutils literal notranslate"><span class="pre">mags</span></code> of the artificial stellar population. As we showed in the <a class="reference internal" href="pops.html"><span class="doc">Building Stellar Populations</span></a> and <a class="reference internal" href="spatial.html"><span class="doc">Sampling Spatial Distributions</span></a> tutorials, <strong>ArtPop</strong> has the capability to generate these parameters, but you can generate them in <em>any</em> way you want (i.e.,
+independently from <strong>ArtPop</strong>). You just need to make sure to create <code class="docutils literal notranslate"><span class="pre">xy</span></code> and <code class="docutils literal notranslate"><span class="pre">mags</span></code> in the correct format to initialize the <a class="reference internal" href="../api/artpop.source.Source.html"><span class="doc">Source</span></a>.</p>
+<p><strong>Note:</strong> To generate MIST synthetic photometry using <strong>ArtPop</strong>, <a class="reference internal" href="../getting_started/mist.html"><span class="doc">MIST isochrone grids</span></a> are required. The first time you use a MIST grid, <strong>ArtPop</strong> will download it and save it to your <code class="docutils literal notranslate"><span class="pre">MIST_PATH</span></code>. If this environment variable is not set, the grid(s) will be saved in <code class="docutils literal notranslate"><span class="pre">~/.artpop/mist</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Third-party imports</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy</span><span class="w"> </span><span class="kn">import</span> <span class="n">units</span> <span class="k">as</span> <span class="n">u</span>
+
+<span class="c1"># Project import</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">artpop</span>
+
+<span class="c1"># artpop&#39;s matplotlib style</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">artpop</span><span class="o">.</span><span class="n">mpl_style</span><span class="p">)</span>
+
+<span class="c1"># use this random state for reproducibility</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="Building-a-Source-Object">
+<h2>Building a Source Object<a class="headerlink" href="#Building-a-Source-Object" title="Link to this heading">¶</a></h2>
+<p>In this first example, we will show you how to build a <code class="docutils literal notranslate"><span class="pre">Source</span></code> object from scratch. We’ll assume a uniform distribution of stars at fixed surface brightness. We start by calculating the mean stellar magnitude of an SSP using the <a class="reference internal" href="../api/artpop.stars.MISTIsochrone.html"><span class="doc">MISTIsochrone</span></a> class:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iso</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">MISTIsochrone</span><span class="p">(</span>
+    <span class="n">log_age</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span>          <span class="c1"># log of age in years</span>
+    <span class="n">feh</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>             <span class="c1"># metallicity [Fe/H]</span>
+    <span class="n">phot_system</span> <span class="o">=</span> <span class="s1">&#39;LSST&#39;</span><span class="p">,</span> <span class="c1"># photometric system(s)</span>
+<span class="p">)</span>
+
+<span class="c1"># normalize the IMF by number</span>
+<span class="n">mean_mag</span> <span class="o">=</span> <span class="n">iso</span><span class="o">.</span><span class="n">ssp_mag</span><span class="p">(</span><span class="s1">&#39;LSST_i&#39;</span><span class="p">,</span> <span class="n">norm_type</span><span class="o">=</span><span class="s1">&#39;number&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Next we use the <a class="reference internal" href="../api/artpop.stars.constant_sb_stars_per_pix.html"><span class="doc">constant_sb_stars_per_pix</span></a> function to calculate the number of stars per pixel this population would have for a given surface brightness and distance (let’s put the population at 10 Mpc):</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distance</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">Mpc</span>
+<span class="n">pixel_scale</span> <span class="o">=</span> <span class="mf">0.2</span>
+
+<span class="n">num_stars_per_pix</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">constant_sb_stars_per_pix</span><span class="p">(</span>
+    <span class="n">sb</span> <span class="o">=</span> <span class="mi">24</span><span class="p">,</span>                  <span class="c1"># surface brightness</span>
+    <span class="n">mean_mag</span> <span class="o">=</span> <span class="n">mean_mag</span><span class="p">,</span>      <span class="c1"># mean stellar magnitude</span>
+    <span class="n">distance</span> <span class="o">=</span> <span class="n">distance</span><span class="p">,</span>      <span class="c1"># distance to system</span>
+    <span class="n">pixel_scale</span> <span class="o">=</span> <span class="n">pixel_scale</span> <span class="c1"># pixel scale in arcsec/pixel</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;number of stars per pixel = </span><span class="si">{</span><span class="n">num_stars_per_pix</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+number of stars per pixel = 494.43
+</pre></div></div>
+</div>
+<p>Let’s say we intend to create an artificial image that is 101 pixels on a side. Then we can calculate the number of pixels, and hence number of stars, in our image.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xy_dim</span> <span class="o">=</span> <span class="p">(</span><span class="mi">101</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+<span class="n">num_stars</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="o">*</span><span class="n">xy_dim</span><span class="p">)</span> <span class="o">*</span> <span class="n">num_stars_per_pix</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;number of stars = </span><span class="si">{</span><span class="n">num_stars</span><span class="si">:</span><span class="s1">.0e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+number of stars = 5e+06
+</pre></div></div>
+</div>
+<p>Putting the pieces together, we sample <code class="docutils literal notranslate"><span class="pre">num_stars</span></code> stellar magnitudes and positions to build our <code class="docutils literal notranslate"><span class="pre">Source</span></code> object:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># build SSP with num_stars stars</span>
+<span class="n">ssp</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">SSP</span><span class="p">(</span>
+    <span class="n">isochrone</span> <span class="o">=</span> <span class="n">iso</span><span class="p">,</span>       <span class="c1"># isochrone object</span>
+    <span class="n">num_stars</span> <span class="o">=</span> <span class="n">num_stars</span><span class="p">,</span> <span class="c1"># number of stars</span>
+    <span class="n">imf</span> <span class="o">=</span> <span class="s1">&#39;kroupa&#39;</span><span class="p">,</span>        <span class="c1"># default imf</span>
+    <span class="n">distance</span> <span class="o">=</span> <span class="n">distance</span><span class="p">,</span>   <span class="c1"># distance to system</span>
+    <span class="n">random_state</span> <span class="o">=</span> <span class="n">rng</span><span class="p">,</span>    <span class="c1"># random state for reproducibility</span>
+<span class="p">)</span>
+
+<span class="c1"># sample num_stars positions in a uniform grid</span>
+<span class="n">xy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">xy_dim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">num_stars</span><span class="p">),</span>
+                <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">xy_dim</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">num_stars</span><span class="p">)])</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1"># create the artificial source</span>
+<span class="n">src</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">Source</span><span class="p">(</span><span class="n">xy</span><span class="p">,</span> <span class="n">ssp</span><span class="o">.</span><span class="n">mag_table</span><span class="p">,</span> <span class="n">xy_dim</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Note <code class="docutils literal notranslate"><span class="pre">ssp</span></code> has an attribute called <code class="docutils literal notranslate"><span class="pre">mag_table</span></code>, which is an <code class="docutils literal notranslate"><span class="pre">astropy</span></code> table with stellar magnitudes in the given photometric system(s), which is passed as an argument to <code class="docutils literal notranslate"><span class="pre">Source</span></code> and stored as the <code class="docutils literal notranslate"><span class="pre">mags</span></code> attribute:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># here are the first 10 rows of the table</span>
+<span class="c1"># each row corresponds to a single star</span>
+<span class="n">src</span><span class="o">.</span><span class="n">mags</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<i>Table length=10</i>
+<table id="table140487451656432" class="table-striped table-bordered table-condensed">
+<thead><tr><th>LSST_u</th><th>LSST_g</th><th>LSST_r</th><th>LSST_i</th><th>LSST_z</th><th>LSST_y</th></tr></thead>
+<thead><tr><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
+<tr><td>47.59355757863038</td><td>44.33005922548976</td><td>42.78243436679926</td><td>41.89141485523699</td><td>41.467133437135075</td><td>41.25933819275674</td></tr>
+<tr><td>43.672879564444045</td><td>41.22745392661895</td><td>39.96531947084012</td><td>39.4238879315009</td><td>39.16631172603568</td><td>39.01244589273298</td></tr>
+<tr><td>43.702311666073996</td><td>41.25436463467862</td><td>39.99056155533645</td><td>39.44808389608072</td><td>39.19001162581168</td><td>39.0358924533673</td></tr>
+<tr><td>46.29019385112325</td><td>43.421740839257744</td><td>41.967908643812656</td><td>41.234118360975835</td><td>40.884716609196985</td><td>40.69384323226573</td></tr>
+<tr><td>46.201714598907216</td><td>43.35640814961155</td><td>41.908833116665</td><td>41.18516833149769</td><td>40.84014555128736</td><td>40.65018191045182</td></tr>
+<tr><td>45.39264915593941</td><td>42.721913816438494</td><td>41.334921530569915</td><td>40.69067124092121</td><td>40.38236025543267</td><td>40.20509055510217</td></tr>
+<tr><td>44.10579588525191</td><td>41.62031671900799</td><td>40.332753796445324</td><td>39.77460605482946</td><td>39.50910028277801</td><td>39.35137020065203</td></tr>
+<tr><td>45.17359479981009</td><td>42.5389985675621</td><td>41.1691338679598</td><td>40.54222253642945</td><td>40.24240241939206</td><td>40.0694116529263</td></tr>
+<tr><td>46.82327513973055</td><td>43.804974275055656</td><td>42.31210839002173</td><td>41.51577945269061</td><td>41.13666009211553</td><td>40.939627726304245</td></tr>
+<tr><td>44.536376030908954</td><td>41.9964770290303</td><td>40.677215855851706</td><td>40.09522142938339</td><td>39.81805085427266</td><td>39.655400968864015</td></tr>
+</table></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">src</span></code> object contains all the information about the source that we need to simulate an observation, which is described in the <a class="reference internal" href="artimages.html"><span class="doc">Making Artificial Images</span></a> tutorial.</p>
+<p>Here’s a look at the positions and <span class="math notranslate nohighlight">\(i\)</span>-band magnitudes of a random subset of the stars in <code class="docutils literal notranslate"><span class="pre">src</span></code>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idx</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">num_stars</span><span class="p">),</span> <span class="mi">5000</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">src</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+            <span class="n">c</span><span class="o">=</span><span class="n">src</span><span class="o">.</span><span class="n">mags</span><span class="p">[</span><span class="s1">&#39;LSST_i&#39;</span><span class="p">][</span><span class="n">idx</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;magma&#39;</span><span class="p">)</span>
+
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$m_i$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x$ [pixel]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$y$ [pixel]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;SSP at </span><span class="si">{</span><span class="n">distance</span><span class="si">:</span><span class="s1">.0f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_source_15_0.png" class="no-scaled-link" src="../_images/tutorials_source_15_0.png" style="width: 419px; height: 290px;" />
+</div>
+</div>
+<p>As a sanity check, we can calculate the surface brightness of the population:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">total_flux</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">0.4</span> <span class="o">*</span> <span class="n">src</span><span class="o">.</span><span class="n">mags</span><span class="p">[</span><span class="s1">&#39;LSST_i&#39;</span><span class="p">]))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">area</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="o">*</span><span class="n">xy_dim</span><span class="p">)</span> <span class="o">*</span> <span class="n">pixel_scale</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">sb</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">total_flux</span> <span class="o">/</span> <span class="n">area</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;SB = </span><span class="si">{</span><span class="n">sb</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> mag / arcsec^2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+SB = 24.00 mag / arcsec^2
+</pre></div></div>
+</div>
+</section>
+<section id="Helper-SSP-Source-Objects">
+<h2>Helper SSP Source Objects<a class="headerlink" href="#Helper-SSP-Source-Objects" title="Link to this heading">¶</a></h2>
+<p>For convenience, <strong>ArtPop</strong> provides objects for generating SSP + spatial distribution combinations. Here we generate an SSP with a uniform spatial distribution, similar to above, using the <a class="reference internal" href="../api/artpop.source.MISTUniformSSP.html"><span class="doc">MISTUniformSSP</span></a> helper class:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s put the population at 5 Mpc</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">Mpc</span>
+
+<span class="c1"># create ssp distributed uniformly in space</span>
+<span class="n">src_uniform</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">MISTUniformSSP</span><span class="p">(</span>
+    <span class="n">log_age</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span>          <span class="c1"># log of age in years</span>
+    <span class="n">feh</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>             <span class="c1"># metallicity [Fe/H]</span>
+    <span class="n">phot_system</span> <span class="o">=</span> <span class="s1">&#39;LSST&#39;</span><span class="p">,</span> <span class="c1"># photometric system(s)</span>
+    <span class="n">distance</span> <span class="o">=</span> <span class="n">distance</span><span class="p">,</span>  <span class="c1"># distance to system</span>
+    <span class="n">xy_dim</span> <span class="o">=</span> <span class="mi">101</span><span class="p">,</span>         <span class="c1"># image dimension (101, 101)</span>
+    <span class="n">pixel_scale</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>    <span class="c1"># pixel scale in arcsec / pixel</span>
+    <span class="n">sb</span> <span class="o">=</span> <span class="mi">24</span><span class="p">,</span>              <span class="c1"># surface brightness (SB)</span>
+    <span class="n">sb_band</span><span class="o">=</span><span class="s1">&#39;LSST_i&#39;</span><span class="p">,</span>     <span class="c1"># bandpass to calculate the SB</span>
+    <span class="n">random_state</span> <span class="o">=</span> <span class="n">rng</span><span class="p">,</span>   <span class="c1"># random state for reproducibility</span>
+<span class="p">)</span>
+
+<span class="c1"># plot positions with symbols colored by i-band mags</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">src_uniform</span><span class="o">.</span><span class="n">num_stars</span><span class="p">),</span> <span class="mi">5000</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">src_uniform</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">src_uniform</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+            <span class="n">c</span><span class="o">=</span><span class="n">src_uniform</span><span class="o">.</span><span class="n">mags</span><span class="p">[</span><span class="s1">&#39;LSST_i&#39;</span><span class="p">][</span><span class="n">idx</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;magma&#39;</span><span class="p">)</span>
+
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$m_i$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x$ [pixel]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$y$ [pixel]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;SSP at </span><span class="si">{</span><span class="n">distance</span><span class="si">:</span><span class="s1">.0f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_source_19_0.png" class="no-scaled-link" src="../_images/tutorials_source_19_0.png" style="width: 405px; height: 290px;" />
+</div>
+</div>
+</section>
+<section id="Composite-Sources">
+<h2>Composite Sources<a class="headerlink" href="#Composite-Sources" title="Link to this heading">¶</a></h2>
+<p>Similar to <a class="reference internal" href="pops.html#Composite-Stellar-Populations"><span class="std std-ref">creating composite stellar populations</span></a>, composite <code class="docutils literal notranslate"><span class="pre">Source</span></code> objects are created intuitively using the <code class="docutils literal notranslate"><span class="pre">+</span></code> operator. Here we’ll use <a class="reference internal" href="../api/artpop.source.MISTPlummerSSP.html"><span class="doc">MISTPlummerSSP</span></a> to create an SSP with a Plummer spatial distribution and add it to the uniformly distributed population we created above:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create ssp distributed uniformly in space</span>
+<span class="n">src_plummer</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">MISTPlummerSSP</span><span class="p">(</span>
+    <span class="n">log_age</span> <span class="o">=</span> <span class="mf">10.1</span><span class="p">,</span>           <span class="c1"># log of age in years</span>
+    <span class="n">feh</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">,</span>               <span class="c1"># metallicity [Fe/H]</span>
+    <span class="n">scale_radius</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">pc</span><span class="p">,</span> <span class="c1"># effective radius</span>
+    <span class="n">num_stars</span> <span class="o">=</span> <span class="mf">5e5</span><span class="p">,</span>          <span class="c1"># number of stars</span>
+    <span class="n">phot_system</span> <span class="o">=</span> <span class="s1">&#39;LSST&#39;</span><span class="p">,</span>     <span class="c1"># photometric system(s)</span>
+    <span class="n">distance</span> <span class="o">=</span> <span class="n">distance</span><span class="p">,</span>      <span class="c1"># distance to system</span>
+    <span class="n">xy_dim</span> <span class="o">=</span> <span class="mi">101</span><span class="p">,</span>             <span class="c1"># image dimension (101, 101)</span>
+    <span class="n">pixel_scale</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>        <span class="c1"># pixel scale in arcsec / pixel</span>
+    <span class="n">random_state</span> <span class="o">=</span> <span class="n">rng</span><span class="p">,</span>       <span class="c1"># random state for reproducibility</span>
+<span class="p">)</span>
+
+<span class="c1"># add sources together</span>
+<span class="n">composite_src</span> <span class="o">=</span> <span class="n">src_uniform</span> <span class="o">+</span> <span class="n">src_plummer</span>
+
+<span class="c1"># plot positions with symbols colored by i-band mags</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">composite_src</span><span class="o">.</span><span class="n">num_stars</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="mf">1e4</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">composite_src</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">composite_src</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">c</span><span class="o">=</span><span class="n">composite_src</span><span class="o">.</span><span class="n">mags</span><span class="p">[</span><span class="s1">&#39;LSST_i&#39;</span><span class="p">][</span><span class="n">idx</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;magma&#39;</span><span class="p">)</span>
+
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$m_i$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x$ [pixel]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$y$ [pixel]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;SSP at </span><span class="si">{</span><span class="n">distance</span><span class="si">:</span><span class="s1">.0f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+WARNING: 2656 stars outside the image
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_source_21_1.png" class="no-scaled-link" src="../_images/tutorials_source_21_1.png" style="width: 419px; height: 290px;" />
+</div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">Artificial Source Objects</a><ul>
+<li><a class="reference internal" href="#Building-a-Source-Object">Building a Source Object</a></li>
+<li><a class="reference internal" href="#Helper-SSP-Source-Objects">Helper SSP Source Objects</a></li>
+<li><a class="reference internal" href="#Composite-Sources">Composite Sources</a></li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/tutorials/source.ipynb.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

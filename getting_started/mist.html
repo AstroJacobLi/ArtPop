@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>MIST Isochrone Grids &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Opening Issues and Contributing" href="contribute.html" />
+    <link rel="prev" title="Installation" href="install.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="contribute.html" title="Opening Issues and Contributing">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="install.html" title="Installation">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      
+      <li>MIST Isochrone Grids</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="mist-isochrone-grids">
+<span id="artpop-mist"></span><h1>MIST Isochrone Grids<a class="headerlink" href="#mist-isochrone-grids" title="Link to this heading">¶</a></h1>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ArtPop</span></code> can work with synthetic photometry generated from any source,
+provided it is in the correct format. For convenience, we provide built-in tools for
+fetching and manipulating synthetic photometry from the
+<a class="reference external" href="http://waps.cfa.harvard.edu/MIST/">MIST isochrone models</a>.
+See, for example, the <a class="reference internal" href="../api/artpop.stars.MISTSSP.html#artpop.stars.MISTSSP" title="artpop.stars.MISTSSP"><code class="xref py py-class docutils literal notranslate"><span class="pre">MISTSSP</span></code></a> and <a class="reference internal" href="../api/artpop.source.MISTSersicSSP.html#artpop.source.MISTSersicSSP" title="artpop.source.MISTSersicSSP"><code class="xref py py-class docutils literal notranslate"><span class="pre">MISTSersicSSP</span></code></a>
+classes.</p>
+<p>The first time you need a particular
+<a class="reference external" href="http://waps.cfa.harvard.edu/MIST/model_grids.html">MIST synthetic photometry grid</a>,
+it will be downloaded and saved to your <code class="docutils literal notranslate"><span class="pre">MIST_PATH</span></code>. If this environment variable is not set,
+the grid(s) will be saved in <code class="docutils literal notranslate"><span class="pre">~/.artpop/mist</span></code>.</p>
+<p>To change the default path location, create an environment variable called <code class="docutils literal notranslate"><span class="pre">MIST_PATH</span></code>.</p>
+<p>For example, in <code class="docutils literal notranslate"><span class="pre">bash</span></code>, add this to your
+<code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">MIST_PATH</span><span class="o">=</span><span class="s1">&#39;/path/to/your/MIST/grids&#39;</span>
+</pre></div>
+</div>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ArtPop</span></code> will use this path by default in all functions that use the
+MIST grids. Note, however, that you always have the option to pass a
+different path to any function that uses a MIST grid.</p>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">MIST Isochrone Grids</a></li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/getting_started/mist.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Making Artificial Images &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Injecting into Real Images" href="inject.html" />
+    <link rel="prev" title="Artificial Source Objects" href="source.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="inject.html" title="Injecting into Real Images">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="source.html" title="Artificial Source Objects">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      
+      <li>Making Artificial Images</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="Making-Artificial-Images">
+<h1>Making Artificial Images<a class="headerlink" href="#Making-Artificial-Images" title="Link to this heading">¶</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/ArtificialStellarPopulations/ArtPop/blob/main/colab_tutorials/artimages.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p>Once you have created a <a class="reference internal" href="source.html"><span class="doc">Source</span></a> object, you are ready to use <strong>ArtPop</strong> to “observe” it and make an artificial image. Mock observations in <strong>ArtPop</strong> are carried out using <code class="docutils literal notranslate"><span class="pre">Imager</span></code> objects, which are the topic of this tutorial.</p>
+<p><strong>Note:</strong> To generate MIST synthetic photometry using <strong>ArtPop</strong>, <a class="reference internal" href="../getting_started/mist.html"><span class="doc">MIST isochrone grids</span></a> are required. The first time you use a MIST grid, <strong>ArtPop</strong> will download it and save it to your <code class="docutils literal notranslate"><span class="pre">MIST_PATH</span></code>. If this environment variable is not set, the grid(s) will be saved in <code class="docutils literal notranslate"><span class="pre">~/.artpop/mist</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Third-party imports</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy</span><span class="w"> </span><span class="kn">import</span> <span class="n">units</span> <span class="k">as</span> <span class="n">u</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_lupton_rgb</span>
+
+<span class="c1"># Project import</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">artpop</span>
+
+<span class="c1"># artpop&#39;s matplotlib style</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">artpop</span><span class="o">.</span><span class="n">mpl_style</span><span class="p">)</span>
+
+<span class="c1"># use this random state for reproducibility</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="IdealImager">
+<h2>IdealImager<a class="headerlink" href="#IdealImager" title="Link to this heading">¶</a></h2>
+<p>The <a class="reference internal" href="../api/artpop.image.IdealImager.html"><span class="doc">IdealImager</span></a> is an imager object for creating noiseless images.</p>
+<p>First, we need to create a <code class="docutils literal notranslate"><span class="pre">Source</span></code> to observe. In this tutorial, we’ll simulate an SSP with a Sersic spatial distribution using the helper <a class="reference internal" href="../api/artpop.source.MISTSersicSSP.html"><span class="doc">MISTSersicSSP</span></a> class:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">src</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">MISTSersicSSP</span><span class="p">(</span>
+    <span class="n">log_age</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>         <span class="c1"># log of age in years</span>
+    <span class="n">feh</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">,</span>           <span class="c1"># metallicity [Fe/H]</span>
+    <span class="n">r_eff</span> <span class="o">=</span> <span class="mi">300</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">pc</span><span class="p">,</span>   <span class="c1"># effective radius</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">,</span>              <span class="c1"># Sersic index</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="mi">45</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">deg</span><span class="p">,</span>   <span class="c1"># position angle</span>
+    <span class="n">ellip</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span>          <span class="c1"># ellipticity</span>
+    <span class="n">num_stars</span> <span class="o">=</span> <span class="mf">5e6</span><span class="p">,</span>      <span class="c1"># number of stars</span>
+    <span class="n">phot_system</span> <span class="o">=</span> <span class="s1">&#39;LSST&#39;</span><span class="p">,</span> <span class="c1"># photometric system</span>
+    <span class="n">distance</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">Mpc</span><span class="p">,</span> <span class="c1"># distance to system</span>
+    <span class="n">xy_dim</span> <span class="o">=</span> <span class="mi">651</span><span class="p">,</span>         <span class="c1"># image dimension</span>
+    <span class="n">pixel_scale</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>    <span class="c1"># pixel scale in arcsec / pixel</span>
+    <span class="n">random_state</span> <span class="o">=</span> <span class="n">rng</span>    <span class="c1"># random state for reproducibility</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+WARNING: 49 stars outside the image
+</pre></div></div>
+</div>
+<p>Next, we initialize an <code class="docutils literal notranslate"><span class="pre">IdealImager</span></code> and generate a Moffat point spread function (PSF) using the <a class="reference internal" href="../api/artpop.image.moffat_psf.html"><span class="doc">moffat_psf</span></a> function. Note the PSF is given as an <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a>, which makes it possible to use an observed PSF if you have one.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># initialize IdealImager with the LSST phot_system</span>
+<span class="n">imager</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">IdealImager</span><span class="p">()</span>
+
+<span class="c1"># create PSF with 0.7&#39;&#39; seeing</span>
+<span class="n">psf</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">moffat_psf</span><span class="p">(</span><span class="n">fwhm</span><span class="o">=</span><span class="mf">0.7</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">arcsec</span><span class="p">)</span>
+
+<span class="c1"># display PSF using ArtPop&#39;s show_image function</span>
+<span class="n">artpop</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">psf</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;magma&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_artimages_7_0.png" class="no-scaled-link" src="../_images/tutorials_artimages_7_0.png" style="width: 340px; height: 340px;" />
+</div>
+</div>
+<p>Finally, we create a synthetic <span class="math notranslate nohighlight">\(i\)</span>-band observation using the <code class="docutils literal notranslate"><span class="pre">IdealImager</span></code>’s <a class="reference internal" href="../api/artpop.image.IdealImager.html#artpop.image.IdealImager.observe"><span class="std std-ref">observe</span></a> method. The returned observation <code class="docutils literal notranslate"><span class="pre">obs</span></code> is an <a class="reference internal" href="../api/artpop.image.IdealObservation.html"><span class="doc">IdealObservation</span></a> object with attributes <code class="docutils literal notranslate"><span class="pre">image</span></code> (the mock image pixels), <code class="docutils literal notranslate"><span class="pre">zpt</span></code> (the zero point), and <code class="docutils literal notranslate"><span class="pre">bandpass</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># mock observe the source</span>
+<span class="n">obs</span> <span class="o">=</span> <span class="n">imager</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">bandpass</span><span class="o">=</span><span class="s1">&#39;LSST_i&#39;</span><span class="p">,</span> <span class="n">psf</span><span class="o">=</span><span class="n">psf</span><span class="p">,</span> <span class="n">zpt</span><span class="o">=</span><span class="mi">27</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Here’s the image displayed using the ArtPop’s <a class="reference internal" href="../api/artpop.visualization.show_image.html"><span class="doc">show_image</span></a> function:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">artpop</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">obs</span><span class="o">.</span><span class="n">image</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_artimages_11_0.png" class="no-scaled-link" src="../_images/tutorials_artimages_11_0.png" style="width: 557px; height: 558px;" />
+</div>
+</div>
+</section>
+<section id="ArtImager">
+<h2>ArtImager<a class="headerlink" href="#ArtImager" title="Link to this heading">¶</a></h2>
+<p>The <strong>Art</strong>ificial <strong>Imager</strong>, <a class="reference internal" href="../api/artpop.image.ArtImager.html"><span class="doc">ArtImager</span></a>, is an imager that creates fully artificial images with realistic noise. In order to calculate the noise, parameters about the instrument, exposure time, and sky surface brightness are required.</p>
+<p>Here we create an <code class="docutils literal notranslate"><span class="pre">ArtImager</span></code> object with parameters similar to what is expected for LSST and the Rubin Observatory:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">imager</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">ArtImager</span><span class="p">(</span>
+    <span class="n">phot_system</span> <span class="o">=</span> <span class="s1">&#39;LSST&#39;</span><span class="p">,</span> <span class="c1"># photometric system</span>
+    <span class="n">diameter</span> <span class="o">=</span> <span class="mf">6.4</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="p">,</span> <span class="c1"># effective aperture diameter</span>
+    <span class="n">read_noise</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>       <span class="c1"># read noise in electrons</span>
+    <span class="n">random_state</span> <span class="o">=</span> <span class="n">rng</span>    <span class="c1"># random state for reproducibility</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Similar to the <code class="docutils literal notranslate"><span class="pre">IdealImager</span></code>, we create a mock observation using the <code class="docutils literal notranslate"><span class="pre">ArtImager</span></code>’s <a class="reference internal" href="../api/artpop.image.ArtImager.html#artpop.image.ArtImager.observe"><span class="std std-ref">observe</span></a> method. The difference is that we must also provide the exposure time and sky surface brightness. Let’s observe the same source as above with a sky that’s similar to dark time at Cerro Pachon (<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2018ApJS..239...18A/abstract">Abbott et al. 2018</a>):</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># observe in gri (assuming the same seeing in all bands)</span>
+<span class="n">obs_g</span> <span class="o">=</span> <span class="n">imager</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="s1">&#39;LSST_g&#39;</span><span class="p">,</span> <span class="mi">30</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="n">sky_sb</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">psf</span><span class="o">=</span><span class="n">psf</span><span class="p">)</span>
+<span class="n">obs_r</span> <span class="o">=</span> <span class="n">imager</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="s1">&#39;LSST_r&#39;</span><span class="p">,</span> <span class="mi">30</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="n">sky_sb</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span> <span class="n">psf</span><span class="o">=</span><span class="n">psf</span><span class="p">)</span>
+<span class="n">obs_i</span> <span class="o">=</span> <span class="n">imager</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="s1">&#39;LSST_i&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">hr</span><span class="p">,</span> <span class="n">sky_sb</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">psf</span><span class="o">=</span><span class="n">psf</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>To make a pretty picture, we’ll use astropy’s <a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.visualization.make_lupton_rgb.html">make_lupton_rgb</a> function:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rgb</span> <span class="o">=</span> <span class="n">make_lupton_rgb</span><span class="p">(</span><span class="n">obs_i</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">obs_r</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">obs_g</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">stretch</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+
+<span class="n">artpop</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">rgb</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_artimages_17_0.png" class="no-scaled-link" src="../_images/tutorials_artimages_17_0.png" style="width: 557px; height: 558px;" />
+</div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">Making Artificial Images</a><ul>
+<li><a class="reference internal" href="#IdealImager">IdealImager</a></li>
+<li><a class="reference internal" href="#ArtImager">ArtImager</a></li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/tutorials/artimages.ipynb.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+MISTUniformSSP
+==============
+
+.. currentmodule:: artpop.source
+
+.. autoclass:: MISTUniformSSP
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~MISTUniformSSP.num_stars
+      ~MISTUniformSSP.x
+      ~MISTUniformSSP.y
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~MISTUniformSSP.copy
+      ~MISTUniformSSP.mag_to_image_amplitude
+      ~MISTUniformSSP.select_stars
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: num_stars
+   .. autoattribute:: x
+   .. autoattribute:: y
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: copy
+   .. automethod:: mag_to_image_amplitude
+   .. automethod:: select_stars

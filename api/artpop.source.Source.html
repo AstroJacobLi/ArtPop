@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Source &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="BackgroundSource" href="artpop.source.BackgroundSource.html" />
+    <link rel="prev" title="Source (artpop.source)" href="../modules/source.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="artpop.source.BackgroundSource.html" title="BackgroundSource">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="../modules/source.html" title="Source (artpop.source)">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      <li><a href="../modules/source.html" accesskey="U">Source (<code class="xref py py-obj docutils literal notranslate"><span class="pre">artpop.source</span></code>)</a> &#187;</li>
+      
+      <li>Source</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="source">
+<h1>Source<a class="headerlink" href="#source" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="artpop.source.Source">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">artpop.source.</span></span><span class="sig-name descname"><span class="pre">Source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mags</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xy_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.source.Source" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Artificial stellar system to be mock imaged.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>xy<span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">MaskedArray</span></code></span></dt><dd><p>Positions of the stars in (x, y) coordinates.</p>
+</dd>
+<dt>mags<span class="classifier">dict of <code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Table</span></code></span></dt><dd><p>Stellar magnitudes.</p>
+</dd>
+<dt>xy_dim<span class="classifier">int or list-like</span></dt><dd><p>Dimensions of the mock image in xy coordinates. If int is given,
+will make the x and y dimensions the same.</p>
+</dd>
+<dt>pixel_scale<span class="classifier">float or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code>, optional</span></dt><dd><p>The pixel scale of the mock image. If a float is given, the units will
+be assumed to be <code class="xref py py-obj docutils literal notranslate"><span class="pre">arcsec</span> <span class="pre">/</span> <span class="pre">pixels</span></code>.</p>
+</dd>
+<dt>labels<span class="classifier">list-like, optional</span></dt><dd><p>Labels for the stars. For example, EEP values (int or float) or name
+of evolutionary phase (str).</p>
+</dd>
+</dl>
+<p class="rubric">Attributes Summary</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.source.Source.num_stars" title="artpop.source.Source.num_stars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_stars</span></code></a></p></td>
+<td><p>Number of stars in source</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.source.Source.x" title="artpop.source.Source.x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">x</span></code></a></p></td>
+<td><p>x coordinates</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.source.Source.y" title="artpop.source.Source.y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">y</span></code></a></p></td>
+<td><p>y coordinates</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Summary</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artpop.source.Source.copy" title="artpop.source.Source.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>()</p></td>
+<td><p>Create deep copy of source object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artpop.source.Source.select_stars" title="artpop.source.Source.select_stars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_stars</span></code></a>(label)</p></td>
+<td><p>Return boolean mask that is set to True for stars of given label.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes Documentation</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.source.Source.num_stars">
+<span class="sig-name descname"><span class="pre">num_stars</span></span><a class="headerlink" href="#artpop.source.Source.num_stars" title="Link to this definition">¶</a></dt>
+<dd><p>Number of stars in source</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.source.Source.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#artpop.source.Source.x" title="Link to this definition">¶</a></dt>
+<dd><p>x coordinates</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="artpop.source.Source.y">
+<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#artpop.source.Source.y" title="Link to this definition">¶</a></dt>
+<dd><p>y coordinates</p>
+</dd></dl>
+
+<p class="rubric">Methods Documentation</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.source.Source.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#artpop.source.Source.copy" title="Link to this definition">¶</a></dt>
+<dd><p>Create deep copy of source object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="artpop.source.Source.select_stars">
+<span class="sig-name descname"><span class="pre">select_stars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#artpop.source.Source.select_stars" title="Link to this definition">¶</a></dt>
+<dd><p>Return boolean mask that is set to True for stars of given label.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">Source</a><ul>
+<li><a class="reference internal" href="#artpop.source.Source"><code class="docutils literal notranslate"><span class="pre">Source</span></code></a><ul>
+<li><a class="reference internal" href="#artpop.source.Source.num_stars"><code class="docutils literal notranslate"><span class="pre">Source.num_stars</span></code></a></li>
+<li><a class="reference internal" href="#artpop.source.Source.x"><code class="docutils literal notranslate"><span class="pre">Source.x</span></code></a></li>
+<li><a class="reference internal" href="#artpop.source.Source.y"><code class="docutils literal notranslate"><span class="pre">Source.y</span></code></a></li>
+<li><a class="reference internal" href="#artpop.source.Source.copy"><code class="docutils literal notranslate"><span class="pre">Source.copy()</span></code></a></li>
+<li><a class="reference internal" href="#artpop.source.Source.select_stars"><code class="docutils literal notranslate"><span class="pre">Source.select_stars()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/api/artpop.source.Source.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+Isochrone
+=========
+
+.. currentmodule:: artpop.stars
+
+.. autoclass:: Isochrone
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~Isochrone.filters
+      ~Isochrone.m_max
+      ~Isochrone.m_min
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~Isochrone.calculate_mag_limit
+      ~Isochrone.from_parsec
+      ~Isochrone.imf_weights
+      ~Isochrone.interpolate
+      ~Isochrone.mag_to_mass
+      ~Isochrone.nearest_mini
+      ~Isochrone.ssp_color
+      ~Isochrone.ssp_mag
+      ~Isochrone.ssp_mean_star_mass
+      ~Isochrone.ssp_sbf_mag
+      ~Isochrone.ssp_sbf_mag_phase
+      ~Isochrone.ssp_surviving_mass
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: filters
+   .. autoattribute:: m_max
+   .. autoattribute:: m_min
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: calculate_mag_limit
+   .. automethod:: from_parsec
+   .. automethod:: imf_weights
+   .. automethod:: interpolate
+   .. automethod:: mag_to_mass
+   .. automethod:: nearest_mini
+   .. automethod:: ssp_color
+   .. automethod:: ssp_mag
+   .. automethod:: ssp_mean_star_mass
+   .. automethod:: ssp_sbf_mag
+   .. automethod:: ssp_sbf_mag_phase
+   .. automethod:: ssp_surviving_mass

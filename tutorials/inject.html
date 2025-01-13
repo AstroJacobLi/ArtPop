@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Injecting into Real Images &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Stellar Populations (artpop.stars)" href="../modules/stars/index.html" />
+    <link rel="prev" title="Making Artificial Images" href="artimages.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="../modules/stars/index.html" title="Stellar Populations (artpop.stars)">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="artimages.html" title="Making Artificial Images">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      
+      <li>Injecting into Real Images</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="Injecting-into-Real-Images">
+<h1>Injecting into Real Images<a class="headerlink" href="#Injecting-into-Real-Images" title="Link to this heading">¶</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/ArtificialStellarPopulations/ArtPop/blob/main/colab_tutorials/inject.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p>One of <strong>ArtPop</strong>’s most common use cases is generating artificial galaxies and injecting them into real imaging data. In this tutorial, we will walk you through how to do this using imaging data from the invaluable <a class="reference external" href="https://www.legacysurvey.org">Legacy Survey</a>. <em>HUGE</em> thanks to the one and only <a class="reference external" href="http://dstn.astrometry.net">Dustin Lang</a> for making it so easy to get these data!</p>
+<p><strong>Note:</strong> To generate MIST synthetic photometry using <strong>ArtPop</strong>, <a class="reference internal" href="../getting_started/mist.html"><span class="doc">MIST isochrone grids</span></a> are required. The first time you use a MIST grid, <strong>ArtPop</strong> will download it and save it to your <code class="docutils literal notranslate"><span class="pre">MIST_PATH</span></code>. If this environment variable is not set, the grid(s) will be saved in <code class="docutils literal notranslate"><span class="pre">~/.artpop/mist</span></code>.</p>
+<p>We have more imports than usual in this tutorial:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Standard library imports</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">io</span><span class="w"> </span><span class="kn">import</span> <span class="n">BytesIO</span>
+
+<span class="c1"># Third-party imports</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy</span><span class="w"> </span><span class="kn">import</span> <span class="n">units</span> <span class="k">as</span> <span class="n">u</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">fits</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_lupton_rgb</span>
+
+<span class="c1"># Project import</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">artpop</span>
+
+<span class="c1"># artpop&#39;s matplotlib style</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">artpop</span><span class="o">.</span><span class="n">mpl_style</span><span class="p">)</span>
+
+<span class="c1"># use this random state for reproducibility</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="Fetch-Data">
+<h2>Fetch Data<a class="headerlink" href="#Fetch-Data" title="Link to this heading">¶</a></h2>
+<p>First, we define two simple functions that use the <a class="reference external" href="https://docs.python.org/3/library/io.html">standard io</a> and <a class="reference external" href="https://requests.readthedocs.io/en/master/">requests</a> libraries to fetch <span class="math notranslate nohighlight">\(grz\)</span> coadds and point spread functions (PSFs) from the <a class="reference external" href="https://www.legacysurvey.org">Legacy Survey</a>:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url_prefix</span> <span class="o">=</span> <span class="s1">&#39;https://www.legacysurvey.org/viewer/&#39;</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">fetch_psf</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns PSFs in dictionary with keys &#39;g&#39;, &#39;r&#39;, and &#39;z&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">url_prefix</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;coadd-psf/?ra=</span><span class="si">{</span><span class="n">ra</span><span class="si">}</span><span class="s1">&amp;dec=</span><span class="si">{</span><span class="n">dec</span><span class="si">}</span><span class="s1">&amp;layer=dr8&amp;bands=grz&#39;</span>
+    <span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">hdulist</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">content</span><span class="p">))</span>
+    <span class="n">psf</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;grz&#39;</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span> <span class="n">hdulist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)}</span>
+    <span class="k">return</span> <span class="n">psf</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">fetch_coadd</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns coadds in dictionary with keys &#39;g&#39;, &#39;r&#39;, and &#39;z&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">url_prefix</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;cutout.fits?ra=</span><span class="si">{</span><span class="n">ra</span><span class="si">}</span><span class="s1">&amp;dec=</span><span class="si">{</span><span class="n">dec</span><span class="si">}</span><span class="s1">&amp;size=900&amp;&#39;</span>
+    <span class="n">url</span> <span class="o">+=</span> <span class="s1">&#39;layer=ls-dr8&amp;pixscale=0.262&amp;bands=grz&#39;</span>
+    <span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">cutout</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">getdata</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">content</span><span class="p">))</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;grz&#39;</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span> <span class="n">cutout</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)}</span>
+    <span class="k">return</span> <span class="n">image</span>
+</pre></div>
+</div>
+</div>
+<p>Next, we grab data from a relatively empty patch of sky:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># random coordinates in Legacy Survey footprint</span>
+<span class="n">ra</span><span class="p">,</span><span class="n">dec</span> <span class="o">=</span> <span class="mf">182.5002</span><span class="p">,</span> <span class="mf">12.5554</span>
+
+<span class="c1"># grab the model grz PSFs at this location</span>
+<span class="n">psf</span> <span class="o">=</span> <span class="n">fetch_psf</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">)</span>
+
+<span class="c1"># grab the grz coadds at this location</span>
+<span class="n">real_image</span> <span class="o">=</span> <span class="n">fetch_coadd</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">)</span>
+
+<span class="c1"># see what a RGB image at this location looks like</span>
+<span class="n">rgb</span> <span class="o">=</span> <span class="n">make_lupton_rgb</span><span class="p">(</span><span class="n">real_image</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">],</span> <span class="n">real_image</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">],</span>
+                      <span class="n">real_image</span><span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">],</span> <span class="n">stretch</span><span class="o">=</span><span class="mf">0.04</span><span class="p">)</span>
+
+<span class="n">artpop</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">rgb</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_inject_7_0.png" class="no-scaled-link" src="../_images/tutorials_inject_7_0.png" style="width: 557px; height: 558px;" />
+</div>
+</div>
+</section>
+<section id="Initialize-Imager">
+<h2>Initialize Imager<a class="headerlink" href="#Initialize-Imager" title="Link to this heading">¶</a></h2>
+<p>The Legacy Survey data we have were observed using <a class="reference external" href="http://www.ctio.noao.edu/noao/content/dark-energy-camera-decam">DECam</a>, so we need to create an imager with the <code class="docutils literal notranslate"><span class="pre">DECam</span></code> photometric system. Here, we will use the <a class="reference internal" href="../api/artpop.image.IdealImager.html"><span class="doc">IdealImager</span></a>. This means our artificial source image(s) will have zero noise. If you want to include Poisson noise from the source, use the <a class="reference internal" href="../api/artpop.image.ArtImager.html"><span class="doc">ArtImager</span></a> and set <code class="docutils literal notranslate"><span class="pre">read_noise</span> <span class="pre">=</span> <span class="pre">0</span></code> at initialization,
+<code class="docutils literal notranslate"><span class="pre">sky_sb</span> <span class="pre">=</span> <span class="pre">None</span></code> when you call the <code class="docutils literal notranslate"><span class="pre">observe</span></code> method, and use the same effective aperture diameter and exposure time as the observations.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># initialize ideal imager</span>
+<span class="n">imager</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">IdealImager</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>The photometric <a class="reference external" href="https://www.legacysurvey.org/dr8/description/#photometry">zero point</a> for all bands is 22.5 and the <a class="reference external" href="https://www.legacysurvey.org/dr8/description/#id7">pixel scale</a> is <span class="math notranslate nohighlight">\({\sim}0.262\)</span> arcsec / pixel:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zpt</span> <span class="o">=</span> <span class="mf">22.5</span>
+<span class="n">pixel_scale</span> <span class="o">=</span> <span class="mf">0.262</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Create-Artificial-Sources">
+<h2>Create Artificial Sources<a class="headerlink" href="#Create-Artificial-Sources" title="Link to this heading">¶</a></h2>
+<p>Let’s create two sources <span class="math notranslate nohighlight">\(-\)</span> one dwarf that’s young and relatively far away (10 Mpc) and another that’s old and nearby (3 Mpc):</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create young source at 10 Mpc</span>
+<span class="n">src_young_far</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">MISTPlummerSSP</span><span class="p">(</span>
+    <span class="n">log_age</span> <span class="o">=</span> <span class="mf">8.5</span><span class="p">,</span>              <span class="c1"># log of age in years</span>
+    <span class="n">feh</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>                   <span class="c1"># metallicity [Fe/H]</span>
+    <span class="n">scale_radius</span> <span class="o">=</span> <span class="mi">300</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">pc</span><span class="p">,</span>  <span class="c1"># effective radius</span>
+    <span class="n">total_mass</span> <span class="o">=</span> <span class="mf">1e6</span><span class="p">,</span>           <span class="c1"># total mass</span>
+    <span class="n">phot_system</span> <span class="o">=</span> <span class="s1">&#39;DECam&#39;</span><span class="p">,</span>      <span class="c1"># photometric system</span>
+    <span class="n">distance</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">Mpc</span><span class="p">,</span>      <span class="c1"># distance to system</span>
+    <span class="n">xy_dim</span> <span class="o">=</span> <span class="mi">801</span><span class="p">,</span>               <span class="c1"># image dimension</span>
+    <span class="n">pixel_scale</span> <span class="o">=</span> <span class="n">pixel_scale</span><span class="p">,</span>  <span class="c1"># pixel scale in arcsec / pixel</span>
+    <span class="n">random_state</span> <span class="o">=</span> <span class="n">rng</span><span class="p">,</span>         <span class="c1"># random state for reproducibility</span>
+<span class="p">)</span>
+
+<span class="c1"># create old source at 3 Mpc</span>
+<span class="n">src_old_near</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">MISTSersicSSP</span><span class="p">(</span>
+    <span class="n">log_age</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">,</span>            <span class="c1"># log of age in years</span>
+    <span class="n">feh</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">,</span>                <span class="c1"># metallicity [Fe/H]</span>
+    <span class="n">r_eff</span> <span class="o">=</span> <span class="mi">300</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">pc</span><span class="p">,</span>        <span class="c1"># effective radius</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">,</span>                   <span class="c1"># Sersic index</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="mi">135</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">deg</span><span class="p">,</span>       <span class="c1"># position angle</span>
+    <span class="n">ellip</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span>               <span class="c1"># ellipticity</span>
+    <span class="n">num_stars</span> <span class="o">=</span> <span class="mf">5e6</span><span class="p">,</span>           <span class="c1"># number of stars</span>
+    <span class="n">phot_system</span> <span class="o">=</span> <span class="s1">&#39;DECam&#39;</span><span class="p">,</span>     <span class="c1"># photometric system</span>
+    <span class="n">distance</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">Mpc</span><span class="p">,</span>      <span class="c1"># distance to system</span>
+    <span class="n">xy_dim</span> <span class="o">=</span> <span class="mi">701</span><span class="p">,</span>              <span class="c1"># image dimension</span>
+    <span class="n">pixel_scale</span> <span class="o">=</span> <span class="n">pixel_scale</span><span class="p">,</span> <span class="c1"># pixel scale in arcsec / pixel</span>
+    <span class="n">random_state</span> <span class="o">=</span> <span class="n">rng</span><span class="p">,</span>        <span class="c1"># random state for reproducibility</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+WARNING: 6007 stars outside the image
+WARNING: 76 stars outside the image
+</pre></div></div>
+</div>
+</section>
+<section id="Inject-into-Real-Image">
+<h2>Inject into Real Image<a class="headerlink" href="#Inject-into-Real-Image" title="Link to this heading">¶</a></h2>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">imager</span></code> to mock observe our sources:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create image dictionaries with keys &#39;g&#39;, &#39;r&#39;, and &#39;z&#39;</span>
+<span class="n">img_young</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">img_old</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="s1">&#39;grz&#39;</span><span class="p">:</span>
+    <span class="c1"># mock observe young source</span>
+    <span class="n">img_young</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span> <span class="n">imager</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">src_young_far</span><span class="p">,</span>
+                                  <span class="n">bandpass</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;DECam_</span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                                  <span class="n">psf</span><span class="o">=</span><span class="n">psf</span><span class="p">[</span><span class="n">b</span><span class="p">],</span>
+                                  <span class="n">zpt</span><span class="o">=</span><span class="n">zpt</span><span class="p">)</span><span class="o">.</span><span class="n">image</span>
+
+    <span class="c1"># mock observe old source</span>
+    <span class="n">img_old</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span> <span class="n">imager</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">src_old_near</span><span class="p">,</span>
+                                <span class="n">bandpass</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;DECam_</span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                                <span class="n">psf</span><span class="o">=</span><span class="n">psf</span><span class="p">[</span><span class="n">b</span><span class="p">],</span>
+                                <span class="n">zpt</span><span class="o">=</span><span class="n">zpt</span><span class="p">)</span><span class="o">.</span><span class="n">image</span>
+</pre></div>
+</div>
+</div>
+<p>The <a class="reference internal" href="../api/artpop.util.embed_slices.html"><span class="doc">embed_slices</span></a> function is useful when you want to inject a mock source into a real image with a different size and/or at a particular location.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># work on deep copy in case we want to make adjustments</span>
+<span class="n">mock_image</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">real_image</span><span class="p">)</span>
+
+<span class="c1"># get slices to inject young source at (600, 700)</span>
+<span class="n">img_slice</span><span class="p">,</span> <span class="n">arr_slice</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">embed_slices</span><span class="p">((</span><span class="mi">600</span><span class="p">,</span> <span class="mi">700</span><span class="p">),</span>
+                                                <span class="n">img_young</span><span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                                                <span class="n">real_image</span><span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="c1"># inject young source into image</span>
+<span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="s1">&#39;grz&#39;</span><span class="p">:</span>
+    <span class="n">mock_image</span><span class="p">[</span><span class="n">b</span><span class="p">][</span><span class="n">img_slice</span><span class="p">]</span> <span class="o">+=</span> <span class="n">img_young</span><span class="p">[</span><span class="n">b</span><span class="p">][</span><span class="n">arr_slice</span><span class="p">]</span>
+
+<span class="c1"># get slices to inject old source at (300, 350)</span>
+<span class="n">img_slice</span><span class="p">,</span> <span class="n">arr_slice</span> <span class="o">=</span> <span class="n">artpop</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">embed_slices</span><span class="p">((</span><span class="mi">300</span><span class="p">,</span> <span class="mi">350</span><span class="p">),</span>
+                                                <span class="n">img_old</span><span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                                                <span class="n">real_image</span><span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="c1"># inject old source into image</span>
+<span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="s1">&#39;grz&#39;</span><span class="p">:</span>
+    <span class="n">mock_image</span><span class="p">[</span><span class="n">b</span><span class="p">][</span><span class="n">img_slice</span><span class="p">]</span> <span class="o">+=</span> <span class="n">img_old</span><span class="p">[</span><span class="n">b</span><span class="p">][</span><span class="n">arr_slice</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>Let’s compare the original RGB image with the new one with artificial sources:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
+                       <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                       <span class="n">subplot_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">xticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">yticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;equal&#39;</span><span class="p">))</span>
+
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Original Image&#39;</span><span class="p">)</span>
+<span class="n">artpop</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span> <span class="n">subplots</span><span class="o">=</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]));</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Image with Artificial Sources&#39;</span><span class="p">)</span>
+<span class="n">mock_rgb</span> <span class="o">=</span> <span class="n">make_lupton_rgb</span><span class="p">(</span><span class="n">mock_image</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">],</span> <span class="n">mock_image</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">],</span>
+                           <span class="n">mock_image</span><span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">],</span> <span class="n">stretch</span><span class="o">=</span><span class="mf">0.04</span><span class="p">)</span>
+
+<span class="n">artpop</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">mock_rgb</span><span class="p">,</span> <span class="n">subplots</span><span class="o">=</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]));</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_inject_19_0.png" class="no-scaled-link" src="../_images/tutorials_inject_19_0.png" style="width: 417px; height: 872px;" />
+</div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">Injecting into Real Images</a><ul>
+<li><a class="reference internal" href="#Fetch-Data">Fetch Data</a></li>
+<li><a class="reference internal" href="#Initialize-Imager">Initialize Imager</a></li>
+<li><a class="reference internal" href="#Create-Artificial-Sources">Create Artificial Sources</a></li>
+<li><a class="reference internal" href="#Inject-into-Real-Image">Inject into Real Image</a></li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/tutorials/inject.ipynb.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>

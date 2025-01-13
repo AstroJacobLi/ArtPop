@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Installation &#8212; ArtPop  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/artpop.css?v=7f123859" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="icon" href="../_static/omega-cen-png.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="MIST Isochrone Grids" href="mist.html" />
+    <link rel="prev" title="ArtPop" href="../index.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">Art</span><span id="logotext2">Pop</span><span id="logotext3"> docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="mist.html" title="MIST Isochrone Grids">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="../index.html" title="ArtPop">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">ArtPop  documentation</a>
+	 &#187;
+      </li>
+      
+      <li>Installation</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="installation">
+<span id="artpop-install"></span><h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h1>
+<section id="installing-with-pip">
+<h2>Installing with <code class="docutils literal notranslate"><span class="pre">pip</span></code><a class="headerlink" href="#installing-with-pip" title="Link to this heading">¶</a></h2>
+<p>You can install the latest stable version of <code class="xref py py-obj docutils literal notranslate"><span class="pre">ArtPop</span></code> using <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">artpop</span>
+</pre></div>
+</div>
+<p>If you are worried about breaking your Python environment, we recommend
+creating a new <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html">conda environment</a>
+for <code class="xref py py-obj docutils literal notranslate"><span class="pre">ArtPop</span></code>. Assuming you have <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/index.html">conda</a> installed:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">artpop</span> <span class="n">pip</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">artpop</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">artpop</span>
+</pre></div>
+</div>
+</section>
+<section id="installing-the-development-version">
+<h2>Installing the Development Version<a class="headerlink" href="#installing-the-development-version" title="Link to this heading">¶</a></h2>
+<p>If you’re feeling adventurous, you can download the development
+version of <code class="xref py py-obj docutils literal notranslate"><span class="pre">ArtPop</span></code> from <a class="reference external" href="https://github.com/ArtificialStellarPopulations/ArtPop">GitHub</a> using <code class="docutils literal notranslate"><span class="pre">git</span></code>:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">ArtificialStellarPopulations</span><span class="o">/</span><span class="n">ArtPop</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>Then <code class="docutils literal notranslate"><span class="pre">cd</span></code> into the repo directory and install using:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+</pre></div>
+</div>
+</section>
+<section id="mist-isochrone-grids">
+<h2>MIST Isochrone Grids<a class="headerlink" href="#mist-isochrone-grids" title="Link to this heading">¶</a></h2>
+<p>In order to generate stellar populations with <code class="xref py py-obj docutils literal notranslate"><span class="pre">ArtPop</span></code>, you must download a set of
+MIST isochrone grids, as we describe <a class="reference internal" href="mist.html#artpop-mist"><span class="std std-ref">here</span></a>.</p>
+</section>
+<section id="python-dependencies">
+<h2>Python Dependencies<a class="headerlink" href="#python-dependencies" title="Link to this heading">¶</a></h2>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ArtPop</span></code> has the following python dependencies, which are automatically
+installed by <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.python.org/">python</a> &gt;= 3.6</p></li>
+<li><p><a class="reference external" href="https://numpy.org/">numpy</a> &gt;= 1.17</p></li>
+<li><p><a class="reference external" href="https://www.scipy.org/">scipy</a> &gt; 1</p></li>
+<li><p><a class="reference external" href="https://www.astropy.org">astropy</a> &gt;= 4</p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/">matplotlib</a> &gt;= 3</p></li>
+<li><p><a class="reference external" href="https://github.com/astrofrog/fast-histogram">fast-histogram</a></p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#installing-with-pip">Installing with <code class="docutils literal notranslate"><span class="pre">pip</span></code></a></li>
+<li><a class="reference internal" href="#installing-the-development-version">Installing the Development Version</a></li>
+<li><a class="reference internal" href="#mist-isochrone-grids">MIST Isochrone Grids</a></li>
+<li><a class="reference internal" href="#python-dependencies">Python Dependencies</a></li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/getting_started/install.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2021, Johnny Greco and Shany Danieli.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 7.4.7. &nbsp;
+    Last built 13 Jan 2025. <br/>
+  </p>
+</footer>
+  </body>
+</html>
